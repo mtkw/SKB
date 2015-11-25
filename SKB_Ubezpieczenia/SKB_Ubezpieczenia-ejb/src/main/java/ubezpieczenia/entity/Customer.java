@@ -73,6 +73,8 @@ public class Customer implements Serializable {
     @Column(name = "postcode")
     private Integer postcode;
     @OneToMany(mappedBy = "customerId", fetch = FetchType.EAGER)
+    private Collection<Account> accountCollection;
+    @OneToMany(mappedBy = "customerId", fetch = FetchType.EAGER)
     private Collection<Transaction> transactionCollection;
 
     public Customer() {
@@ -152,6 +154,15 @@ public class Customer implements Serializable {
 
     public void setPostcode(Integer postcode) {
         this.postcode = postcode;
+    }
+
+    @XmlTransient
+    public Collection<Account> getAccountCollection() {
+        return accountCollection;
+    }
+
+    public void setAccountCollection(Collection<Account> accountCollection) {
+        this.accountCollection = accountCollection;
     }
 
     @XmlTransient
