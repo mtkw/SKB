@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Moduł Ubezpieczeń</title>
     </h:head>
 
     <h:body>
@@ -21,10 +21,12 @@
             <div id="left">
                 <ui:insert name="left">
                     <h:form>
-                        <p:growl id="growl" life="2000" />
-                        <p:commandLink id="ajax" update="growl" actionListener="#{buttonView.buttonAction}">
-                            <h:outputText value="Strona Główna" />
-                        </p:commandLink>
+                        <p:menu>
+                            <p:submenu label="Menu Nawigacyjnej">
+                                <p:menuitem value="Podstrona 1" url="http://www.primefaces.org" icon="ui-icon-home"/>
+                                <!--<p:menuitem value="Internal" outcome="http://www.google.pl" icon="ui-icon-star"/> -->
+                            </p:submenu>
+                        </p:menu>
                     </h:form>
                 </ui:insert>
             </div>
