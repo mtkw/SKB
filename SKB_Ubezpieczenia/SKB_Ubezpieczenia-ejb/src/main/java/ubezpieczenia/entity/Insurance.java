@@ -50,7 +50,7 @@ public class Insurance implements Serializable {
     @OneToMany(mappedBy = "idInsurance", fetch = FetchType.EAGER)
     private Collection<InsuranceConditions> insuranceConditionsCollection;
     @OneToMany(mappedBy = "insuranceId", fetch = FetchType.EAGER)
-    private Collection<Transaction> transactionCollection;
+    private Collection<Transactions> transactionsCollection;
 
     public Insurance() {
     }
@@ -93,12 +93,12 @@ public class Insurance implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Transaction> getTransactionCollection() {
-        return transactionCollection;
+    public Collection<Transactions> getTransactionsCollection() {
+        return transactionsCollection;
     }
 
-    public void setTransactionCollection(Collection<Transaction> transactionCollection) {
-        this.transactionCollection = transactionCollection;
+    public void setTransactionsCollection(Collection<Transactions> transactionsCollection) {
+        this.transactionsCollection = transactionsCollection;
     }
 
     @Override

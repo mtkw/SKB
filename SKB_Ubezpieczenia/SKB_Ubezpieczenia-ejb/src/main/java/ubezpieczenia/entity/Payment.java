@@ -56,7 +56,7 @@ public class Payment implements Serializable {
     private PaymentMethod paymentMethodId;
     @JoinColumn(name = "transactions_id", referencedColumnName = "id_transaction")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Transaction transactionsId;
+    private Transactions transactionsId;
 
     public Payment() {
     }
@@ -105,11 +105,11 @@ public class Payment implements Serializable {
         this.paymentMethodId = paymentMethodId;
     }
 
-    public Transaction getTransactionsId() {
+    public Transactions getTransactionsId() {
         return transactionsId;
     }
 
-    public void setTransactionsId(Transaction transactionsId) {
+    public void setTransactionsId(Transactions transactionsId) {
         this.transactionsId = transactionsId;
     }
 

@@ -28,13 +28,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Mateusz
  */
 @Entity
-@Table(name = "transaction")
+@Table(name = "transactions")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Transaction.findAll", query = "SELECT t FROM Transaction t"),
-    @NamedQuery(name = "Transaction.findByIdTransaction", query = "SELECT t FROM Transaction t WHERE t.idTransaction = :idTransaction"),
-    @NamedQuery(name = "Transaction.findByValue", query = "SELECT t FROM Transaction t WHERE t.value = :value")})
-public class Transaction implements Serializable {
+    @NamedQuery(name = "Transactions.findAll", query = "SELECT t FROM Transactions t"),
+    @NamedQuery(name = "Transactions.findByIdTransaction", query = "SELECT t FROM Transactions t WHERE t.idTransaction = :idTransaction"),
+    @NamedQuery(name = "Transactions.findByValue", query = "SELECT t FROM Transactions t WHERE t.value = :value")})
+public class Transactions implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,10 +56,10 @@ public class Transaction implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private InsuranceConditions conditionsId;
 
-    public Transaction() {
+    public Transactions() {
     }
 
-    public Transaction(Integer idTransaction) {
+    public Transactions(Integer idTransaction) {
         this.idTransaction = idTransaction;
     }
 
@@ -122,10 +122,10 @@ public class Transaction implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Transaction)) {
+        if (!(object instanceof Transactions)) {
             return false;
         }
-        Transaction other = (Transaction) object;
+        Transactions other = (Transactions) object;
         if ((this.idTransaction == null && other.idTransaction != null) || (this.idTransaction != null && !this.idTransaction.equals(other.idTransaction))) {
             return false;
         }
@@ -134,7 +134,7 @@ public class Transaction implements Serializable {
 
     @Override
     public String toString() {
-        return "ubezpieczenia.entity.Transaction[ idTransaction=" + idTransaction + " ]";
+        return "ubezpieczenia.entity.Transactions[ idTransaction=" + idTransaction + " ]";
     }
     
 }

@@ -53,7 +53,7 @@ public class InsuranceConditions implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Insurance idInsurance;
     @OneToMany(mappedBy = "conditionsId", fetch = FetchType.EAGER)
-    private Collection<Transaction> transactionCollection;
+    private Collection<Transactions> transactionsCollection;
 
     public InsuranceConditions() {
     }
@@ -95,12 +95,12 @@ public class InsuranceConditions implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Transaction> getTransactionCollection() {
-        return transactionCollection;
+    public Collection<Transactions> getTransactionsCollection() {
+        return transactionsCollection;
     }
 
-    public void setTransactionCollection(Collection<Transaction> transactionCollection) {
-        this.transactionCollection = transactionCollection;
+    public void setTransactionsCollection(Collection<Transactions> transactionsCollection) {
+        this.transactionsCollection = transactionsCollection;
     }
 
     @Override
