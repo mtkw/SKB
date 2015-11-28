@@ -70,10 +70,13 @@ public class Customer implements Serializable {
     private String streat;
     @Column(name = "number")
     private Integer number;
-    @Column(name = "postcode")
-    private Integer postcode;
+    @Size(max = 10)
+    @Column(name = "postcode", length = 10)
+    private String postcode;
     @OneToMany(mappedBy = "customerId", fetch = FetchType.EAGER)
-    private Collection<Transaction> transactionCollection;
+    private Collection<Transactions> transactionsCollection;
+    @OneToMany(mappedBy = "customerId", fetch = FetchType.EAGER)
+    private Collection<Account> accountCollection;
 
     public Customer() {
     }
@@ -146,21 +149,30 @@ public class Customer implements Serializable {
         this.number = number;
     }
 
-    public Integer getPostcode() {
+    public String getPostcode() {
         return postcode;
     }
 
-    public void setPostcode(Integer postcode) {
+    public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
     @XmlTransient
-    public Collection<Transaction> getTransactionCollection() {
-        return transactionCollection;
+    public Collection<Transactions> getTransactionsCollection() {
+        return transactionsCollection;
     }
 
-    public void setTransactionCollection(Collection<Transaction> transactionCollection) {
-        this.transactionCollection = transactionCollection;
+    public void setTransactionsCollection(Collection<Transactions> transactionsCollection) {
+        this.transactionsCollection = transactionsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Account> getAccountCollection() {
+        return accountCollection;
+    }
+
+    public void setAccountCollection(Collection<Account> accountCollection) {
+        this.accountCollection = accountCollection;
     }
 
     @Override
