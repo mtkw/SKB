@@ -43,12 +43,6 @@
     <dependencies>
         <dependency>
             <groupId>com.mycompany</groupId>
-            <artifactId>SKB_Ubezpieczenia-ejb</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>ejb</type>
-        </dependency>
-        <dependency>
-            <groupId>com.mycompany</groupId>
             <artifactId>SKB_Ubezpieczenia-web</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>war</type>
@@ -56,6 +50,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>SKB_Ubezpieczenia-dto</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>SKB_Ubezpieczenia-ejb</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

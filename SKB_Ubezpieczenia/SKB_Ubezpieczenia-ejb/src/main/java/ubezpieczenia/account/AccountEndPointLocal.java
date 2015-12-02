@@ -5,7 +5,9 @@
  */
 package ubezpieczenia.account;
 
+import java.util.List;
 import javax.ejb.Local;
+import ubezpieczenia.dto.AccountDTO;
 
 /**
  *
@@ -13,5 +15,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface AccountEndPointLocal {
+    
+    List<AccountDTO> getAccountList();
     
 }

@@ -5,7 +5,11 @@
  */
 package ubezpieczenia.account;
 
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import ubezpieczenia.dto.AccountDTO;
+import ubezpieczenia.facade.AccountFacade;
 
 /**
  *
@@ -13,7 +17,13 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AccountEndPoint implements AccountEndPointLocal {
+    
+    @EJB(beanName = "AccountFacade")
+    private AccountFacade accountFacade;
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @Override
+    public List<AccountDTO> getAccountList() {
+        List<AccountDTO> dtos = accountFacade.findAllDTO();
+        return dtos;
+    }
 }

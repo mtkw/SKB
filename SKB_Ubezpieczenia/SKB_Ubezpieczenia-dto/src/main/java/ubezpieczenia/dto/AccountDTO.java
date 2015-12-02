@@ -17,7 +17,7 @@ public class AccountDTO implements Serializable {
     private String login;
     private String password;
     private String mail;
-    
+
     //Nie jestem pewien czy to jest dobrze
     private String customer;
 

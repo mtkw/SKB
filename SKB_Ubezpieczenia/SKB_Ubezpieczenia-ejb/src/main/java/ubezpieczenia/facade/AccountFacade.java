@@ -5,11 +5,15 @@
  */
 package ubezpieczenia.facade;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import ubezpieczenia.dto.AccountDTO;
 import ubezpieczenia.entity.Account;
 
 /**
@@ -36,5 +40,22 @@ public class AccountFacade extends AbstractFacade<Account> {
         TypedQuery tq = getEntityManager().createNamedQuery("Account.findByLogin", Account.class);
         tq.setParameter("login", login);
         return (Account) tq.getSingleResult();
+    }
+    
+    public List<AccountDTO> findAllDTO(){
+        
+        Query q = getEntityManager().createNamedQuery("Account.findAll");
+        List<Account> listO = q.getResultList();
+        List<AccountDTO> list = new ArrayList<>();
+        for (Account row : listO) {
+            AccountDTO dto = new AccountDTO();
+            dto.setLogin(row.getLogin());
+            dto.setMail(row.getMail());
+            dto.setPassword(row.getPassword());
+//            dto.setCustomer((String) row.getCustomer());
+            list.add(dto);
+        }
+        
+        return list;
     }
 }
