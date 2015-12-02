@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,6 +43,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Customer.findByNumber", query = "SELECT c FROM Customer c WHERE c.number = :number"),
     @NamedQuery(name = "Customer.findByPostcode", query = "SELECT c FROM Customer c WHERE c.postcode = :postcode")})
 public class Customer implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,8 +74,12 @@ public class Customer implements Serializable {
     private String postcode;
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private Collection<Transactions> transactionsCollection;
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
-    private Collection<Account> accountCollection;
+//    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+//    private Collection<Account> accountCollection;
+
+    //Zmiana relacji
+    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER)
+    private Account account;
 
     public Customer() {
     }
@@ -162,12 +168,12 @@ public class Customer implements Serializable {
         this.transactionsCollection = transactionsCollection;
     }
 
-    public Collection<Account> getAccountCollection() {
-        return accountCollection;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountCollection(Collection<Account> accountCollection) {
-        this.accountCollection = accountCollection;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override
@@ -194,5 +200,5 @@ public class Customer implements Serializable {
     public String toString() {
         return "ubezpieczenia.entity.Customer[ idCustomer=" + idCustomer + " ]";
     }
-    
+
 }

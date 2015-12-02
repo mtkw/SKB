@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -48,8 +49,13 @@ public class Account implements Serializable {
     @Size(max = 50)
     @Column(name = "mail", length = 50)
     private String mail;
+//    @JoinColumn(name = "customer_id", referencedColumnName = "id_customer")
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    private Customer customer;
+    
+    //Dorbna Zmiana relacji
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", referencedColumnName = "id_customer")
-    @ManyToOne(fetch = FetchType.EAGER)
     private Customer customer;
 
     public Account() {
