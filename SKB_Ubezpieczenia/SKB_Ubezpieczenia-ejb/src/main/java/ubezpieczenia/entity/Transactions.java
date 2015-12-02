@@ -20,8 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,7 +27,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "transactions")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Transactions.findAll", query = "SELECT t FROM Transactions t"),
     @NamedQuery(name = "Transactions.findByIdTransaction", query = "SELECT t FROM Transactions t WHERE t.idTransaction = :idTransaction"),
@@ -44,17 +41,17 @@ public class Transactions implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "value", precision = 17, scale = 17)
     private Double value;
-    @OneToMany(mappedBy = "transactionsId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "transactions", fetch = FetchType.EAGER)
     private Collection<Payment> paymentCollection;
     @JoinColumn(name = "customer_id", referencedColumnName = "id_customer")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Customer customerId;
+    private Customer customer;
     @JoinColumn(name = "insurance_id", referencedColumnName = "id_insurance")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Insurance insuranceId;
+    private Insurance insurance;
     @JoinColumn(name = "conditions_id", referencedColumnName = "id_condition")
     @ManyToOne(fetch = FetchType.EAGER)
-    private InsuranceConditions conditionsId;
+    private InsuranceConditions insuranceConditions;
 
     public Transactions() {
     }
@@ -79,7 +76,6 @@ public class Transactions implements Serializable {
         this.value = value;
     }
 
-    @XmlTransient
     public Collection<Payment> getPaymentCollection() {
         return paymentCollection;
     }
@@ -88,28 +84,28 @@ public class Transactions implements Serializable {
         this.paymentCollection = paymentCollection;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Insurance getInsuranceId() {
-        return insuranceId;
+    public Insurance getInsurance() {
+        return insurance;
     }
 
-    public void setInsuranceId(Insurance insuranceId) {
-        this.insuranceId = insuranceId;
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
     }
 
-    public InsuranceConditions getConditionsId() {
-        return conditionsId;
+    public InsuranceConditions getInsuranceConditions() {
+        return insuranceConditions;
     }
 
-    public void setConditionsId(InsuranceConditions conditionsId) {
-        this.conditionsId = conditionsId;
+    public void setInsuranceConditions(InsuranceConditions insuranceConditions) {
+        this.insuranceConditions = insuranceConditions;
     }
 
     @Override

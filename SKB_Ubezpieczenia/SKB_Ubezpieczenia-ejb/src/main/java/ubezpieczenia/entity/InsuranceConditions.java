@@ -21,8 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,7 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "insurance_conditions")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "InsuranceConditions.findAll", query = "SELECT i FROM InsuranceConditions i"),
     @NamedQuery(name = "InsuranceConditions.findByIdCondition", query = "SELECT i FROM InsuranceConditions i WHERE i.idCondition = :idCondition"),
@@ -51,8 +48,8 @@ public class InsuranceConditions implements Serializable {
     private Double value;
     @JoinColumn(name = "id_insurance", referencedColumnName = "id_insurance")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Insurance idInsurance;
-    @OneToMany(mappedBy = "conditionsId", fetch = FetchType.EAGER)
+    private Insurance insurance;
+    @OneToMany(mappedBy = "insuranceConditions", fetch = FetchType.EAGER)
     private Collection<Transactions> transactionsCollection;
 
     public InsuranceConditions() {
@@ -86,15 +83,14 @@ public class InsuranceConditions implements Serializable {
         this.value = value;
     }
 
-    public Insurance getIdInsurance() {
-        return idInsurance;
+    public Insurance getInsurance() {
+        return insurance;
     }
 
-    public void setIdInsurance(Insurance idInsurance) {
-        this.idInsurance = idInsurance;
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
     }
 
-    @XmlTransient
     public Collection<Transactions> getTransactionsCollection() {
         return transactionsCollection;
     }

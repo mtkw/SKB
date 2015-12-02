@@ -21,7 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -29,7 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "payment")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p"),
     @NamedQuery(name = "Payment.findByIdPayment", query = "SELECT p FROM Payment p WHERE p.idPayment = :idPayment"),
@@ -53,10 +51,10 @@ public class Payment implements Serializable {
     private Date dedlineForPayment;
     @JoinColumn(name = "payment_method_id", referencedColumnName = "id_payment_method")
     @ManyToOne(fetch = FetchType.EAGER)
-    private PaymentMethod paymentMethodId;
+    private PaymentMethod paymentMethod;
     @JoinColumn(name = "transactions_id", referencedColumnName = "id_transaction")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Transactions transactionsId;
+    private Transactions transactions;
 
     public Payment() {
     }
@@ -97,20 +95,20 @@ public class Payment implements Serializable {
         this.dedlineForPayment = dedlineForPayment;
     }
 
-    public PaymentMethod getPaymentMethodId() {
-        return paymentMethodId;
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPaymentMethodId(PaymentMethod paymentMethodId) {
-        this.paymentMethodId = paymentMethodId;
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
-    public Transactions getTransactionsId() {
-        return transactionsId;
+    public Transactions getTransactions() {
+        return transactions;
     }
 
-    public void setTransactionsId(Transactions transactionsId) {
-        this.transactionsId = transactionsId;
+    public void setTransactions(Transactions transactions) {
+        this.transactions = transactions;
     }
 
     @Override

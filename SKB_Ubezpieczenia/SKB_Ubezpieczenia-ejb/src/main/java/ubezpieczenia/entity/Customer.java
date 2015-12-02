@@ -23,8 +23,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,7 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "customer")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
     @NamedQuery(name = "Customer.findByIdCustomer", query = "SELECT c FROM Customer c WHERE c.idCustomer = :idCustomer"),
@@ -73,9 +70,9 @@ public class Customer implements Serializable {
     @Size(max = 10)
     @Column(name = "postcode", length = 10)
     private String postcode;
-    @OneToMany(mappedBy = "customerId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private Collection<Transactions> transactionsCollection;
-    @OneToMany(mappedBy = "customerId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private Collection<Account> accountCollection;
 
     public Customer() {
@@ -157,7 +154,6 @@ public class Customer implements Serializable {
         this.postcode = postcode;
     }
 
-    @XmlTransient
     public Collection<Transactions> getTransactionsCollection() {
         return transactionsCollection;
     }
@@ -166,7 +162,6 @@ public class Customer implements Serializable {
         this.transactionsCollection = transactionsCollection;
     }
 
-    @XmlTransient
     public Collection<Account> getAccountCollection() {
         return accountCollection;
     }
