@@ -24,6 +24,13 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>SKB_Ubezpieczenia-ejb</artifactId>
             <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>SKB_Ubezpieczenia-dto</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

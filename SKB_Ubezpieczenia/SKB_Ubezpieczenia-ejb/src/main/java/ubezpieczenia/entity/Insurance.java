@@ -44,8 +44,8 @@ public class Insurance implements Serializable {
     @Size(max = 50)
     @Column(name = "name", length = 50)
     private String name;
-    @Size(max = 2147483647)
-    @Column(name = "description", length = 2147483647)
+    @Size(max = 50)
+    @Column(name = "description", length = 50)
     private String description;
     @OneToMany(mappedBy = "idInsurance", fetch = FetchType.EAGER)
     private Collection<InsuranceConditions> insuranceConditionsCollection;

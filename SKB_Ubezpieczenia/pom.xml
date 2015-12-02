@@ -10,5 +10,6 @@
     <module>SKB_Ubezpieczenia-ear</module>
     <module>SKB_Ubezpieczenia-web</module>
     <module>SKB_Ubezpieczenia-ejb</module>
+    <module>SKB_Ubezpieczenia-dto</module>
   </modules>
 </project>

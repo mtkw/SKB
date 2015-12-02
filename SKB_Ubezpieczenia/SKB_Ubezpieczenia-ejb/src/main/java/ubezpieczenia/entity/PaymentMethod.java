@@ -44,8 +44,8 @@ public class PaymentMethod implements Serializable {
     @Size(max = 50)
     @Column(name = "name", length = 50)
     private String name;
-    @Size(max = 2147483647)
-    @Column(name = "descriptions", length = 2147483647)
+    @Size(max = 50)
+    @Column(name = "descriptions", length = 50)
     private String descriptions;
     @OneToMany(mappedBy = "paymentMethodId", fetch = FetchType.EAGER)
     private Collection<Payment> paymentCollection;
