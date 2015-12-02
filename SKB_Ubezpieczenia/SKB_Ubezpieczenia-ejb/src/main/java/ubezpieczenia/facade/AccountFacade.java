@@ -14,7 +14,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import ubezpieczenia.dto.AccountDTO;
+import ubezpieczenia.dto.CustomerDTO;
 import ubezpieczenia.entity.Account;
+import ubezpieczenia.util.CustomerConverter;
 
 /**
  *
@@ -26,6 +28,8 @@ public class AccountFacade extends AbstractFacade<Account> {
 
     @PersistenceContext(unitName = "SKB_Ubezpieczenia")
     private EntityManager em;
+    
+    private CustomerConverter cc;
 
     public AccountFacade() {
         super(Account.class);
@@ -49,10 +53,14 @@ public class AccountFacade extends AbstractFacade<Account> {
         List<AccountDTO> list = new ArrayList<>();
         for (Account row : listO) {
             AccountDTO dto = new AccountDTO();
+            dto.setId(row.getIdAccount());
             dto.setLogin(row.getLogin());
             dto.setMail(row.getMail());
             dto.setPassword(row.getPassword());
-//            dto.setCustomer((String) row.getCustomer());
+            
+            //Nie mam pojęcia jak to rozwiązać żeby tu była ta relacja komto -> klient
+//            dto.setCustomer(CustomerConverter.convertEntityToDTO(row.getCustomer(), cdto));
+            
             list.add(dto);
         }
         

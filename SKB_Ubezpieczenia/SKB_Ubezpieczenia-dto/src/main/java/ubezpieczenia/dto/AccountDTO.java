@@ -14,12 +14,21 @@ import java.util.Objects;
  */
 public class AccountDTO implements Serializable {
 
+    private Integer id;
     private String login;
     private String password;
     private String mail;
 
     //Nie jestem pewien czy to jest dobrze
-    private String customer;
+    private CustomerDTO customer;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getLogin() {
         return login;
@@ -45,11 +54,11 @@ public class AccountDTO implements Serializable {
         this.mail = mail;
     }
 
-    public String getCustomer() {
+    public CustomerDTO getCustomer() {
         return customer;
     }
 
-    public void setCustomer(String customer) {
+    public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }
 

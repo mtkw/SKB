@@ -3,24 +3,37 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./newTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
         <h:form>
-            <p:dataTable var="account" value="#{accountPB.accounts}">
-                <p:column headerText="Login">
-                    <h:outputText value="#{account.login}"/>
-                </p:column>
-                <p:column headerText="Mail">
-                    <h:outputText value="#{account.mail}"/>
-                </p:column>
-                <p:column headerText="Password">
-                    <h:outputText value="#{account.password}"/>
-                </p:column>
-                <p:column headerText="CustomerID">
-                    <h:outputText value="#{account.customer}"/>
-                </p:column>
-            </p:dataTable>
+<!--            <p:messages autoUpdate="true" />
+
+            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                <p:outputLabel for="console" value="Basic:" />
+                <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="width:125px">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItems value="#{selectOneMenuView.cars}" />
+                </p:selectOneMenu>
+            </h:panelGrid>-->
+                    <p:dataTable var="account" value="#{accountPB.accounts}">
+                         <p:column headerText="ID">
+                             <h:outputText value="#{account.id}"/>
+                        </p:column>
+                        <p:column headerText="Login">
+                            <h:outputText value="#{account.login}"/>
+                        </p:column>
+                        <p:column headerText="Mail">
+                            <h:outputText value="#{account.mail}"/>
+                        </p:column>
+                        <p:column headerText="Password">
+                            <h:outputText value="#{account.password}"/>
+                        </p:column>
+                        <p:column headerText="CustomerID">
+                            <h:outputText value="#{account.customer}"/>
+                        </p:column>
+                    </p:dataTable>
         </h:form>
     </ui:define>
 
