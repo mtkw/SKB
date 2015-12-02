@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="com.mycompany_SKB_Ubezpieczenia-ejb_ejb_1.0-SNAPSHOTPU" transaction-type="JTA">
-    <jta-data-source>jdbc/myDatasource</jta-data-source>
-    <class>ubezpieczenia.entity.Account</class>
-    <class>ubezpieczenia.entity.Customer</class>
-    <class>ubezpieczenia.entity.Insurance</class>
-    <class>ubezpieczenia.entity.InsuranceConditions</class>
-    <class>ubezpieczenia.entity.Payment</class>
-    <class>ubezpieczenia.entity.PaymentMethod</class>
-    <class>ubezpieczenia.entity.Transactions</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <shared-cache-mode>NONE</shared-cache-mode>
-    <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="SKB_Ubezpieczenia" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/Ubezpieczenia_DB</jta-data-source>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+        </properties>
+    </persistence-unit>
 </persistence>
