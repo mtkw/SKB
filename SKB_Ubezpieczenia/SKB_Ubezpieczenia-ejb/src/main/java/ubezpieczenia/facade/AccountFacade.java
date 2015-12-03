@@ -55,7 +55,7 @@ public class AccountFacade extends AbstractFacade<Account> {
             AccountDTO dto = new AccountDTO();
             dto.setId(row.getIdAccount());
             dto.setLogin(row.getLogin());
-            dto.setMail(row.getMail());
+            dto.setMail(row.getEmail());
             dto.setPassword(row.getPassword());
             
             //Nie mam pojęcia jak to rozwiązać żeby tu była ta relacja komto -> klient

@@ -25,6 +25,7 @@ public class CustomerConverter {
             dto.setStreat(entity.getStreat());
             dto.setNumber(entity.getNumber());
             dto.setPostcode(entity.getPostcode());
+            dto.setId_account(entity.getAccount().getIdAccount());
         }
     }
     

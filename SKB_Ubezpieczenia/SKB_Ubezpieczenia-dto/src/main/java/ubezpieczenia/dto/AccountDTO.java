@@ -20,7 +20,8 @@ public class AccountDTO implements Serializable {
     private String mail;
 
     //Nie jestem pewien czy to jest dobrze
-    private CustomerDTO customer;
+//    private CustomerDTO customer;
+    private String customer;
 
     public Integer getId() {
         return id;
@@ -54,11 +55,18 @@ public class AccountDTO implements Serializable {
         this.mail = mail;
     }
 
-    public CustomerDTO getCustomer() {
+//    public CustomerDTO getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(CustomerDTO customer) {
+//        this.customer = customer;
+//    }
+    public String getCustomer() {
         return customer;
     }
 
-    public void setCustomer(CustomerDTO customer) {
+    public void setCustomer(String customer) {
         this.customer = customer;
     }
 

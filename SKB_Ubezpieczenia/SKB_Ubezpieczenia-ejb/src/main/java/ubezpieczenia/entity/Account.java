@@ -6,6 +6,7 @@
 package ubezpieczenia.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,12 +14,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,35 +30,34 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "account")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
     @NamedQuery(name = "Account.findByIdAccount", query = "SELECT a FROM Account a WHERE a.idAccount = :idAccount"),
     @NamedQuery(name = "Account.findByLogin", query = "SELECT a FROM Account a WHERE a.login = :login"),
     @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password"),
-    @NamedQuery(name = "Account.findByMail", query = "SELECT a FROM Account a WHERE a.mail = :mail")})
+    @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")})
 public class Account implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_account", nullable = false)
     private Integer idAccount;
-    @Size(max = 50)
-    @Column(name = "login", length = 50)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "login", nullable = false, length = 50)
     private String login;
-    @Size(max = 32)
-    @Column(name = "password", length = 32)
+    @Size(max = 30)
+    @Column(name = "password", length = 30)
     private String password;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 50)
-    @Column(name = "mail", length = 50)
-    private String mail;
-//    @JoinColumn(name = "customer_id", referencedColumnName = "id_customer")
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    private Customer customer;
-    
-    //Dorbna Zmiana relacji
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id_customer")
+    @Column(name = "email", length = 50)
+    private String email;
+    @OneToOne(mappedBy = "account", fetch = FetchType.EAGER)
     private Customer customer;
 
     public Account() {
@@ -62,6 +65,11 @@ public class Account implements Serializable {
 
     public Account(Integer idAccount) {
         this.idAccount = idAccount;
+    }
+
+    public Account(Integer idAccount, String login) {
+        this.idAccount = idAccount;
+        this.login = login;
     }
 
     public Integer getIdAccount() {
@@ -88,12 +96,12 @@ public class Account implements Serializable {
         this.password = password;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Customer getCustomer() {
@@ -128,5 +136,5 @@ public class Account implements Serializable {
     public String toString() {
         return "ubezpieczenia.entity.Account[ idAccount=" + idAccount + " ]";
     }
-    
+
 }

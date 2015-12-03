@@ -25,6 +25,7 @@ public class CustomerDTO implements Serializable {
     private String streat;
     private Integer number;
     private String postcode;
+    private Integer id_account;
 
     public Integer getId() {
         return id;
@@ -98,6 +99,14 @@ public class CustomerDTO implements Serializable {
         this.postcode = postcode;
     }
 
+    public Integer getId_account() {
+        return id_account;
+    }
+
+    public void setId_account(Integer id_account) {
+        this.id_account = id_account;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -122,7 +131,7 @@ public class CustomerDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "CustomerDTO{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", birthday=" + birthday + ", pesel=" + pesel + ", city=" + city + ", streat=" + streat + ", number=" + number + ", postcode=" + postcode + '}';
+        return "CustomerDTO{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", birthday=" + birthday + ", pesel=" + pesel + ", city=" + city + ", streat=" + streat + ", number=" + number + ", postcode=" + postcode + ", id_account=" + id_account + '}';
     }
 
 }

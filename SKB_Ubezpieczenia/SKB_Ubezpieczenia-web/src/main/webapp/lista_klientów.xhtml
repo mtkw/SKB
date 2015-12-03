@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable var="customer" value="#{customerPB.customers}">
+                <p:column headerText="Imie">
+                    <h:outputText value="#{customer.name}"/>
+                </p:column>
+                <p:column headerText="Nazwisko">
+                    <h:outputText value="#{customer.surname}"/>
+                </p:column>
+                <p:column headerText="Akcje" >
+                    <h:commandButton value="Szczegóły Konta" action="#{customerPB.showCustomerDetails}">
+                        <f:param value="Test"/>
+                    </h:commandButton>
+                    <h:commandButton value="Lista Wykupionych Ubezpieczeń"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
