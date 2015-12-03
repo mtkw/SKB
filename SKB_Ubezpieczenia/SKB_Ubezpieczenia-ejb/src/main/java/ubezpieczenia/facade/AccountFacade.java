@@ -46,6 +46,12 @@ public class AccountFacade extends AbstractFacade<Account> {
         return (Account) tq.getSingleResult();
     }
     
+    public Account findByI (Integer id){
+        TypedQuery tq = getEntityManager().createNamedQuery("Account.findByIdAccount", Account.class);
+        tq.setParameter("idAccount", id);
+        return (Account) tq.getSingleResult();
+    }
+    
     public List<AccountDTO> findAllDTO(){
         
         Query q = getEntityManager().createNamedQuery("Account.findAll");
@@ -56,11 +62,7 @@ public class AccountFacade extends AbstractFacade<Account> {
             dto.setId(row.getIdAccount());
             dto.setLogin(row.getLogin());
             dto.setMail(row.getEmail());
-            dto.setPassword(row.getPassword());
-            
-            //Nie mam pojęcia jak to rozwiązać żeby tu była ta relacja komto -> klient
-//            dto.setCustomer(CustomerConverter.convertEntityToDTO(row.getCustomer(), cdto));
-            
+            dto.setPassword(row.getPassword());            
             list.add(dto);
         }
         

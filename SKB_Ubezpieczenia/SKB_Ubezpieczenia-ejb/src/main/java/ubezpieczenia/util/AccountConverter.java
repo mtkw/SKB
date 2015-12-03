@@ -23,7 +23,6 @@ public class AccountConverter {
             dto.setLogin(entity.getLogin());
             dto.setPassword(entity.getPassword());
             dto.setMail(entity.getEmail());
-            dto.setCustomer(customerToString(entity.getCustomer()));
         }
     }
     

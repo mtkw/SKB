@@ -16,5 +16,9 @@
             <from-outcome>customerDetails</from-outcome>
             <to-view-id>/klient_szczegóły.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>accountDetails</from-outcome>
+            <to-view-id>/konto_szczegóły.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>

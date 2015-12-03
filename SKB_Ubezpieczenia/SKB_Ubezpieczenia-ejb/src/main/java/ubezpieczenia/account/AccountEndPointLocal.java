@@ -17,5 +17,7 @@ import ubezpieczenia.dto.AccountDTO;
 public interface AccountEndPointLocal {
     
     List<AccountDTO> getAccountList();
+
+    public AccountDTO getAccountDetails(Integer id_account);
     
 }

@@ -9,7 +9,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import ubezpieczenia.dto.AccountDTO;
+import ubezpieczenia.entity.Account;
 import ubezpieczenia.facade.AccountFacade;
+import ubezpieczenia.util.AccountConverter;
 
 /**
  *
@@ -20,10 +22,20 @@ public class AccountEndPoint implements AccountEndPointLocal {
     
     @EJB(beanName = "AccountFacade")
     private AccountFacade accountFacade;
+    
+    private Account accountDetails = new Account();
 
     @Override
     public List<AccountDTO> getAccountList() {
         List<AccountDTO> dtos = accountFacade.findAllDTO();
         return dtos;
+    }
+
+    @Override
+    public AccountDTO getAccountDetails(Integer id_account) {
+        accountDetails = accountFacade.findByI(id_account);
+        AccountDTO dto = new AccountDTO();
+        AccountConverter.convertEntityToDTO(accountDetails, dto);
+        return dto;
     }
 }

@@ -16,9 +16,8 @@
                     <h:outputText value="#{customer.surname}"/>
                 </p:column>
                 <p:column headerText="Akcje" >
-                    <h:commandButton value="Szczegóły Konta" action="#{customerPB.showCustomerDetails}">
-                        <f:param value="Test"/>
-                    </h:commandButton>
+                    <h:commandButton value="Szczegółowe Dane Klienta" action="#{customerPB.showCustomerDetails}"/>
+                    <h:commandButton value="Szczegóły Konta Internetowego" action="#{customerPB.showAccountDetails}"/>
                     <h:commandButton value="Lista Wykupionych Ubezpieczeń"/>
                 </p:column>
             </p:dataTable>

@@ -6,7 +6,6 @@
 package ubezpieczenia.facade;
 
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -52,7 +51,7 @@ public class CustomerFacade extends AbstractFacade<Customer> {
     
     public Customer findByID(Integer id){
         TypedQuery tq = getEntityManager().createNamedQuery("Customer.findByIdCustomer", Customer.class);
-        tq.setParameter("id_customer", id);
+        tq.setParameter("idCustomer", id);
         return (Customer) tq.getSingleResult();
     }
 }
