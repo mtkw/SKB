@@ -30,8 +30,10 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Transactions.findAll", query = "SELECT t FROM Transactions t"),
     @NamedQuery(name = "Transactions.findByIdTransaction", query = "SELECT t FROM Transactions t WHERE t.idTransaction = :idTransaction"),
+    @NamedQuery(name = "Transactions.findByIdCustomer", query = "SELECT t FROM Transactions t WHERE t.idCustomer = :idCustomer"),
     @NamedQuery(name = "Transactions.findByValue", query = "SELECT t FROM Transactions t WHERE t.value = :value")})
 public class Transactions implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -132,5 +134,5 @@ public class Transactions implements Serializable {
     public String toString() {
         return "ubezpieczenia.entity.Transactions[ idTransaction=" + idTransaction + " ]";
     }
-    
+
 }

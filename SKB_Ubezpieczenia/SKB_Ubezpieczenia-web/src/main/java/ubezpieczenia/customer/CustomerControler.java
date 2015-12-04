@@ -9,8 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import ubezpieczenia.account.AccountEndPointLocal;
-import ubezpieczenia.dto.AccountDTO;
 import ubezpieczenia.dto.CustomerDTO;
 
 /**

@@ -20,5 +20,9 @@
             <from-outcome>accountDetails</from-outcome>
             <to-view-id>/konto_szczegóły.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>transactiomsDetails</from-outcome>
+            <to-view-id>/lista_transakcji.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>
