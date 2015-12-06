@@ -38,6 +38,6 @@ public class CustomerControler implements Serializable {
 
     public void getCustomerToShowDetail(CustomerDTO dto) {
         showDetails = customerEndPoint.getCustomerToShowDetail(dto.getId());
-    }
+    }        
 
 }

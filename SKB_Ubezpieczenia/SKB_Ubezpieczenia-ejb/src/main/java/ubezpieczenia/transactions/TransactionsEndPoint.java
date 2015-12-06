@@ -26,11 +26,11 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
     
     private List<Transactions> transactionsList;
 
-    @Override
-    public List<TransactionsDTO> getTransactionsDetail(Integer id_account) {
-        transactionsList = transactionsFacade.findByCustomerID(id_account);
-        List<TransactionsDTO> dtoList = new ArrayList<>();
-        TransactionsConverter.convertEntityToDTOList(transactionsList, dtoList);
-        return dtoList;
-    }
+//    @Override
+//    public List<TransactionsDTO> getTransactionsDetail(Integer id_account) {
+////        transactionsList = transactionsFacade.findByCustomerID(id_account);
+////        List<TransactionsDTO> dtoList = new ArrayList<>();
+////        TransactionsConverter.convertEntityToDTOList(transactionsList, dtoList);
+//        return dtoList;
+   // }
 }

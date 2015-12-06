@@ -33,7 +33,7 @@ public class TransactionsPB implements Serializable{
     
     @PostConstruct
     private void init(){
-//        transactions = new ListDataModel<>(tc.getTransactionsList());
+        transactions = new ListDataModel<>(tc.getTransactionsDetails());
     }
     
 }

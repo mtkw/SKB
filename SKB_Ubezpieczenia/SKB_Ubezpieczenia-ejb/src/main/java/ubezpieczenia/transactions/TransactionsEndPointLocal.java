@@ -16,5 +16,5 @@ import ubezpieczenia.dto.TransactionsDTO;
 @Local
 public interface TransactionsEndPointLocal {
 
-    public List<TransactionsDTO> getTransactionsDetail(Integer id_account);    
+   // public List<TransactionsDTO> getTransactionsDetail(Integer id_account);    
 }
