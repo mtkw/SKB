@@ -8,6 +8,7 @@ package ubezpieczenia.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +20,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,10 +29,11 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "insurance")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Insurance.findAll", query = "SELECT i FROM Insurance i"),
     @NamedQuery(name = "Insurance.findByIdInsurance", query = "SELECT i FROM Insurance i WHERE i.idInsurance = :idInsurance"),
-    @NamedQuery(name = "Insurance.findByName", query = "SELECT i FROM Insurance i WHERE i.name = :name"),
+    @NamedQuery(name = "Insurance.findByNameInsurance", query = "SELECT i FROM Insurance i WHERE i.nameInsurance = :nameInsurance"),
     @NamedQuery(name = "Insurance.findByDescription", query = "SELECT i FROM Insurance i WHERE i.description = :description")})
 public class Insurance implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -39,15 +43,15 @@ public class Insurance implements Serializable {
     @Column(name = "id_insurance", nullable = false)
     private Integer idInsurance;
     @Size(max = 50)
-    @Column(name = "name", length = 50)
-    private String name;
+    @Column(name = "name_insurance", length = 50)
+    private String nameInsurance;
     @Size(max = 1024)
     @Column(name = "description", length = 1024)
     private String description;
-    @OneToMany(mappedBy = "insurance", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "idInsurance", fetch = FetchType.EAGER)
     private Collection<InsuranceConditions> insuranceConditionsCollection;
-    @OneToMany(mappedBy = "insurance", fetch = FetchType.EAGER)
-    private Collection<Transactions> transactionsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "insurance", fetch = FetchType.EAGER)
+    private Collection<Transaction> transactionCollection;
 
     public Insurance() {
     }
@@ -64,12 +68,12 @@ public class Insurance implements Serializable {
         this.idInsurance = idInsurance;
     }
 
-    public String getName() {
-        return name;
+    public String getNameInsurance() {
+        return nameInsurance;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameInsurance(String nameInsurance) {
+        this.nameInsurance = nameInsurance;
     }
 
     public String getDescription() {
@@ -80,6 +84,7 @@ public class Insurance implements Serializable {
         this.description = description;
     }
 
+    @XmlTransient
     public Collection<InsuranceConditions> getInsuranceConditionsCollection() {
         return insuranceConditionsCollection;
     }
@@ -88,12 +93,13 @@ public class Insurance implements Serializable {
         this.insuranceConditionsCollection = insuranceConditionsCollection;
     }
 
-    public Collection<Transactions> getTransactionsCollection() {
-        return transactionsCollection;
+    @XmlTransient
+    public Collection<Transaction> getTransactionCollection() {
+        return transactionCollection;
     }
 
-    public void setTransactionsCollection(Collection<Transactions> transactionsCollection) {
-        this.transactionsCollection = transactionsCollection;
+    public void setTransactionCollection(Collection<Transaction> transactionCollection) {
+        this.transactionCollection = transactionCollection;
     }
 
     @Override

@@ -21,7 +21,7 @@ public class AccountConverter {
         if(entity != null & dto != null){
             dto.setId(entity.getIdAccount());
             dto.setLogin(entity.getLogin());
-            dto.setPassword(entity.getPassword());
+            dto.setPassword(entity.getPasswd());
             dto.setMail(entity.getEmail());
         }
     }

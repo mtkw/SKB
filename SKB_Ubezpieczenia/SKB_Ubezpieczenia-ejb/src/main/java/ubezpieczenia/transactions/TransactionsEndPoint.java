@@ -10,7 +10,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import ubezpieczenia.dto.TransactionsDTO;
-import ubezpieczenia.entity.Transactions;
+import ubezpieczenia.entity.Transaction;
 import ubezpieczenia.facade.TransactionsFacade;
 import ubezpieczenia.util.TransactionsConverter;
 
@@ -24,7 +24,7 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
     @EJB(beanName = "TransactionsFacade")
     private TransactionsFacade transactionsFacade;
     
-    private List<Transactions> transactionsList;
+    private List<Transaction> transactionsList;
 
 //    @Override
 //    public List<TransactionsDTO> getTransactionsDetail(Integer id_account) {

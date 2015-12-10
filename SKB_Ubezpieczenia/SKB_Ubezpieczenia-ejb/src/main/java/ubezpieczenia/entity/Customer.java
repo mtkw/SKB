@@ -6,9 +6,10 @@
 package ubezpieczenia.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,15 +17,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,22 +36,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "customer")
 @XmlRootElement
 @NamedQueries({
-    //Potrzebne zapytanie 
-    //"select * from customer left join account on customer.account_id = account.id_account;"
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
-    
-    // Testowe Zapytanie
-    @NamedQuery(name = "Customer.myFindAll", query = "SELECT c.name, c.surname, c.birthday, c.pesel, c.city, c.streat, c.number, c.postcode, a.login FROM Customer c left join Account a on c.account = a.id_account"),
-    
     @NamedQuery(name = "Customer.findByIdCustomer", query = "SELECT c FROM Customer c WHERE c.idCustomer = :idCustomer"),
-    @NamedQuery(name = "Customer.findByBirthday", query = "SELECT c FROM Customer c WHERE c.birthday = :birthday"),
-    @NamedQuery(name = "Customer.findByCity", query = "SELECT c FROM Customer c WHERE c.city = :city"),
     @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name"),
-    @NamedQuery(name = "Customer.findByNumber", query = "SELECT c FROM Customer c WHERE c.number = :number"),
+    @NamedQuery(name = "Customer.findBySurname", query = "SELECT c FROM Customer c WHERE c.surname = :surname"),
+    @NamedQuery(name = "Customer.findByBirthday", query = "SELECT c FROM Customer c WHERE c.birthday = :birthday"),
     @NamedQuery(name = "Customer.findByPesel", query = "SELECT c FROM Customer c WHERE c.pesel = :pesel"),
-    @NamedQuery(name = "Customer.findByPostcode", query = "SELECT c FROM Customer c WHERE c.postcode = :postcode"),
+    @NamedQuery(name = "Customer.findByCity", query = "SELECT c FROM Customer c WHERE c.city = :city"),
     @NamedQuery(name = "Customer.findByStreat", query = "SELECT c FROM Customer c WHERE c.streat = :streat"),
-    @NamedQuery(name = "Customer.findBySurname", query = "SELECT c FROM Customer c WHERE c.surname = :surname")})
+    @NamedQuery(name = "Customer.findByBuildNumber", query = "SELECT c FROM Customer c WHERE c.buildNumber = :buildNumber"),
+    @NamedQuery(name = "Customer.findByPostcode", query = "SELECT c FROM Customer c WHERE c.postcode = :postcode")})
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,28 +53,31 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_customer", nullable = false)
     private Integer idCustomer;
-    @Column(name = "birthday")
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
-    @Size(max = 50)
-    @Column(name = "city", length = 50)
-    private String city;
     @Size(max = 30)
     @Column(name = "name", length = 30)
     private String name;
-    @Column(name = "number")
-    private Integer number;
-    @Column(name = "pesel")
-    private BigInteger pesel;
-    @Size(max = 10)
-    @Column(name = "postcode", length = 10)
-    private String postcode;
+    @Size(max = 50)
+    @Column(name = "surname", length = 50)
+    private String surname;
+    @Column(name = "birthday")
+    @Temporal(TemporalType.DATE)
+    private Date birthday;
+    @Size(max = 11)
+    @Column(name = "pesel", length = 11)
+    private String pesel;
+    @Size(max = 20)
+    @Column(name = "city", length = 20)
+    private String city;
     @Size(max = 50)
     @Column(name = "streat", length = 50)
     private String streat;
-    @Size(max = 40)
-    @Column(name = "surname", length = 40)
-    private String surname;
+    @Column(name = "build_number")
+    private Integer buildNumber;
+    @Size(max = 6)
+    @Column(name = "postcode", length = 6)
+    private String postcode;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.EAGER)
+    private Collection<Transaction> transactionCollection;
     @JoinColumn(name = "account_id", referencedColumnName = "id_account")
     @OneToOne(fetch = FetchType.EAGER)
     private Account account;
@@ -98,12 +97,36 @@ public class Customer implements Serializable {
         this.idCustomer = idCustomer;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public Date getBirthday() {
         return birthday;
     }
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getPesel() {
+        return pesel;
+    }
+
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
     }
 
     public String getCity() {
@@ -114,28 +137,20 @@ public class Customer implements Serializable {
         this.city = city;
     }
 
-    public String getName() {
-        return name;
+    public String getStreat() {
+        return streat;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStreat(String streat) {
+        this.streat = streat;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getBuildNumber() {
+        return buildNumber;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public BigInteger getPesel() {
-        return pesel;
-    }
-
-    public void setPesel(BigInteger pesel) {
-        this.pesel = pesel;
+    public void setBuildNumber(Integer buildNumber) {
+        this.buildNumber = buildNumber;
     }
 
     public String getPostcode() {
@@ -146,20 +161,13 @@ public class Customer implements Serializable {
         this.postcode = postcode;
     }
 
-    public String getStreat() {
-        return streat;
+    @XmlTransient
+    public Collection<Transaction> getTransactionCollection() {
+        return transactionCollection;
     }
 
-    public void setStreat(String streat) {
-        this.streat = streat;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setTransactionCollection(Collection<Transaction> transactionCollection) {
+        this.transactionCollection = transactionCollection;
     }
 
     public Account getAccount() {
@@ -184,10 +192,7 @@ public class Customer implements Serializable {
             return false;
         }
         Customer other = (Customer) object;
-        if ((this.idCustomer == null && other.idCustomer != null) || (this.idCustomer != null && !this.idCustomer.equals(other.idCustomer))) {
-            return false;
-        }
-        return true;
+        return !((this.idCustomer == null && other.idCustomer != null) || (this.idCustomer != null && !this.idCustomer.equals(other.idCustomer)));
     }
 
     @Override

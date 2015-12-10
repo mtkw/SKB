@@ -8,11 +8,10 @@ package ubezpieczenia.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +19,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,6 +30,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "insurance_conditions")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "InsuranceConditions.findAll", query = "SELECT i FROM InsuranceConditions i"),
     @NamedQuery(name = "InsuranceConditions.findByIdCondition", query = "SELECT i FROM InsuranceConditions i WHERE i.idCondition = :idCondition"),
@@ -36,21 +39,21 @@ import javax.validation.constraints.Size;
 public class InsuranceConditions implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id_condition", nullable = false)
     private Integer idCondition;
-    @Size(max = 50)
-    @Column(name = "condition_description", length = 50)
+    @Size(max = 1024)
+    @Column(name = "condition_description", length = 1024)
     private String conditionDescription;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "value", precision = 17, scale = 17)
     private Double value;
     @JoinColumn(name = "id_insurance", referencedColumnName = "id_insurance")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Insurance insurance;
-    @OneToMany(mappedBy = "insuranceConditions", fetch = FetchType.EAGER)
-    private Collection<Transactions> transactionsCollection;
+    private Insurance idInsurance;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "insuranceConditions", fetch = FetchType.EAGER)
+    private Collection<Transaction> transactionCollection;
 
     public InsuranceConditions() {
     }
@@ -83,20 +86,21 @@ public class InsuranceConditions implements Serializable {
         this.value = value;
     }
 
-    public Insurance getInsurance() {
-        return insurance;
+    public Insurance getIdInsurance() {
+        return idInsurance;
     }
 
-    public void setInsurance(Insurance insurance) {
-        this.insurance = insurance;
+    public void setIdInsurance(Insurance idInsurance) {
+        this.idInsurance = idInsurance;
     }
 
-    public Collection<Transactions> getTransactionsCollection() {
-        return transactionsCollection;
+    @XmlTransient
+    public Collection<Transaction> getTransactionCollection() {
+        return transactionCollection;
     }
 
-    public void setTransactionsCollection(Collection<Transactions> transactionsCollection) {
-        this.transactionsCollection = transactionsCollection;
+    public void setTransactionCollection(Collection<Transaction> transactionCollection) {
+        this.transactionCollection = transactionCollection;
     }
 
     @Override

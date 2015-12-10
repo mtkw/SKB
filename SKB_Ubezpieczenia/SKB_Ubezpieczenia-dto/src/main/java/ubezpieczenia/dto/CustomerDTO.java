@@ -6,7 +6,6 @@
 package ubezpieczenia.dto;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.Objects;
 
@@ -20,7 +19,7 @@ public class CustomerDTO implements Serializable {
     private String name;
     private String surname;
     private Date birthday;
-    private BigInteger pesel;
+    private String pesel;
     private String city;
     private String streat;
     private Integer number;
@@ -59,11 +58,11 @@ public class CustomerDTO implements Serializable {
         this.birthday = birthday;
     }
 
-    public BigInteger getPesel() {
+    public String getPesel() {
         return pesel;
     }
 
-    public void setPesel(BigInteger pesel) {
+    public void setPesel(String pesel) {
         this.pesel = pesel;
     }
 

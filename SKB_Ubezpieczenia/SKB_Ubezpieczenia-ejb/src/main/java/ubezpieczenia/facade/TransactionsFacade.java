@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import ubezpieczenia.entity.Transactions;
+import ubezpieczenia.entity.Transaction;
 
 /**
  *
@@ -19,13 +19,13 @@ import ubezpieczenia.entity.Transactions;
  */
 @LocalBean
 @Stateless
-public class TransactionsFacade extends AbstractFacade<Transactions> {
+public class TransactionsFacade extends AbstractFacade<Transaction> {
 
     @PersistenceContext(unitName = "SKB_Ubezpieczenia")
     private EntityManager em;
 
     public TransactionsFacade() {
-        super(Transactions.class);
+        super(Transaction.class);
     }
 
     @Override
@@ -33,9 +33,9 @@ public class TransactionsFacade extends AbstractFacade<Transactions> {
         return em;
     }
 
-    public List<Transactions> findByCustomerID(Integer id_account) {
-        Query q = getEntityManager().createNamedQuery("Transactions.findByIdCustomer");
-        List<Transactions> listT = q.getResultList();
+    public List<Transaction> findByCustomerID(Integer id_account) {
+        Query q = getEntityManager().createNamedQuery("Transaction.findByIdCustomer");
+        List<Transaction> listT = q.getResultList();
         return listT;
     }
 

@@ -23,7 +23,7 @@ public class CustomerConverter {
             dto.setPesel(entity.getPesel());
             dto.setCity(entity.getCity());
             dto.setStreat(entity.getStreat());
-            dto.setNumber(entity.getNumber());
+            dto.setNumber(entity.getBuildNumber());
             dto.setPostcode(entity.getPostcode());
             dto.setId_account(entity.getAccount().getIdAccount());
         }

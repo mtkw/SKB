@@ -14,7 +14,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import ubezpieczenia.dto.AccountDTO;
-import ubezpieczenia.dto.CustomerDTO;
 import ubezpieczenia.entity.Account;
 import ubezpieczenia.util.CustomerConverter;
 
@@ -62,7 +61,7 @@ public class AccountFacade extends AbstractFacade<Account> {
             dto.setId(row.getIdAccount());
             dto.setLogin(row.getLogin());
             dto.setMail(row.getEmail());
-            dto.setPassword(row.getPassword());            
+            dto.setPassword(row.getPasswd());            
             list.add(dto);
         }
         

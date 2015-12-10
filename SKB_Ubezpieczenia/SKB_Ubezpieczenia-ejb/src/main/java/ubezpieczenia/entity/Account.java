@@ -19,7 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -35,27 +34,24 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
     @NamedQuery(name = "Account.findByIdAccount", query = "SELECT a FROM Account a WHERE a.idAccount = :idAccount"),
     @NamedQuery(name = "Account.findByLogin", query = "SELECT a FROM Account a WHERE a.login = :login"),
-    @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password"),
+    @NamedQuery(name = "Account.findByPasswd", query = "SELECT a FROM Account a WHERE a.passwd = :passwd"),
     @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")})
 public class Account implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_account", nullable = false)
     private Integer idAccount;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "login", nullable = false, length = 50)
-    private String login;
-    @Size(max = 30)
-    @Column(name = "password", length = 30)
-    private String password;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 50)
-    @Column(name = "email", length = 50)
+    @Column(name = "login", length = 50)
+    private String login;
+    @Size(max = 50)
+    @Column(name = "passwd", length = 50)
+    private String passwd;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 70)
+    @Column(name = "email", length = 70)
     private String email;
     @OneToOne(mappedBy = "account", fetch = FetchType.EAGER)
     private Customer customer;
@@ -65,11 +61,6 @@ public class Account implements Serializable {
 
     public Account(Integer idAccount) {
         this.idAccount = idAccount;
-    }
-
-    public Account(Integer idAccount, String login) {
-        this.idAccount = idAccount;
-        this.login = login;
     }
 
     public Integer getIdAccount() {
@@ -88,12 +79,12 @@ public class Account implements Serializable {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswd() {
+        return passwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 
     public String getEmail() {
@@ -104,11 +95,12 @@ public class Account implements Serializable {
         this.email = email;
     }
 
+    @XmlTransient
     public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomerCollection(Customer customer) {
         this.customer = customer;
     }
 
@@ -136,5 +128,5 @@ public class Account implements Serializable {
     public String toString() {
         return "ubezpieczenia.entity.Account[ idAccount=" + idAccount + " ]";
     }
-
+    
 }

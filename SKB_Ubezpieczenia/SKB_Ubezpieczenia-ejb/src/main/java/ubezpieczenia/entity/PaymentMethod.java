@@ -6,7 +6,7 @@
 package ubezpieczenia.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +14,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -26,11 +29,14 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "payment_method")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PaymentMethod.findAll", query = "SELECT p FROM PaymentMethod p"),
     @NamedQuery(name = "PaymentMethod.findByIdPaymentMethod", query = "SELECT p FROM PaymentMethod p WHERE p.idPaymentMethod = :idPaymentMethod"),
-    @NamedQuery(name = "PaymentMethod.findByName", query = "SELECT p FROM PaymentMethod p WHERE p.name = :name"),
-    @NamedQuery(name = "PaymentMethod.findByDescriptions", query = "SELECT p FROM PaymentMethod p WHERE p.descriptions = :descriptions")})
+    @NamedQuery(name = "PaymentMethod.findByTransactionId", query = "SELECT p FROM PaymentMethod p WHERE p.transactionId = :transactionId"),
+    @NamedQuery(name = "PaymentMethod.findByPaymentDedline", query = "SELECT p FROM PaymentMethod p WHERE p.paymentDedline = :paymentDedline"),
+    @NamedQuery(name = "PaymentMethod.findByNumberOfInstalment", query = "SELECT p FROM PaymentMethod p WHERE p.numberOfInstalment = :numberOfInstalment"),
+    @NamedQuery(name = "PaymentMethod.findBySingleInstalment", query = "SELECT p FROM PaymentMethod p WHERE p.singleInstalment = :singleInstalment")})
 public class PaymentMethod implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,14 +44,19 @@ public class PaymentMethod implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_payment_method", nullable = false)
     private Integer idPaymentMethod;
-    @Size(max = 50)
-    @Column(name = "name", length = 50)
-    private String name;
-    @Size(max = 1024)
-    @Column(name = "descriptions", length = 1024)
-    private String descriptions;
-    @OneToMany(mappedBy = "paymentMethod", fetch = FetchType.EAGER)
-    private Collection<Payment> paymentCollection;
+    @Column(name = "transaction_id")
+    private Integer transactionId;
+    @Column(name = "payment_dedline")
+    @Temporal(TemporalType.DATE)
+    private Date paymentDedline;
+    @Column(name = "number_of_instalment")
+    private Integer numberOfInstalment;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "single_instalment", precision = 17, scale = 17)
+    private Double singleInstalment;
+    @JoinColumn(name = "payment_method_id", referencedColumnName = "id_payment_method_des")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private PaymentMethodDes paymentMethodId;
 
     public PaymentMethod() {
     }
@@ -62,28 +73,44 @@ public class PaymentMethod implements Serializable {
         this.idPaymentMethod = idPaymentMethod;
     }
 
-    public String getName() {
-        return name;
+    public Integer getTransactionId() {
+        return transactionId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
     }
 
-    public String getDescriptions() {
-        return descriptions;
+    public Date getPaymentDedline() {
+        return paymentDedline;
     }
 
-    public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
+    public void setPaymentDedline(Date paymentDedline) {
+        this.paymentDedline = paymentDedline;
     }
 
-    public Collection<Payment> getPaymentCollection() {
-        return paymentCollection;
+    public Integer getNumberOfInstalment() {
+        return numberOfInstalment;
     }
 
-    public void setPaymentCollection(Collection<Payment> paymentCollection) {
-        this.paymentCollection = paymentCollection;
+    public void setNumberOfInstalment(Integer numberOfInstalment) {
+        this.numberOfInstalment = numberOfInstalment;
+    }
+
+    public Double getSingleInstalment() {
+        return singleInstalment;
+    }
+
+    public void setSingleInstalment(Double singleInstalment) {
+        this.singleInstalment = singleInstalment;
+    }
+
+    public PaymentMethodDes getPaymentMethodId() {
+        return paymentMethodId;
+    }
+
+    public void setPaymentMethodId(PaymentMethodDes paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
     }
 
     @Override
