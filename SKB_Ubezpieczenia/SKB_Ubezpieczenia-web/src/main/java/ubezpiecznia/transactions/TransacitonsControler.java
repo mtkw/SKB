@@ -29,7 +29,7 @@ public class TransacitonsControler implements Serializable {
         return transactionsDetails;
     }
 
-   // public void getTransactionsDetails(CustomerDTO rowData) {
-   //     transactionsDetails = transactionsEndPoint.getTransactionsDetail(rowData.getId_account());
-  //  }
+    public void getTransactionsDetails(CustomerDTO rowData) {
+        transactionsDetails = transactionsEndPoint.getTransactionsDetail(rowData.getId_account());
+    }
 }

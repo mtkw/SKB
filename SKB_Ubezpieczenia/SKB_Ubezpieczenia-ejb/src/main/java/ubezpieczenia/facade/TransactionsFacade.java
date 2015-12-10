@@ -34,9 +34,11 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
     }
 
     public List<Transaction> findByCustomerID(Integer id_account) {
-        Query q = getEntityManager().createNamedQuery("Transaction.findByIdCustomer");
+        Query q = getEntityManager().createNamedQuery("Transaction.findByCustomerId", Transaction.class);
+        q.setParameter("customerId", id_account);
         List<Transaction> listT = q.getResultList();
         return listT;
     }
+    
 
 }

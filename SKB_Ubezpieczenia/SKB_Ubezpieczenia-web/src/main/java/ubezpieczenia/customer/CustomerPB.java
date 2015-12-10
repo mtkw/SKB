@@ -54,8 +54,8 @@ public class CustomerPB implements Serializable {
         return "accountDetails";
     }
 
-    //public String showTransactionsDetails() {
-      //  tc.getTransactionsDetails(customers.getRowData());
-       // return "transactiomsDetails";
-   // }
+    public String showTransactionsDetails() {
+        tc.getTransactionsDetails(customers.getRowData());
+        return "transactiomsDetails";
+    }
 }

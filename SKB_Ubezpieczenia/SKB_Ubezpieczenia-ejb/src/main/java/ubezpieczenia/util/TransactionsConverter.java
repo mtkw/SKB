@@ -16,15 +16,15 @@ import ubezpieczenia.entity.Transaction;
  */
 public class TransactionsConverter {
     
-//    public static void convertEntityToDTOList(List<Transaction> entityList, List<TransactionsDTO> dtosList){
-//        List<TransactionsDTO> dtoList = new ArrayList<>();
-//        for(Transaction row: entityList){
-//            TransactionsDTO dto = new TransactionsDTO();
-//            dto.setId_transaciton(row.get());
-//            dto.setCustomer_id(row.getCustomer().getIdCustomer());
-//            dto.setInsurance_id(row.getInsurance().getIdInsurance());
-//            dto.setValue(row.);
-//            dtoList.add(dto);
-//        }
-    //}
+    public static void convertEntityToDTOList(List<Transaction> entityList, List<TransactionsDTO> dtosList){
+        List<TransactionsDTO> dtoList = new ArrayList<>();
+        for(Transaction row: entityList){
+            TransactionsDTO dto = new TransactionsDTO();
+            dto.setId_transaciton(row.getTransactionPK().getIdTransaction());
+            dto.setCustomer_id(row.getTransactionPK().getCustomerId());
+            dto.setInsurance_id(row.getTransactionPK().getInsuranceId());
+//            dto.setValue(row.g);
+            dtoList.add(dto);
+        }
+    }
 }
