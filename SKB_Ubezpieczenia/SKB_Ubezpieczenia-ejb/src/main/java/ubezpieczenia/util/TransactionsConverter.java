@@ -16,7 +16,7 @@ import ubezpieczenia.entity.Transaction;
  */
 public class TransactionsConverter {
     
-    public static void convertEntityToDTOList(List<Transaction> entityList, List<TransactionsDTO> dtosList){
+    public static List<TransactionsDTO> convertEntityToDTOList(List<Transaction> entityList, List<TransactionsDTO> dtosList){
         List<TransactionsDTO> dtoList = new ArrayList<>();
         for(Transaction row: entityList){
             TransactionsDTO dto = new TransactionsDTO();
@@ -26,5 +26,6 @@ public class TransactionsConverter {
 //            dto.setValue(row.g);
             dtoList.add(dto);
         }
+        return dtoList;
     }
 }

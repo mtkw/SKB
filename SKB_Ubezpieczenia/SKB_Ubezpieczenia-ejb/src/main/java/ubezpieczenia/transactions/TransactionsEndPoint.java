@@ -28,9 +28,14 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
 
     @Override
     public List<TransactionsDTO> getTransactionsDetail(Integer id_account) {
+        System.out.println("Przesyłany Parametr: " + id_account);
         transactionsList = transactionsFacade.findByCustomerID(id_account);
+        System.out.println("Wielkość Listy po zapytaniu: " + transactionsList.size());
         List<TransactionsDTO> dtoList = new ArrayList<>();
+        System.out.println("Wielkość dtoList po inicjalizacji: " + dtoList.size());
         TransactionsConverter.convertEntityToDTOList(transactionsList, dtoList);
+        System.out.println("Wielkość dtoList po konwersji: " + dtoList.size());
+        System.out.println("Wielkość transactionList po konwersji: " + transactionsList.size());
         return dtoList;
     }
 }
