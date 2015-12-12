@@ -30,7 +30,7 @@ public class TransactionsPB implements Serializable{
     public DataModel<TransactionsDTO> getTransactions() {
         return transactions;
     }
-    
+
     @PostConstruct
     private void init(){
         transactions = new ListDataModel<>(tc.getTransactionsDetails());

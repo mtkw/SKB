@@ -16,7 +16,7 @@ import ubezpieczenia.entity.Transaction;
  */
 public class TransactionsConverter {
     
-    public static List<TransactionsDTO> convertEntityToDTOList(List<Transaction> entityList, List<TransactionsDTO> dtoList){
+    public static void convertEntityToDTOList(List<Transaction> entityList, List<TransactionsDTO> dtoList){
         System.out.println("Lista Transakcji dostarczona do konwertera:" + entityList.size());
         for(Transaction row: entityList){
             TransactionsDTO dto = new TransactionsDTO();
@@ -28,6 +28,5 @@ public class TransactionsConverter {
             System.out.println("Test Konwerter --> Lista Transakcji(Encja): " + row.getTransactionPK().getCustomerId() + " --> Lista DTO :" + dto.getCustomer_id());
         }
         System.out.println("Wielkość listy DTO po konwersji w konwerterze: " + dtoList);
-        return dtoList;
     }
 }
