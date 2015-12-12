@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -21,25 +22,26 @@ import ubezpieczenia.dto.TransactionsDTO;
  */
 @SessionScoped
 @Named
-public class TransactionsPB implements Serializable{
-    
+public class TransactionsPB implements Serializable {
+
     @Inject
     private TransacitonsControler tc;
-    
+
     private DataModel<TransactionsDTO> transactions;
 
     public DataModel<TransactionsDTO> getTransactions() {
         return transactions;
     }
 
+    public String prepareTransactionListactionListener() {
+        System.out.println("ActionListener TESTER!!!");
+        transactions = new ListDataModel<>(tc.getTransactionsDetails());
+        return "transactiomsDetails";
+    }
+
     @PostConstruct
-    private void init(){
+    private void init() {
         transactions = new ListDataModel<>(tc.getTransactionsDetails());
     }
-    
-    @PreDestroy
-    public void destroy(){
-        System.out.println("Niszczenie !!!!");
-    }
-    
+
 }
