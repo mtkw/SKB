@@ -7,6 +7,7 @@ package ubezpiecznia.transactions;
 
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -34,6 +35,11 @@ public class TransactionsPB implements Serializable{
     @PostConstruct
     private void init(){
         transactions = new ListDataModel<>(tc.getTransactionsDetails());
+    }
+    
+    @PreDestroy
+    public void destroy(){
+        System.out.println("Niszczenie !!!!");
     }
     
 }

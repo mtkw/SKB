@@ -30,6 +30,8 @@ public class TransacitonsControler implements Serializable {
     }
 
     public void getTransactionsDetails(CustomerDTO rowData) {
+        System.out.println("Id Klienta w TransactionsControler: " + rowData.getId_account());
         transactionsDetails = transactionsEndPoint.getTransactionsDetail(rowData.getId_account());
+        System.out.println("Wielkość Listy TransactionsDetails w TransactionsControler Po wywołaniu metody getTransactionsDetail() :" + transactionsDetails.size());
     }
 }
