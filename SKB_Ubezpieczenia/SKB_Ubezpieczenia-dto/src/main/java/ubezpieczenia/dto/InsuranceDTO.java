@@ -12,9 +12,18 @@ import java.util.Objects;
  * @author Mateusz
  */
 public class InsuranceDTO {
-    
+
+    Integer id;
     String name;
     String description;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -34,13 +43,13 @@ public class InsuranceDTO {
 
     @Override
     public String toString() {
-        return "InsuranceDTO{" + "name=" + name + ", description=" + description + '}';
+        return "InsuranceDTO{" + "id=" + id + ", name=" + name + ", description=" + description + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 73 * hash + Objects.hashCode(this.name);
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -53,12 +62,12 @@ public class InsuranceDTO {
             return false;
         }
         final InsuranceDTO other = (InsuranceDTO) obj;
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
-    
-    
+
+
+
 }

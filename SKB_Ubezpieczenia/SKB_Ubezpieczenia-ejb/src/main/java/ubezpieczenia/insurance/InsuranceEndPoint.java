@@ -5,15 +5,27 @@
  */
 package ubezpieczenia.insurance;
 
+import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import ubezpieczenia.dto.InsuranceDTO;
+import ubezpieczenia.facade.InsuranceFacade;
 
 /**
  *
  * @author Mateusz
  */
+@LocalBean
 @Stateless
 public class InsuranceEndPoint implements InsuranceEndPointLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @EJB(beanName = "InsuranceFacade")
+    private InsuranceFacade insuranceFacade;
+    
+    @Override
+    public List<InsuranceDTO> getInsuranceList(){
+        List<InsuranceDTO> dtos = insuranceFacade.findAllDTO();
+        return dtos;
+    }
 }

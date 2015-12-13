@@ -11,6 +11,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import ubezpieczenia.customer.CustomerEndPointLocal;
 import ubezpieczenia.dto.CustomerDTO;
+import ubezpieczenia.dto.InsuranceDTO;
+import ubezpieczenia.insurance.InsuranceEndPointLocal;
 
 /**
  *
@@ -22,6 +24,9 @@ public class SymulationControler implements Serializable{
     @EJB
     private CustomerEndPointLocal customerEndPoint;
     
+    @EJB
+    private InsuranceEndPointLocal insuranceEndPoint;
+    
         public List<CustomerDTO> getCustomerList() {
         if (customerEndPoint != null) {
             return customerEndPoint.getCustomerList();
@@ -30,5 +35,14 @@ public class SymulationControler implements Serializable{
             throw new NullPointerException(" customerEndPoint not initilized");
         }
     }
+        
+        public List<InsuranceDTO> getInsuranceList() {
+            if(insuranceEndPoint != null){
+                return insuranceEndPoint.getInsuranceList();
+            } else {
+                System.out.println("insuranceEndPoint = null");
+                throw new NullPointerException("insuranceEndPoint not initialized");
+            }
+        }
     
 }

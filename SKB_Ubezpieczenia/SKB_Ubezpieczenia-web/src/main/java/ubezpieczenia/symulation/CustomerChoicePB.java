@@ -24,7 +24,7 @@ import ubezpieczenia.dto.CustomerDTO;
  */
 @SessionScoped
 @Named
-public class SymulationPB implements Serializable {
+public class CustomerChoicePB implements Serializable {
 
     @Inject
     SymulationControler sc;
@@ -48,8 +48,10 @@ public class SymulationPB implements Serializable {
             String customer = row.getName() + " " + row.getSurname();
             System.out.println("WIELKI TEST WYŚWIETLENIE KLIENTA: " + customer);
             DefaultMenuItem item = new DefaultMenuItem(customer);
-            item.setUrl("http://www.primefaces.org");
-            item.setIcon("ui-icon-home");
+//            item.setUrl("/wybórUbezpieczenia.xhtml");
+            item.setOutcome("/wybórUbezpieczenia.xhtml");
+            item.setParam("id", row.getId());
+            item.setIcon("ui-icon-star");
             firstSubmenu.addElement(item);
         }
         model.addElement(firstSubmenu);

@@ -5,7 +5,9 @@
  */
 package ubezpieczenia.insurance;
 
+import java.util.List;
 import javax.ejb.Local;
+import ubezpieczenia.dto.InsuranceDTO;
 
 /**
  *
@@ -13,5 +15,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface InsuranceEndPointLocal {
+
+    public List<InsuranceDTO> getInsuranceList();
     
 }
