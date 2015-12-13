@@ -5,6 +5,8 @@
  */
 package ubezpieczenia.facade;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Transaction.findAll", query = "SELECT t FROM Transaction t"),
     @NamedQuery(name = "Transaction.findByIdTransaction", query = "SELECT t FROM Transaction t WHERE t.transactionPK.idTransaction = :idTransaction"),
-    @NamedQuery(name = "Transaction.findByCustomerId", query = "SELECT t FROM Transaction t WHERE t.transactionPK.customerId = :customerId"),
+    @NamedQuery(name = "Transaction.findByCustomerId", query = "SELECT t FROM Transaction t  WHERE t.transactionPK.customerId = :customerId"),
     @NamedQuery(name = "Transaction.findByInsuranceId", query = "SELECT t FROM Transaction t WHERE t.transactionPK.insuranceId = :insuranceId"),
     @NamedQuery(name = "Transaction.findByConditionId", query = "SELECT t FROM Transaction t WHERE t.transactionPK.conditionId = :conditionId")
 })

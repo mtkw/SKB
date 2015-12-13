@@ -8,12 +8,8 @@
     <ui:define name="content">
         <h:form>
             Wybór klienta dla którego będzie przeprawoadzana symulacja:
-            <p:growl id="messages" showDetail="true"/>
-            <p:menuButton value="Customer">
-                <p:menuitem value="Klient 1"/> <!--actionListener="#{menuView.save}"update="messages" icon="ui-icon-disk"/>--> 
-                <p:menuitem value="Klient 2"/> <!--actionListener="#{menuView.update}" update="messages" icon="ui-icon-arrowrefresh-1-w"/>-->
-                <p:menuitem value="Klient 3"/> <!--actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>-->
-            </p:menuButton>
+            <p:commandButton id="dynaButton" value="Klienci" type="button" icon="ui-icon-extlink"/>
+            <p:menu model="#{symulationPB.model}" overlay="true" trigger="dynaButton" my="left top" at="left bottom" />
         </h:form>
     </ui:define>
 

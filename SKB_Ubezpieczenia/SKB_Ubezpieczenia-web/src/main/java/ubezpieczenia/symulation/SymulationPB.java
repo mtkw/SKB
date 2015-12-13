@@ -12,6 +12,9 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 import ubezpieczenia.dto.CustomerDTO;
 
@@ -28,6 +31,8 @@ public class SymulationPB implements Serializable {
 
     private DataModel<CustomerDTO> customers;
 
+    private MenuModel model;
+
     public DataModel<CustomerDTO> getCustomers() {
         return customers;
     }
@@ -35,6 +40,23 @@ public class SymulationPB implements Serializable {
     @PostConstruct
     public void init() {
         customers = new ListDataModel<>(sc.getCustomerList());
+
+        model = new DefaultMenuModel();
+
+        DefaultSubMenu firstSubmenu = new DefaultSubMenu("Klienci:");
+        for (CustomerDTO row : customers) {
+            String customer = row.getName() + " " + row.getSurname();
+            System.out.println("WIELKI TEST WYŚWIETLENIE KLIENTA: " + customer);
+            DefaultMenuItem item = new DefaultMenuItem(customer);
+            item.setUrl("http://www.primefaces.org");
+            item.setIcon("ui-icon-home");
+            firstSubmenu.addElement(item);
+        }
+        model.addElement(firstSubmenu);
+    }
+
+    public MenuModel getModel() {
+        return model;
     }
 
 }
