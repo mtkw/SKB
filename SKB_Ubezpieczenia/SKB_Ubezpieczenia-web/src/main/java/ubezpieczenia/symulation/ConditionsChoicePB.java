@@ -8,8 +8,10 @@ package ubezpieczenia.symulation;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -43,6 +45,13 @@ public class ConditionsChoicePB implements Serializable {
     public void init() {
         insurance = new ListDataModel<>(sc.getInsuranceConditionsList());
 
+        //Pobranie przekazanych parametrów
+        Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String param1 = (String) requestMap.get("id_customer");
+        String param2 = (String) requestMap.get("id_insurance");
+        System.out.println("PRZEKAZANY PARAMETR : " + param1 + " : " + param2);
+        
+        
         conditions = new ArrayList<>();
 
         for (InsuranceConditionsDTO row : insurance) {

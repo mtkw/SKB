@@ -50,7 +50,7 @@ public class CustomerChoicePB implements Serializable {
             DefaultMenuItem item = new DefaultMenuItem(customer);
 //            item.setUrl("/wybórUbezpieczenia.xhtml");
             item.setOutcome("/wybórUbezpieczenia.xhtml");
-            item.setParam("id", row.getId());
+            item.setParam("id_customer", row.getId());
             item.setIcon("ui-icon-star");
             firstSubmenu.addElement(item);
         }

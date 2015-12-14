@@ -6,8 +6,10 @@
 package ubezpieczenia.symulation;
 
 import java.io.Serializable;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -46,13 +48,19 @@ public class InsuranceChoicePB implements Serializable {
         insurance = new ListDataModel<>(sc.getInsuranceList());
 
         model = new DefaultMenuModel();
+        
+        //Pobranie przekazanego parametru 
+        Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String param = (String) requestMap.get("id_customer");
+        System.out.println("PRZEKAZANY PARAMETR : " + param);
 
         DefaultSubMenu firstSubmenu = new DefaultSubMenu("Ubezpieczenia:");
         for (InsuranceDTO row : insurance) {
             String insurance = row.getName();
             DefaultMenuItem item = new DefaultMenuItem(insurance);
             item.setOutcome("/wybórWarunków.xhtml");
-            item.setParam("id", row.getId());
+            item.setParam("id_insurance", row.getId());
+            item.setParam("id_customer", param);
             item.setIcon("ui-icon-star");
             firstSubmenu.addElement(item);
         }
