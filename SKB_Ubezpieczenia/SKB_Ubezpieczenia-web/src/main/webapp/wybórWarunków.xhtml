@@ -15,7 +15,9 @@
                     <p:selectManyCheckbox id="grid" value="#{conditionsChoicePB.selectedConditions}" layout="grid" columns="3">
                         <f:selectItems value="#{conditionsChoicePB.conditions}" var="conditions" itemLabel="#{conditions}" itemValue="#{conditions}" />
                     </p:selectManyCheckbox>
-
+                    
+                    <p:separator />
+                    
                     <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
 
                     <p:dialog header="Values" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
@@ -26,6 +28,8 @@
                                 </f:facet>
                                 #{conditions}
                             </p:dataList>
+                            <p:separator />
+                            <h:commandButton value="Zatwierdź" />
                         </p:outputPanel>
                     </p:dialog>
                 </h:form>
