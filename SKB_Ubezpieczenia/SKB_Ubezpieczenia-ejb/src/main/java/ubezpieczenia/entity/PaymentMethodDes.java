@@ -19,8 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,7 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "payment_method_des")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PaymentMethodDes.findAll", query = "SELECT p FROM PaymentMethodDes p"),
     @NamedQuery(name = "PaymentMethodDes.findByIdPaymentMethodDes", query = "SELECT p FROM PaymentMethodDes p WHERE p.idPaymentMethodDes = :idPaymentMethodDes"),
@@ -43,7 +40,7 @@ public class PaymentMethodDes implements Serializable {
     @Size(max = 20)
     @Column(name = "description", length = 20)
     private String description;
-    @OneToMany(mappedBy = "paymentMethodId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "paymentMethodDes", fetch = FetchType.EAGER)
     private Collection<PaymentMethod> paymentMethodCollection;
 
     public PaymentMethodDes() {
@@ -69,7 +66,6 @@ public class PaymentMethodDes implements Serializable {
         this.description = description;
     }
 
-    @XmlTransient
     public Collection<PaymentMethod> getPaymentMethodCollection() {
         return paymentMethodCollection;
     }

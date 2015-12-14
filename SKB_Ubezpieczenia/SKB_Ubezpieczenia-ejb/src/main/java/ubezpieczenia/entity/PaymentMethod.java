@@ -21,7 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -29,7 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "payment_method")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PaymentMethod.findAll", query = "SELECT p FROM PaymentMethod p"),
     @NamedQuery(name = "PaymentMethod.findByIdPaymentMethod", query = "SELECT p FROM PaymentMethod p WHERE p.idPaymentMethod = :idPaymentMethod"),
@@ -56,7 +54,7 @@ public class PaymentMethod implements Serializable {
     private Double singleInstalment;
     @JoinColumn(name = "payment_method_id", referencedColumnName = "id_payment_method_des")
     @ManyToOne(fetch = FetchType.EAGER)
-    private PaymentMethodDes paymentMethodId;
+    private PaymentMethodDes paymentMethodDes;
 
     public PaymentMethod() {
     }
@@ -105,12 +103,12 @@ public class PaymentMethod implements Serializable {
         this.singleInstalment = singleInstalment;
     }
 
-    public PaymentMethodDes getPaymentMethodId() {
-        return paymentMethodId;
+    public PaymentMethodDes getPaymentMethodDes() {
+        return paymentMethodDes;
     }
 
-    public void setPaymentMethodId(PaymentMethodDes paymentMethodId) {
-        this.paymentMethodId = paymentMethodId;
+    public void setPaymentMethodDes(PaymentMethodDes paymentMethodDes) {
+        this.paymentMethodDes = paymentMethodDes;
     }
 
     @Override

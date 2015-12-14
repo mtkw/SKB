@@ -17,11 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,7 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "account")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
     @NamedQuery(name = "Account.findByIdAccount", query = "SELECT a FROM Account a WHERE a.idAccount = :idAccount"),
@@ -53,8 +49,8 @@ public class Account implements Serializable {
     @Size(max = 70)
     @Column(name = "email", length = 70)
     private String email;
-    @OneToOne(mappedBy = "account", fetch = FetchType.EAGER)
-    private Customer customer;
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    private Collection<Customer> customerCollection;
 
     public Account() {
     }
@@ -95,13 +91,12 @@ public class Account implements Serializable {
         this.email = email;
     }
 
-    @XmlTransient
-    public Customer getCustomer() {
-        return customer;
+    public Collection<Customer> getCustomerCollection() {
+        return customerCollection;
     }
 
-    public void setCustomerCollection(Customer customer) {
-        this.customer = customer;
+    public void setCustomerCollection(Collection<Customer> customerCollection) {
+        this.customerCollection = customerCollection;
     }
 
     @Override

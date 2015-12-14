@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -22,17 +21,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "transaction")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Transaction.findAll", query = "SELECT t FROM Transaction t"),
     @NamedQuery(name = "Transaction.findByIdTransaction", query = "SELECT t FROM Transaction t WHERE t.transactionPK.idTransaction = :idTransaction"),
-    @NamedQuery(name = "Transaction.findByCustomerId", query = "SELECT t FROM Transaction t  WHERE t.transactionPK.customerId = :customerId"),
+    @NamedQuery(name = "Transaction.findByCustomerId", query = "SELECT t FROM Transaction t WHERE t.transactionPK.customerId = :customerId"),
     @NamedQuery(name = "Transaction.findByInsuranceId", query = "SELECT t FROM Transaction t WHERE t.transactionPK.insuranceId = :insuranceId"),
-    @NamedQuery(name = "Transaction.findByConditionId", query = "SELECT t FROM Transaction t WHERE t.transactionPK.conditionId = :conditionId")
-})
-
-
-
+    @NamedQuery(name = "Transaction.findByConditionId", query = "SELECT t FROM Transaction t WHERE t.transactionPK.conditionId = :conditionId")})
 public class Transaction implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

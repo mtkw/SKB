@@ -51,7 +51,7 @@ public class InsuranceChoicePB implements Serializable {
         for (InsuranceDTO row : insurance) {
             String insurance = row.getName();
             DefaultMenuItem item = new DefaultMenuItem(insurance);
-            // item.setOutcome("/wybórUbezpieczenia.xhtml");
+            item.setOutcome("/wybórWarunków.xhtml");
             item.setParam("id", row.getId());
             item.setIcon("ui-icon-star");
             firstSubmenu.addElement(item);

@@ -20,8 +20,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,7 +27,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "insurance")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Insurance.findAll", query = "SELECT i FROM Insurance i"),
     @NamedQuery(name = "Insurance.findByIdInsurance", query = "SELECT i FROM Insurance i WHERE i.idInsurance = :idInsurance"),
@@ -48,7 +45,7 @@ public class Insurance implements Serializable {
     @Size(max = 1024)
     @Column(name = "description", length = 1024)
     private String description;
-    @OneToMany(mappedBy = "idInsurance", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "insurance", fetch = FetchType.EAGER)
     private Collection<InsuranceConditions> insuranceConditionsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "insurance", fetch = FetchType.EAGER)
     private Collection<Transaction> transactionCollection;
@@ -84,7 +81,6 @@ public class Insurance implements Serializable {
         this.description = description;
     }
 
-    @XmlTransient
     public Collection<InsuranceConditions> getInsuranceConditionsCollection() {
         return insuranceConditionsCollection;
     }
@@ -93,7 +89,6 @@ public class Insurance implements Serializable {
         this.insuranceConditionsCollection = insuranceConditionsCollection;
     }
 
-    @XmlTransient
     public Collection<Transaction> getTransactionCollection() {
         return transactionCollection;
     }

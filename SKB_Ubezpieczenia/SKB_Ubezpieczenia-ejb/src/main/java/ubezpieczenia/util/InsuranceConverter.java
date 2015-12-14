@@ -8,6 +8,7 @@ package ubezpieczenia.util;
 import ubezpieczenia.dto.InsuranceDTO;
 import ubezpieczenia.entity.Insurance;
 
+
 /**
  *
  * @author Mateusz

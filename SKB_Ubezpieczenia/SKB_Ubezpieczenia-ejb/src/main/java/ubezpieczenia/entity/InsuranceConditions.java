@@ -21,8 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,11 +28,11 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "insurance_conditions")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "InsuranceConditions.findAll", query = "SELECT i FROM InsuranceConditions i"),
     @NamedQuery(name = "InsuranceConditions.findByIdCondition", query = "SELECT i FROM InsuranceConditions i WHERE i.idCondition = :idCondition"),
     @NamedQuery(name = "InsuranceConditions.findByConditionDescription", query = "SELECT i FROM InsuranceConditions i WHERE i.conditionDescription = :conditionDescription"),
+    @NamedQuery(name = "InsuranceConditions.findByQuestion", query = "SELECT i FROM InsuranceConditions i WHERE i.question = :question"),
     @NamedQuery(name = "InsuranceConditions.findByValue", query = "SELECT i FROM InsuranceConditions i WHERE i.value = :value")})
 public class InsuranceConditions implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -46,12 +44,15 @@ public class InsuranceConditions implements Serializable {
     @Size(max = 1024)
     @Column(name = "condition_description", length = 1024)
     private String conditionDescription;
+    @Size(max = 1024)
+    @Column(name = "question", length = 1024)
+    private String question;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "value", precision = 17, scale = 17)
     private Double value;
     @JoinColumn(name = "id_insurance", referencedColumnName = "id_insurance")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Insurance idInsurance;
+    private Insurance insurance;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "insuranceConditions", fetch = FetchType.EAGER)
     private Collection<Transaction> transactionCollection;
 
@@ -78,6 +79,14 @@ public class InsuranceConditions implements Serializable {
         this.conditionDescription = conditionDescription;
     }
 
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
     public Double getValue() {
         return value;
     }
@@ -86,15 +95,14 @@ public class InsuranceConditions implements Serializable {
         this.value = value;
     }
 
-    public Insurance getIdInsurance() {
-        return idInsurance;
+    public Insurance getInsurance() {
+        return insurance;
     }
 
-    public void setIdInsurance(Insurance idInsurance) {
-        this.idInsurance = idInsurance;
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
     }
 
-    @XmlTransient
     public Collection<Transaction> getTransactionCollection() {
         return transactionCollection;
     }
