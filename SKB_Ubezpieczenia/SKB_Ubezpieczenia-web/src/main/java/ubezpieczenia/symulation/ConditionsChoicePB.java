@@ -43,13 +43,27 @@ public class ConditionsChoicePB implements Serializable {
 
     @PostConstruct
     public void init() {
-        insurance = new ListDataModel<>(sc.getInsuranceConditionsList());
-
+        
+        
+        
         //Pobranie przekazanych parametrów
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String param1 = (String) requestMap.get("id_customer");
         String param2 = (String) requestMap.get("id_insurance");
         System.out.println("PRZEKAZANY PARAMETR : " + param1 + " : " + param2);
+        
+        if(param2.equals("1")){ // Ubezpieczenie nr 1
+            insurance = new ListDataModel<>(sc.getInsuranceConditionsListFirst());
+        }
+        if(param2.equals("2")){
+            insurance = new ListDataModel<>(sc.getInsuranceConditionsListRange());
+        }
+        if(param2.equals("3")){
+            insurance = new ListDataModel<>(sc.getInsuranceConditionsListLast());
+        }
+        else {
+            System.out.println("TEST ZAKOŃCZONY NIEPOWODZENIEM");
+        }
         
         
         conditions = new ArrayList<>();

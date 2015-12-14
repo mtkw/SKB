@@ -26,4 +26,22 @@ public class InsuranceConditionsEndPoint implements InsuranceConditionsEndPointL
        List<InsuranceConditionsDTO> dtos = conditionsFacade.findAllDTO();
        return dtos;
    }
+
+    @Override
+    public List<InsuranceConditionsDTO> getConditionsListFirstInsurance() {
+        List<InsuranceConditionsDTO> dtos = conditionsFacade.findFirstDTO();
+        return dtos;
+    }
+
+    @Override
+    public List<InsuranceConditionsDTO> getConditionsListRange() {
+        List<InsuranceConditionsDTO> dtos = conditionsFacade.findRangeDTO();
+        return dtos;
+    }
+
+    @Override
+    public List<InsuranceConditionsDTO> getConditionsListLast() {
+        List<InsuranceConditionsDTO> dtos = conditionsFacade.findLastDTO();
+        return dtos;
+    }
 }

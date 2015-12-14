@@ -21,18 +21,18 @@ import ubezpieczenia.insuranceConditions.InsuranceConditionsEndPointLocal;
  * @author Mateusz
  */
 @SessionScoped
-public class SymulationControler implements Serializable{
-    
+public class SymulationControler implements Serializable {
+
     @EJB
     private CustomerEndPointLocal customerEndPoint;
-    
+
     @EJB
     private InsuranceEndPointLocal insuranceEndPoint;
-    
+
     @EJB
     private InsuranceConditionsEndPointLocal conditionsEndPoint;
-    
-        public List<CustomerDTO> getCustomerList() {
+
+    public List<CustomerDTO> getCustomerList() {
         if (customerEndPoint != null) {
             return customerEndPoint.getCustomerList();
         } else {
@@ -40,23 +40,41 @@ public class SymulationControler implements Serializable{
             throw new NullPointerException(" customerEndPoint not initilized");
         }
     }
-        
-        public List<InsuranceDTO> getInsuranceList() {
-            if(insuranceEndPoint != null){
-                return insuranceEndPoint.getInsuranceList();
-            } else {
-                System.out.println("insuranceEndPoint = null");
-                throw new NullPointerException("insuranceEndPoint not initialized");
-            }
-        }
 
-    public List<InsuranceConditionsDTO> getInsuranceConditionsList() {
-        if(conditionsEndPoint != null){
-            return conditionsEndPoint.getConditionsList();
+    public List<InsuranceDTO> getInsuranceList() {
+        if (insuranceEndPoint != null) {
+            return insuranceEndPoint.getInsuranceList();
+        } else {
+            System.out.println("insuranceEndPoint = null");
+            throw new NullPointerException("insuranceEndPoint not initialized");
+        }
+    }
+
+    public List<InsuranceConditionsDTO> getInsuranceConditionsListFirst() {
+        if (conditionsEndPoint != null) {
+            return conditionsEndPoint.getConditionsListFirstInsurance();
         } else {
             System.out.println("ConditionsEndPoint = null");
             throw new NullPointerException("InsuranceEndPoitn not initialized");
         }
     }
-    
+
+    public List<InsuranceConditionsDTO> getInsuranceConditionsListRange() {
+        if (conditionsEndPoint != null) {
+            return conditionsEndPoint.getConditionsListRange();
+        } else {
+            System.out.println("ConditionsEndPoint = null");
+            throw new NullPointerException("InsuranceEndPoitn not initialized");
+        }
+    }
+
+    public List<InsuranceConditionsDTO> getInsuranceConditionsListLast() {
+        if (conditionsEndPoint != null) {
+            return conditionsEndPoint.getConditionsListLast();
+        } else {
+            System.out.println("ConditionsEndPoint = null");
+            throw new NullPointerException("InsuranceEndPoitn not initialized");
+        }
+    }
+
 }
