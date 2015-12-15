@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
@@ -40,12 +39,8 @@ public class ConditionsChoicePB implements Serializable {
     public List<String> getConditions() {
         return conditions;
     }
-
-    @PostConstruct
-    public void init() {
-        
-        
-        
+    
+    public String prepareConditionsactionListener(){
         //Pobranie przekazanych parametrów
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String param1 = (String) requestMap.get("id_customer");
@@ -71,8 +66,14 @@ public class ConditionsChoicePB implements Serializable {
         for (InsuranceConditionsDTO row : insurance) {
             conditions.add(row.getQuestion());
         }
-
+        return "conditions";
     }
+    
+    public String showConditions(){
+        sc.getInsuranceConditionsList();
+        return "conditions";
+    }
+
 
     public String[] getSelectedConditions() {
         return selectedConditions;

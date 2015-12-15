@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -11,9 +12,30 @@
 
             <ui:define name="content">
                 <h:form>
-                    Wybierz Interesujące Cię ubezpieczenie:
-                    <p:commandButton id="dynaButton" value="Ubezpieczenia" type="button" icon="ui-icon-extlink"/>
-                    <p:menu model="#{insuranceChoicePB.model}" overlay="true" trigger="dynaButton" my="left top" at="left bottom" />
+                    Wybierz Jedno Interesujące Cię ubezpieczenie:
+<!--                    <p:commandButton id="dynaButton" value="Ubezpieczenia" type="button" icon="ui-icon-extlink"/>
+                    <p:menu model="#{insuranceChoicePB.model}" overlay="true" trigger="dynaButton" my="left top" at="left bottom" />-->
+                    <p:separator/>
+                    <p:dataTable value="#{insuranceChoicePB.insurance}" var="insurance">
+                        <p:column headerText="Id">
+                            <h:outputText value="#{insurance.id}" />
+                        </p:column>
+
+                        <p:column headerText="Nazwa Ubezpieczenia">
+                            <h:outputText value="#{insurance.name}" />
+                        </p:column>
+
+                        <p:column headerText="Opis">
+                            <h:outputText value="#{insurance.description}" />
+                        </p:column>
+
+                        <p:column headerText="Wybór">
+                            <h:commandButton value="Wybieram" actionListener="#{conditionsChoicePB.showConditions}" action="#{conditionsChoicePB.prepareConditionsactionListener}">
+                                <f:param name="id_insurance" value="#{insurance.id}"/>
+                                <f:param name="id_customer" value="#{insuranceChoicePB.customerParam}"/>
+                            </h:commandButton>
+                        </p:column>
+                    </p:dataTable>
                 </h:form>
             </ui:define>
 

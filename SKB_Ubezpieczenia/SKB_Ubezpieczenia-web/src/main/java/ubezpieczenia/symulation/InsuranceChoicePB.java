@@ -35,6 +35,14 @@ public class InsuranceChoicePB implements Serializable {
 
     private MenuModel model;
 
+    private String customerParam;
+
+    public String getCustomerParam() {
+        Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        customerParam = (String) requestMap.get("id_customer");
+        return customerParam;
+    }
+
     public DataModel<InsuranceDTO> getInsurance() {
         return insurance;
     }
@@ -48,7 +56,7 @@ public class InsuranceChoicePB implements Serializable {
         insurance = new ListDataModel<>(sc.getInsuranceList());
 
         model = new DefaultMenuModel();
-        
+
         //Pobranie przekazanego parametru 
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String param = (String) requestMap.get("id_customer");
@@ -58,7 +66,7 @@ public class InsuranceChoicePB implements Serializable {
         for (InsuranceDTO row : insurance) {
             String insurance = row.getName();
             DefaultMenuItem item = new DefaultMenuItem(insurance);
-            item.setOutcome("/wybórWarunków.xhtml");
+//            item.setOutcome("/wybórWarunków.xhtml");
             item.setParam("id_insurance", row.getId());
             item.setParam("id_customer", param);
             item.setIcon("ui-icon-star");

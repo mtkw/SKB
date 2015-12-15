@@ -39,9 +39,9 @@ public class TransactionsPB implements Serializable {
         return "transactiomsDetails";
     }
 
-    @PostConstruct
-    private void init() {
-        transactions = new ListDataModel<>(tc.getTransactionsDetails());
-    }
+//    @PostConstruct
+//    private void init() {
+//        transactions = new ListDataModel<>(tc.getTransactionsDetails());
+//    }
 
 }
