@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,7 +29,13 @@ import javax.persistence.Table;
     @NamedQuery(name = "Transaction.findByCustomerId", query = "SELECT t FROM Transaction t WHERE t.transactionPK.customerId = :customerId"),
     @NamedQuery(name = "Transaction.findByInsuranceId", query = "SELECT t FROM Transaction t WHERE t.transactionPK.insuranceId = :insuranceId"),
     @NamedQuery(name = "Transaction.findByConditionId", query = "SELECT t FROM Transaction t WHERE t.transactionPK.conditionId = :conditionId")})
+
+@NamedNativeQueries({
+    @NamedNativeQuery(name = "Transaction.NativefindByCustomerId", query = "SELECT t.transactionPK.idTransaction, c.name, c.surname, i.nameInsurance FROM Transaction t join Customer c on t.transactionPK.customerId = c.idCustomer join Insurance i on t.transactionPK.insuranceId = i.idInsurance WHERE t.transactionPK.customerId = :customerId", resultClass = Transaction.class),
+})
+
 public class Transaction implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TransactionPK transactionPK;
@@ -108,5 +116,5 @@ public class Transaction implements Serializable {
     public String toString() {
         return "ubezpieczenia.entity.Transaction[ transactionPK=" + transactionPK + " ]";
     }
-    
+
 }
