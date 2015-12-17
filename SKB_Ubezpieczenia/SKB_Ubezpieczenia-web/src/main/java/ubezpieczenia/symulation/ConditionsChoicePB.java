@@ -29,45 +29,17 @@ public class ConditionsChoicePB implements Serializable {
     SymulationControler sc;
 
     private DataModel<InsuranceConditionsDTO> insurance;
-    private List<String> conditions;
+    private List<InsuranceConditionsDTO> conditions;
     private String[] selectedConditions;
 
     public DataModel<InsuranceConditionsDTO> getInsurance() {
         return insurance;
     }
 
-    public List<String> getConditions() {
+    public List<InsuranceConditionsDTO> getConditions() {
         return conditions;
     }
 
-//    public String prepareConditionsactionListener(){
-//        //Pobranie przekazanych parametrów
-//        Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-//        String param1 = (String) requestMap.get("id_customer");
-//        String param2 = (String) requestMap.get("id_insurance");
-//        System.out.println("PRZEKAZANY PARAMETR : " + param1 + " : " + param2);
-//        
-//        if(param2.equals("1")){ // Ubezpieczenie nr 1
-//            insurance = new ListDataModel<>(sc.getInsuranceConditionsListFirst());
-//        }
-//        if(param2.equals("2")){
-//            insurance = new ListDataModel<>(sc.getInsuranceConditionsListRange());
-//        }
-//        if(param2.equals("3")){
-//            insurance = new ListDataModel<>(sc.getInsuranceConditionsListLast());
-//        }
-//        else {
-//            System.out.println("TEST ZAKOŃCZONY NIEPOWODZENIEM");
-//        }
-//        
-//        
-//        conditions = new ArrayList<>();
-//
-//        for (InsuranceConditionsDTO row : insurance) {
-//            conditions.add(row.getQuestion());
-//        }
-//        return "conditions";
-//    }
     public String prepareConditionsactionListener() {
         //Pobranie przekazanych parametrów
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
@@ -81,9 +53,24 @@ public class ConditionsChoicePB implements Serializable {
         conditions = new ArrayList<>();
 
         for (InsuranceConditionsDTO row : insurance) {
-            conditions.add(row.getQuestion());
+            conditions.add(row);
         }
         return "conditions";
+    }
+    
+    public String prepareToPastAllParams(){
+        Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String param1 = (String) requestMap.get("id_customer");
+        String param2 = (String) requestMap.get("id_insurance");
+        String param3 = (String) requestMap.get("id_condition");
+        
+        System.out.println("KOŃCOWY TEST PARAMETRÓW: " + param1 + " " + param2 + " " + param3 + " " );
+        
+        return "summary";
+    }
+    
+    public String past(){
+        return "summary";
     }
 
     public String showConditions() {

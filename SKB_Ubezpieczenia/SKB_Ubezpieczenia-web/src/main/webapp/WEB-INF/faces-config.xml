@@ -32,4 +32,11 @@
             <to-view-id>/wybórWarunków.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/wybórWarunków.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>summary</from-outcome>
+            <to-view-id>/podsumowanie.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

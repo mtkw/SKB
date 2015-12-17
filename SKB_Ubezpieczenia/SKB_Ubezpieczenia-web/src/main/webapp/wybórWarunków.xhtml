@@ -13,7 +13,9 @@
             <ui:define name="content">
                 <h:form>
                     <p:selectManyCheckbox id="grid" value="#{conditionsChoicePB.selectedConditions}" layout="grid" columns="3">
-                        <f:selectItems value="#{conditionsChoicePB.conditions}" var="conditions" itemLabel="#{conditions}" itemValue="#{conditions}" />
+                        <f:selectItems value="#{conditionsChoicePB.conditions}" var="conditions" itemLabel="#{conditions.question}" itemValue="#{conditions.question}" >
+                            <f:param name="id_condition" value="#{conditions.id_conditions}"/>
+                        </f:selectItems>
                     </p:selectManyCheckbox>
                     
                     <p:separator />
@@ -29,7 +31,7 @@
                                 #{conditions}
                             </p:dataList>
                             <p:separator />
-                            <h:commandButton value="Zatwierdź" />
+                            <h:commandButton value="Zatwierdź" actionListener="#{conditionsChoicePB.past}" action="#{conditionsChoicePB.prepareToPastAllParams}"/>
                         </p:outputPanel>
                     </p:dialog>
                 </h:form>
