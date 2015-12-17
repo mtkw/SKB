@@ -39,28 +39,45 @@ public class ConditionsChoicePB implements Serializable {
     public List<String> getConditions() {
         return conditions;
     }
-    
-    public String prepareConditionsactionListener(){
+
+//    public String prepareConditionsactionListener(){
+//        //Pobranie przekazanych parametrów
+//        Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+//        String param1 = (String) requestMap.get("id_customer");
+//        String param2 = (String) requestMap.get("id_insurance");
+//        System.out.println("PRZEKAZANY PARAMETR : " + param1 + " : " + param2);
+//        
+//        if(param2.equals("1")){ // Ubezpieczenie nr 1
+//            insurance = new ListDataModel<>(sc.getInsuranceConditionsListFirst());
+//        }
+//        if(param2.equals("2")){
+//            insurance = new ListDataModel<>(sc.getInsuranceConditionsListRange());
+//        }
+//        if(param2.equals("3")){
+//            insurance = new ListDataModel<>(sc.getInsuranceConditionsListLast());
+//        }
+//        else {
+//            System.out.println("TEST ZAKOŃCZONY NIEPOWODZENIEM");
+//        }
+//        
+//        
+//        conditions = new ArrayList<>();
+//
+//        for (InsuranceConditionsDTO row : insurance) {
+//            conditions.add(row.getQuestion());
+//        }
+//        return "conditions";
+//    }
+    public String prepareConditionsactionListener() {
         //Pobranie przekazanych parametrów
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String param1 = (String) requestMap.get("id_customer");
         String param2 = (String) requestMap.get("id_insurance");
-        System.out.println("PRZEKAZANY PARAMETR : " + param1 + " : " + param2);
-        
-        if(param2.equals("1")){ // Ubezpieczenie nr 1
-            insurance = new ListDataModel<>(sc.getInsuranceConditionsListFirst());
-        }
-        if(param2.equals("2")){
-            insurance = new ListDataModel<>(sc.getInsuranceConditionsListRange());
-        }
-        if(param2.equals("3")){
-            insurance = new ListDataModel<>(sc.getInsuranceConditionsListLast());
-        }
-        else {
-            System.out.println("TEST ZAKOŃCZONY NIEPOWODZENIEM");
-        }
-        
-        
+        Integer intparam = Integer.parseInt(param2);
+        System.out.println("PRZEKAZANY PARAMETR : " + param1 + " : " + intparam);
+
+        insurance = new ListDataModel<>(sc.getInsuranceConditionsList(intparam));
+
         conditions = new ArrayList<>();
 
         for (InsuranceConditionsDTO row : insurance) {
@@ -68,12 +85,11 @@ public class ConditionsChoicePB implements Serializable {
         }
         return "conditions";
     }
-    
-    public String showConditions(){
-        sc.getInsuranceConditionsList();
+
+    public String showConditions() {
+        sc.getInsurancePreparedConditionsList();
         return "conditions";
     }
-
 
     public String[] getSelectedConditions() {
         return selectedConditions;

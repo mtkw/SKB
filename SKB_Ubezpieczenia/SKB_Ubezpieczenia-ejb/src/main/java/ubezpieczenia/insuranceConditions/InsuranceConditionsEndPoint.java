@@ -20,28 +20,16 @@ public class InsuranceConditionsEndPoint implements InsuranceConditionsEndPointL
 
     @EJB(beanName = "InsuranceConditionsFacade")
     private InsuranceConditionsFacade conditionsFacade;
-    
-   @Override
-   public List<InsuranceConditionsDTO> getConditionsList(){
-       List<InsuranceConditionsDTO> dtos = conditionsFacade.findAllDTO();
-       return dtos;
-   }
 
     @Override
-    public List<InsuranceConditionsDTO> getConditionsListFirstInsurance() {
-        List<InsuranceConditionsDTO> dtos = conditionsFacade.findFirstDTO();
+    public List<InsuranceConditionsDTO> getConditionsList(Integer param) {
+        List<InsuranceConditionsDTO> dtos = conditionsFacade.findDTO(param);
         return dtos;
     }
 
     @Override
-    public List<InsuranceConditionsDTO> getConditionsListRange() {
-        List<InsuranceConditionsDTO> dtos = conditionsFacade.findRangeDTO();
-        return dtos;
-    }
-
-    @Override
-    public List<InsuranceConditionsDTO> getConditionsListLast() {
-        List<InsuranceConditionsDTO> dtos = conditionsFacade.findLastDTO();
+    public List<InsuranceConditionsDTO> getPreparedConditionsList() {
+        List<InsuranceConditionsDTO> dtos = conditionsFacade.findAllDTO();
         return dtos;
     }
 }

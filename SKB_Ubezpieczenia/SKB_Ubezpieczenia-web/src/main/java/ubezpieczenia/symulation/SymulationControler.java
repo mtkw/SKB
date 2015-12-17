@@ -53,36 +53,18 @@ public class SymulationControler implements Serializable {
         }
     }
 
-    public List<InsuranceConditionsDTO> getInsuranceConditionsListFirst() {
+    public List<InsuranceConditionsDTO> getInsuranceConditionsList(Integer param) {
         if (conditionsEndPoint != null) {
-            return conditionsEndPoint.getConditionsListFirstInsurance();
+            return conditionsEndPoint.getConditionsList(param);
         } else {
             System.out.println("ConditionsEndPoint = null");
             throw new NullPointerException("InsuranceEndPoitn not initialized");
         }
     }
 
-    public List<InsuranceConditionsDTO> getInsuranceConditionsListRange() {
+    public List<InsuranceConditionsDTO> getInsurancePreparedConditionsList() {
         if (conditionsEndPoint != null) {
-            return conditionsEndPoint.getConditionsListRange();
-        } else {
-            System.out.println("ConditionsEndPoint = null");
-            throw new NullPointerException("InsuranceEndPoitn not initialized");
-        }
-    }
-
-    public List<InsuranceConditionsDTO> getInsuranceConditionsListLast() {
-        if (conditionsEndPoint != null) {
-            return conditionsEndPoint.getConditionsListLast();
-        } else {
-            System.out.println("ConditionsEndPoint = null");
-            throw new NullPointerException("InsuranceEndPoitn not initialized");
-        }
-    }
-
-    public List<InsuranceConditionsDTO> getInsuranceConditionsList() {
-        if (conditionsEndPoint != null) {
-            return conditionsEndPoint.getConditionsList();
+            return conditionsEndPoint.getPreparedConditionsList();
         } else {
             System.out.println("ConditionsEndPoint = null");
             throw new NullPointerException("InsuranceEndPoitn not initialized");

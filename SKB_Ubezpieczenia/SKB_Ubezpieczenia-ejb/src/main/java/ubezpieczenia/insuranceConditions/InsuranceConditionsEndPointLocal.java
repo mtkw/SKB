@@ -15,10 +15,9 @@ import ubezpieczenia.dto.InsuranceConditionsDTO;
  */
 @Local
 public interface InsuranceConditionsEndPointLocal {
-    
-    public List<InsuranceConditionsDTO> getConditionsList();
-    public List<InsuranceConditionsDTO> getConditionsListFirstInsurance();
-    public List<InsuranceConditionsDTO> getConditionsListRange();
-    public List<InsuranceConditionsDTO> getConditionsListLast();
-    
+
+    public List<InsuranceConditionsDTO> getConditionsList(Integer param);
+
+    public List<InsuranceConditionsDTO> getPreparedConditionsList();
+
 }

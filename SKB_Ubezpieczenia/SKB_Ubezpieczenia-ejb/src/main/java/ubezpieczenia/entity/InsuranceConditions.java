@@ -33,11 +33,6 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "InsuranceConditions.findAll", query = "SELECT i FROM InsuranceConditions i"),
     @NamedQuery(name = "InsuranceConditions.findByIdCondition", query = "SELECT i FROM InsuranceConditions i WHERE i.idCondition = :idCondition"),
-//    //MOJE ZAPYTANIA TESTOWE
-//    @NamedQuery(name = "InsuranceConditions.findByIdConditionLess", query = "SELECT i FROM InsuranceConditions i WHERE i.idCondition < :idCondition"),
-//     @NamedQuery(name = "InsuranceConditions.findByIdConditionMore", query = "SELECT i FROM InsuranceConditions i WHERE i.idCondition > :idCondition"),
-//      @NamedQuery(name = "InsuranceConditions.findByIdConditionBetween", query = "SELECT i FROM InsuranceConditions i WHERE i.idCondition < :param1 AND i.idCondition > :param2"),
-//    ///////////
       @NamedQuery(name = "InsuranceConditions.findByConditionDescription", query = "SELECT i FROM InsuranceConditions i WHERE i.conditionDescription = :conditionDescription"),
     @NamedQuery(name = "InsuranceConditions.findByQuestion", query = "SELECT i FROM InsuranceConditions i WHERE i.question = :question"),
     @NamedQuery(name = "InsuranceConditions.findByValue", query = "SELECT i FROM InsuranceConditions i WHERE i.value = :value")})

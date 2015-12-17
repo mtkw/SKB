@@ -54,49 +54,9 @@ public class InsuranceConditionsFacade extends AbstractFacade<InsuranceCondition
         return dtos;
     }
 
-    public List<InsuranceConditionsDTO> findFirstDTO() {
+    public List<InsuranceConditionsDTO> findDTO(Integer param) {
         Query q = getEntityManager().createNamedQuery("FindConditions");
-        q.setParameter(1, 1);
-        List<InsuranceConditions> entity = q.getResultList();
-        List<InsuranceConditionsDTO> dtos = new ArrayList<>();
-
-        for (InsuranceConditions row : entity) {
-            InsuranceConditionsDTO dto = new InsuranceConditionsDTO();
-            dto.setInsurance_id(row.getInsurance().getIdInsurance());
-            dto.setId_conditions(row.getIdCondition());
-            dto.setQuestion(row.getQuestion());
-            dto.setDescriptions(row.getConditionDescription());
-            dto.setValue(row.getValue());
-            dtos.add(dto);
-        }
-        System.out.println("ConditionsFacade lista waruknów jako encje: " + entity.size());
-        System.out.println("ConditionsFacade lista waruknów jako dto: " + dtos.size());
-        return dtos;
-    }
-
-    public List<InsuranceConditionsDTO> findRangeDTO() {
-        Query q = getEntityManager().createNamedQuery("FindConditions");
-        q.setParameter(1, 2);
-        List<InsuranceConditions> entity = q.getResultList();
-        List<InsuranceConditionsDTO> dtos = new ArrayList<>();
-
-        for (InsuranceConditions row : entity) {
-            InsuranceConditionsDTO dto = new InsuranceConditionsDTO();
-            dto.setInsurance_id(row.getInsurance().getIdInsurance());
-            dto.setId_conditions(row.getIdCondition());
-            dto.setQuestion(row.getQuestion());
-            dto.setDescriptions(row.getConditionDescription());
-            dto.setValue(row.getValue());
-            dtos.add(dto);
-        }
-        System.out.println("ConditionsFacade lista waruknów jako encje: " + entity.size());
-        System.out.println("ConditionsFacade lista waruknów jako dto: " + dtos.size());
-        return dtos;
-    }
-
-    public List<InsuranceConditionsDTO> findLastDTO() {
-        Query q = getEntityManager().createNamedQuery("FindConditions");
-        q.setParameter(1,3);
+        q.setParameter(1, param);
         List<InsuranceConditions> entity = q.getResultList();
         List<InsuranceConditionsDTO> dtos = new ArrayList<>();
 
