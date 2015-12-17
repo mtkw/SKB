@@ -32,11 +32,11 @@ import javax.persistence.Table;
 
 @NamedNativeQueries({
     @NamedNativeQuery(name = "Transaction.NativefindByCustomerId", query = "SELECT t.id_transaction, c.name, c.surname, i.name_insurance FROM Transaction t join Customer c on t.customer_Id = c.id_Customer join Insurance i on t.insurance_Id = i.id_Insurance WHERE t.customer_Id = ?1", resultClass = Transaction.class),
-    @NamedNativeQuery(name = "Transaction.NativfindByCustomerAndGroupBy", query = "SELECT t.id_transaction, i.name_insurance, sum(ic.value) FROM Transaction t"
-            + " join Insurance i on t.insurance_id = i.id_insurance"
-            + " join Insurance_conditions ic on t.condition_id = ic.id_condition "
+    @NamedNativeQuery(name = "Transaction.NativfindByCustomerAndGroupBy", query = "SELECT t.id_transaction, i.name_insurance, t.condition_id, SUM(ic.value) FROM transaction t"
+            + " join insurance i on t.insurance_id = i.id_insurance"
+            + " join insurance_conditions ic on t.condition_id = ic.id_condition "
             + "WHERE t.customer_id = ?1 "
-            + "GROUP BY t.id_transaction, t.customer_id, i.name_insurance", resultClass = TransactionPosition.class)
+            + "GROUP BY t.id_transaction, t.customer_id, i.name_insurance, t.condition_id, ic.value", resultClass = TransactionPosition.class)
 
 })
 

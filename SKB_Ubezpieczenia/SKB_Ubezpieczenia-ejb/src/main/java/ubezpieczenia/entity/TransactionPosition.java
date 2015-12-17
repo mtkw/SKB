@@ -28,6 +28,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "TransactionPosition.findByNameInsurance", query = "SELECT t FROM TransactionPosition t WHERE t.nameInsurance = :nameInsurance"),
     @NamedQuery(name = "TransactionPosition.findByValue", query = "SELECT t FROM TransactionPosition t WHERE t.value = :value")})
 public class TransactionPosition implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -37,6 +38,8 @@ public class TransactionPosition implements Serializable {
     @Size(max = 1024)
     @Column(name = "name_insurance", length = 1024)
     private String nameInsurance;
+    @Column(name = "condition_id", nullable = false)
+    private int conditionId;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "value", precision = 17, scale = 17)
     private Double value;
@@ -62,6 +65,14 @@ public class TransactionPosition implements Serializable {
 
     public void setNameInsurance(String nameInsurance) {
         this.nameInsurance = nameInsurance;
+    }
+
+    public int getConditionId() {
+        return conditionId;
+    }
+
+    public void setConditionId(int conditionId) {
+        this.conditionId = conditionId;
     }
 
     public Double getValue() {
@@ -96,5 +107,5 @@ public class TransactionPosition implements Serializable {
     public String toString() {
         return "ubezpieczenia.account.TransactionPosition[ idTransaction=" + idTransaction + " ]";
     }
-    
+
 }

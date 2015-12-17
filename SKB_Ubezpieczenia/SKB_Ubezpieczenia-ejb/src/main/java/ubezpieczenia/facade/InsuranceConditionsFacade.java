@@ -55,8 +55,8 @@ public class InsuranceConditionsFacade extends AbstractFacade<InsuranceCondition
     }
 
     public List<InsuranceConditionsDTO> findFirstDTO() {
-        Query q = getEntityManager().createNamedQuery("InsuranceConditions.findByIdConditionLess");
-        q.setParameter("idCondition", 20);
+        Query q = getEntityManager().createNamedQuery("FindConditions");
+        q.setParameter(1, 1);
         List<InsuranceConditions> entity = q.getResultList();
         List<InsuranceConditionsDTO> dtos = new ArrayList<>();
 
@@ -75,9 +75,8 @@ public class InsuranceConditionsFacade extends AbstractFacade<InsuranceCondition
     }
 
     public List<InsuranceConditionsDTO> findRangeDTO() {
-        Query q = getEntityManager().createNamedQuery("InsuranceConditions.findByIdConditionBetween");
-        q.setParameter("param1", 30);
-        q.setParameter("param2", 20);
+        Query q = getEntityManager().createNamedQuery("FindConditions");
+        q.setParameter(1, 2);
         List<InsuranceConditions> entity = q.getResultList();
         List<InsuranceConditionsDTO> dtos = new ArrayList<>();
 
@@ -96,8 +95,8 @@ public class InsuranceConditionsFacade extends AbstractFacade<InsuranceCondition
     }
 
     public List<InsuranceConditionsDTO> findLastDTO() {
-        Query q = getEntityManager().createNamedQuery("InsuranceConditions.findByIdConditionMore");
-        q.setParameter("idCondition", 30);
+        Query q = getEntityManager().createNamedQuery("FindConditions");
+        q.setParameter(1,3);
         List<InsuranceConditions> entity = q.getResultList();
         List<InsuranceConditionsDTO> dtos = new ArrayList<>();
 
