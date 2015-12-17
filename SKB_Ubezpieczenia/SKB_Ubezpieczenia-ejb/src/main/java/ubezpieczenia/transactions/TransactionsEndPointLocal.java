@@ -7,6 +7,7 @@ package ubezpieczenia.transactions;
 
 import java.util.List;
 import javax.ejb.Local;
+import ubezpieczenia.dto.TransactionDTO2;
 import ubezpieczenia.dto.TransactionsDTO;
 
 /**
@@ -16,5 +17,5 @@ import ubezpieczenia.dto.TransactionsDTO;
 @Local
 public interface TransactionsEndPointLocal {
 
-    public List<TransactionsDTO> getTransactionsDetail(Integer id_account);    
+    public List<TransactionDTO2> getTransactionsDetail(Integer id_account);    
 }

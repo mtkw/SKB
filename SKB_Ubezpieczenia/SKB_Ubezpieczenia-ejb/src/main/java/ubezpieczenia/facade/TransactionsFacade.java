@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import ubezpieczenia.entity.Transaction;
+import ubezpieczenia.entity.TransactionPosition;
 
 /**
  *
@@ -35,11 +36,19 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
         return em;
     }
 
-    public List<Transaction> findByCustomerID(Integer id_account) {
+    public List<TransactionPosition> findByCustomerID(Integer id_account) {
 //        Query q = getEntityManager().createNamedQuery("Transaction.findByCustomerId", Transaction.class);
-        Query q = getEntityManager().createNativeQuery("Transaction.Native1findByCustomerId", Transaction.class);
-        q.setParameter("customerId", id_account);
-        List<Transaction> listT = q.getResultList();
+                Query q = getEntityManager().createNamedQuery("Transaction.NativfindByCustomerAndGroupBy", Transaction.class);
+        //Query q = getEntityManager().createNativeQuery("SELECT t.id_transaction, c.name, c.surname, i.name_insurance FROM Transaction t join Customer c on t.customer_Id = c.id_Customer join Insurance i on t.insurance_Id = i.id_Insurance WHERE t.customer_Id = :customerId", Transaction.class);
+        q.setParameter(1, id_account);
+//        List<Object> listO = q.getResultList();
+//        List<Transaction> listT = new ArrayList();
+//        System.out.println("CZY COŚ SIE ZROBIŁO?? : " + listO.size());
+        List<TransactionPosition> listT = q.getResultList();
+        System.out.println("WIelkość Listy po zapytaniu w Transaction FACADE: " + listT.size());
+        for(TransactionPosition row: listT){
+            System.out.println("Test Wartości : " + row.getValue());
+        }
         return listT;
     }
     
