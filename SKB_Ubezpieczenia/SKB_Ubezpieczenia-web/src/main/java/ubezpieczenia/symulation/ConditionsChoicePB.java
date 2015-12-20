@@ -31,6 +31,8 @@ public class ConditionsChoicePB implements Serializable {
     private DataModel<InsuranceConditionsDTO> insurance;
     private List<InsuranceConditionsDTO> conditions;
     private String[] selectedConditions;
+    private String p1;
+    private String p2;
 
     public DataModel<InsuranceConditionsDTO> getInsurance() {
         return insurance;
@@ -43,10 +45,12 @@ public class ConditionsChoicePB implements Serializable {
     public String prepareConditionsactionListener() {
         //Pobranie przekazanych parametrów
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String param1 = (String) requestMap.get("id_customer");
-        String param2 = (String) requestMap.get("id_insurance");
-        Integer intparam = Integer.parseInt(param2);
-        System.out.println("PRZEKAZANY PARAMETR : " + param1 + " : " + intparam);
+//        String param1 = (String) requestMap.get("id_customer");
+//        String param2 = (String) requestMap.get("id_insurance");
+        setP1((String) requestMap.get("id_customer"));
+        setP2((String) requestMap.get("id_insurance"));
+        Integer intparam = Integer.parseInt(getP2());
+        System.out.println("PRZEKAZANY PARAMETR : " + p1 + " : " + intparam);
 
         insurance = new ListDataModel<>(sc.getInsuranceConditionsList(intparam));
 
@@ -57,19 +61,22 @@ public class ConditionsChoicePB implements Serializable {
         }
         return "conditions";
     }
-    
-    public String prepareToPastAllParams(){
+
+    public String prepareToPastAllParams() {
+
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String param1 = (String) requestMap.get("id_customer");
-        String param2 = (String) requestMap.get("id_insurance");
-        String param3 = (String) requestMap.get("id_condition");
+        String param1 = (String) requestMap.get("id_condition");
         
-        System.out.println("KOŃCOWY TEST PARAMETRÓW: " + param1 + " " + param2 + " " + param3 + " " );
-        
+
+        System.out.println("KOŃCOWY TEST PARAMETRÓW: " + param1 + " " + p1 + " " + p2  + " ");
+
         return "summary";
     }
-    
-    public String past(){
+
+    public String past() {
+        Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String param1 = (String) requestMap.get("id_condition");
+        System.out.println("TEST ACTION: " + param1);
         return "summary";
     }
 
@@ -84,6 +91,22 @@ public class ConditionsChoicePB implements Serializable {
 
     public void setSelectedConditions(String[] selectedConditions) {
         this.selectedConditions = selectedConditions;
+    }
+
+    public String getP1() {
+        return p1;
+    }
+
+    public void setP1(String p1) {
+        this.p1 = p1;
+    }
+
+    public String getP2() {
+        return p2;
+    }
+
+    public void setP2(String p2) {
+        this.p2 = p2;
     }
 
 }
