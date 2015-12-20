@@ -13,6 +13,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import ubezpieczenia.dto.InsuranceConditionsDTO;
@@ -30,12 +31,17 @@ public class ConditionsChoicePB implements Serializable {
 
     private DataModel<InsuranceConditionsDTO> insurance;
     private List<InsuranceConditionsDTO> conditions;
+    private List<SelectItem> conditionsItem;
     private String[] selectedConditions;
     private String p1;
     private String p2;
 
     public DataModel<InsuranceConditionsDTO> getInsurance() {
         return insurance;
+    }
+
+    public void setConditions(List<InsuranceConditionsDTO> conditions) {
+        this.conditions = conditions;
     }
 
     public List<InsuranceConditionsDTO> getConditions() {
@@ -53,11 +59,15 @@ public class ConditionsChoicePB implements Serializable {
         System.out.println("PRZEKAZANY PARAMETR : " + p1 + " : " + intparam);
 
         insurance = new ListDataModel<>(sc.getInsuranceConditionsList(intparam));
+        conditionsItem = new ArrayList<SelectItem>(insurance.getRowCount());
+        
+        
+        //ingredientList = iBean.getAllIngredients();
+        //selectList = new ArrayList<SelectItem>(ingredientList.size());
 
-        conditions = new ArrayList<>();
-
+        // conditions = new ArrayList<>();
         for (InsuranceConditionsDTO row : insurance) {
-            conditions.add(row);
+            conditionsItem.add(new SelectItem(row));
         }
         return "conditions";
     }
@@ -66,9 +76,8 @@ public class ConditionsChoicePB implements Serializable {
 
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String param1 = (String) requestMap.get("id_condition");
-        
 
-        System.out.println("KOŃCOWY TEST PARAMETRÓW: " + param1 + " " + p1 + " " + p2  + " ");
+        System.out.println("KOŃCOWY TEST PARAMETRÓW: " + param1 + " " + p1 + " " + p2 + " ");
 
         return "summary";
     }
@@ -91,6 +100,14 @@ public class ConditionsChoicePB implements Serializable {
 
     public void setSelectedConditions(String[] selectedConditions) {
         this.selectedConditions = selectedConditions;
+    }
+
+    public List<SelectItem> getConditionsItem() {
+        return conditionsItem;
+    }
+
+    public void setConditionsItem(List<SelectItem> conditionsItem) {
+        this.conditionsItem = conditionsItem;
     }
 
     public String getP1() {
