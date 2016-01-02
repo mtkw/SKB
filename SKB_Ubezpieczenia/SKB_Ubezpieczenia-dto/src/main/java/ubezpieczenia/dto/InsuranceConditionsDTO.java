@@ -61,7 +61,7 @@ public class InsuranceConditionsDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "InsuranceConditionsDTO{" + "id_conditions=" + id_conditions + '}';
+        return Integer.toString(id_conditions);
     }
 
     @Override

@@ -12,32 +12,24 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:selectManyCheckbox id="grid" value="#{conditionsChoicePB.conditions}" layout="grid" columns="3">
-                        <f:converter converterId="conditionsConverter"/>
-                        <f:selectItems value="#{conditionsChoicePB.conditionsItem}" var="conditions" itemLabel="#{conditions.getDescriptions()}" itemValue="#{conditions.getDescriptions()}" >
-                            <!--<f:param name="id_condition" value="#{conditions.id_conditions}"/>-->
-                           <!-- TEST #{conditions.id_conditions} -->
+                    <p:selectManyCheckbox id="grid" value="#{conditionsChoicePB.selectedConditionsListDTO}" layout="grid" columns="3" converter="conditionsConverter">
+                        <f:selectItems value="#{conditionsChoicePB.checkBoxListDTO}" var="conditions" itemLabel="#{conditions.label}" itemValue="#{conditions.label}" >
                         </f:selectItems>
                     </p:selectManyCheckbox>
 
                     <p:separator />
 
-                    <!--<p:commandButton value="Zatwierdź" actionListener="#{conditionsChoicePB.past}" action="#{conditionsChoicePB.prepareToPastAllParams}"/>-->
-
                     <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
 
                     <p:dialog header="Values" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
                         <p:outputPanel id="display">
-                            <p:dataList value="#{conditionsChoicePB.conditions}" var="conditions">
+                            <p:dataList value="#{conditionsChoicePB.selectedConditionsListDTO}" var="conditions">
                                 <f:facet name="header">
                                     Wybrane Warunki
                                 </f:facet>
-                                #{conditions}
+                                #{conditions.value}
                             </p:dataList>
                             <p:separator />
-                            <h:commandButton value="Zatwierdź" actionListener="#{conditionsChoicePB.past}" action="#{conditionsChoicePB.prepareToPastAllParams}">
-                                <f:param name="id_condition" value="#{conditionsChoicePB.selectedConditions}"/>
-                            </h:commandButton>
                         </p:outputPanel>
                     </p:dialog>
                 </h:form>

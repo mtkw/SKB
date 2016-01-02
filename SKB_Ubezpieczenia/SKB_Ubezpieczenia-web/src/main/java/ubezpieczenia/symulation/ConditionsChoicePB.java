@@ -29,101 +29,78 @@ public class ConditionsChoicePB implements Serializable {
     @Inject
     SymulationControler sc;
 
-    private DataModel<InsuranceConditionsDTO> insurance;
-    private List<InsuranceConditionsDTO> conditions;
-    private List<SelectItem> conditionsItem;
-    private String[] selectedConditions;
-    private String p1;
-    private String p2;
+    private List<InsuranceConditionsDTO> conditionsListDTO;
+    private List<InsuranceConditionsDTO> selectedConditionsListDTO;
+    private List<SelectItem> checkBoxListDTO;
 
-    public DataModel<InsuranceConditionsDTO> getInsurance() {
-        return insurance;
+    public List<SelectItem> getCheckBoxListDTO() {
+        return checkBoxListDTO;
     }
 
-    public void setConditions(List<InsuranceConditionsDTO> conditions) {
-        this.conditions = conditions;
+    public void setCheckBoxListDTO(List<SelectItem> checkBoxListDTO) {
+        this.checkBoxListDTO = checkBoxListDTO;
     }
 
-    public List<InsuranceConditionsDTO> getConditions() {
-        return conditions;
+    public List<InsuranceConditionsDTO> getConditionsListDTO() {
+        return conditionsListDTO;
     }
 
+    public void setConditionsListDTO(List<InsuranceConditionsDTO> conditionsListDTO) {
+        this.conditionsListDTO = conditionsListDTO;
+    }
+
+    public List<InsuranceConditionsDTO> getSelectedConditionsListDTO() {
+        return selectedConditionsListDTO;
+    }
+
+    public void setSelectedConditionsListDTO(List<InsuranceConditionsDTO> selectedConditionsListDTO) {
+        this.selectedConditionsListDTO = selectedConditionsListDTO;
+    }
+
+//    private DataModel<InsuranceConditionsDTO> conditionsDTO;
+//    private List<SelectItem> checkBoxDto;
+//    private String[] selected;
+//
+//    public DataModel<InsuranceConditionsDTO> getConditionsDTO() {
+//        return conditionsDTO;
+//    }
+//
+//    public void setConditionsDTO(DataModel<InsuranceConditionsDTO> conditionsDTO) {
+//        this.conditionsDTO = conditionsDTO;
+//    }
+//
+//    public String[] getSelected() {
+//        return selected;
+//    }
+//
+//    public void setSelected(String[] selected) {
+//        this.selected = selected;
+//    }
+//
+//    public List<SelectItem> getCheckBoxDto() {
+//        return checkBoxDto;
+//    }
     public String prepareConditionsactionListener() {
-        //Pobranie przekazanych parametrów
+
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-//        String param1 = (String) requestMap.get("id_customer");
-//        String param2 = (String) requestMap.get("id_insurance");
-        setP1((String) requestMap.get("id_customer"));
-        setP2((String) requestMap.get("id_insurance"));
-        Integer intparam = Integer.parseInt(getP2());
-        System.out.println("PRZEKAZANY PARAMETR : " + p1 + " : " + intparam);
+        String param1 = (String) requestMap.get("id_customer");
+        String param2 = (String) requestMap.get("id_insurance");
+        Integer intparam = Integer.parseInt(param2);
+        System.out.println("PRZEKAZANY PARAMETR : " + param1 + " : " + intparam);
 
-        insurance = new ListDataModel<>(sc.getInsuranceConditionsList(intparam));
-        conditionsItem = new ArrayList<SelectItem>(insurance.getRowCount());
-        
-        
-        //ingredientList = iBean.getAllIngredients();
-        //selectList = new ArrayList<SelectItem>(ingredientList.size());
+        conditionsListDTO = new ArrayList<>(sc.getInsuranceConditionsList(intparam));
 
-        // conditions = new ArrayList<>();
-        for (InsuranceConditionsDTO row : insurance) {
-            conditionsItem.add(new SelectItem(row));
+        checkBoxListDTO = new ArrayList<>();
+        for (InsuranceConditionsDTO row : conditionsListDTO) {
+            checkBoxListDTO.add(new SelectItem(row, row.getQuestion(), row.toString()));
+            System.out.println("Znalezione zapytanie :" + row.getQuestion() + " toString() :" + row.toString());
         }
+
         return "conditions";
-    }
-
-    public String prepareToPastAllParams() {
-
-        Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String param1 = (String) requestMap.get("id_condition");
-
-        System.out.println("KOŃCOWY TEST PARAMETRÓW: " + param1 + " " + p1 + " " + p2 + " ");
-
-        return "summary";
-    }
-
-    public String past() {
-        Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String param1 = (String) requestMap.get("id_condition");
-        System.out.println("TEST ACTION: " + param1);
-        return "summary";
     }
 
     public String showConditions() {
         sc.getInsurancePreparedConditionsList();
         return "conditions";
     }
-
-    public String[] getSelectedConditions() {
-        return selectedConditions;
-    }
-
-    public void setSelectedConditions(String[] selectedConditions) {
-        this.selectedConditions = selectedConditions;
-    }
-
-    public List<SelectItem> getConditionsItem() {
-        return conditionsItem;
-    }
-
-    public void setConditionsItem(List<SelectItem> conditionsItem) {
-        this.conditionsItem = conditionsItem;
-    }
-
-    public String getP1() {
-        return p1;
-    }
-
-    public void setP1(String p1) {
-        this.p1 = p1;
-    }
-
-    public String getP2() {
-        return p2;
-    }
-
-    public void setP2(String p2) {
-        this.p2 = p2;
-    }
-
 }
