@@ -35,6 +35,8 @@ public class SymulationControler implements Serializable {
     @EJB
     private InsuranceConditionsEndPointLocal conditionsListEndPoint;
 
+    private List<List<String>> listAllParams;
+
     public List<CustomerDTO> getCustomerList() {
         if (customerEndPoint != null) {
             return customerEndPoint.getCustomerList();
@@ -70,4 +72,13 @@ public class SymulationControler implements Serializable {
             throw new NullPointerException("InsuranceEndPoitn not initialized");
         }
     }
+
+    public List<List<String>> getListAllParams() {
+        return listAllParams;
+    }
+
+    public void setListAllParams(List<List<String>> listAllParams) {
+        this.listAllParams = listAllParams;
+    }
+
 }

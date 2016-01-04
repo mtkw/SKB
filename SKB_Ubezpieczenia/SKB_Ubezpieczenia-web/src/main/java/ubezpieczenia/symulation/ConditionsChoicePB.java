@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,9 +27,39 @@ public class ConditionsChoicePB implements Serializable {
     @Inject
     SymulationControler sc;
 
+    //Elementy manyCheckBox i selelected
     private List<InsuranceConditionsDTO> conditionsListDTO;
     private List<InsuranceConditionsDTO> selectedConditionsListDTO;
     private List<SelectItem> checkBoxListDTO;
+
+    //Przygotowanie i poĹ‚Ä…czenie wszystkich parametrĂłw
+    private String idCustomerParam;
+    private String idInsuranceParam;
+    private List<List<String>> listOfParams;
+
+    public List<List<String>> getListOfParams() {
+        return listOfParams;
+    }
+
+    public void setListOfParams(List<List<String>> listOfParams) {
+        this.listOfParams = listOfParams;
+    }
+
+    public String getIdCustomerParam() {
+        return idCustomerParam;
+    }
+
+    public void setIdCustomerParam(String idCustomerParam) {
+        this.idCustomerParam = idCustomerParam;
+    }
+
+    public String getIdInsuranceParam() {
+        return idInsuranceParam;
+    }
+
+    public void setIdInsuranceParam(String idInsuranceParam) {
+        this.idInsuranceParam = idInsuranceParam;
+    }
 
     public List<SelectItem> getCheckBoxListDTO() {
         return checkBoxListDTO;
@@ -57,36 +85,20 @@ public class ConditionsChoicePB implements Serializable {
         this.selectedConditionsListDTO = selectedConditionsListDTO;
     }
 
-//    private DataModel<InsuranceConditionsDTO> conditionsDTO;
-//    private List<SelectItem> checkBoxDto;
-//    private String[] selected;
-//
-//    public DataModel<InsuranceConditionsDTO> getConditionsDTO() {
-//        return conditionsDTO;
-//    }
-//
-//    public void setConditionsDTO(DataModel<InsuranceConditionsDTO> conditionsDTO) {
-//        this.conditionsDTO = conditionsDTO;
-//    }
-//
-//    public String[] getSelected() {
-//        return selected;
-//    }
-//
-//    public void setSelected(String[] selected) {
-//        this.selected = selected;
-//    }
-//
-//    public List<SelectItem> getCheckBoxDto() {
-//        return checkBoxDto;
-//    }
     public String prepareConditionsactionListener() {
 
+        //Pobranie parametrĂłw ĹĽadania i ustawienie odpowiednich wartoĹ›ci pĂłl prywantych w klasie
+        //UmoĹĽliwi to przesĹ‚anie parametrĂłw w odpowiedniej formie do nastepnej klasy juĹĽ bez wykorzystywanie 
+        //Requesta
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String param1 = (String) requestMap.get("id_customer");
         String param2 = (String) requestMap.get("id_insurance");
-        Integer intparam = Integer.parseInt(param2);
-        System.out.println("PRZEKAZANY PARAMETR : " + param1 + " : " + intparam);
+
+        setIdCustomerParam(param1);
+        setIdInsuranceParam(param2);
+
+        Integer intparam = Integer.parseInt(getIdInsuranceParam());
+        System.out.println("PRZEKAZANe PARAMETRY!!! : " + param1 + " : " + intparam);
 
         conditionsListDTO = new ArrayList<>(sc.getInsuranceConditionsList(intparam));
 
@@ -102,5 +114,25 @@ public class ConditionsChoicePB implements Serializable {
     public String showConditions() {
         sc.getInsurancePreparedConditionsList();
         return "conditions";
+    }
+
+    public List<List<String>> prepareParams() {
+        listOfParams = new ArrayList<>();
+        List<String> rows = new ArrayList<>();
+
+        for (InsuranceConditionsDTO row : selectedConditionsListDTO) {
+            rows.add(getIdCustomerParam());
+            rows.add(getIdInsuranceParam());
+            rows.add(Integer.toString(row.getId_conditions()));
+        }
+
+        listOfParams.add(rows);
+
+        return listOfParams;
+    }
+
+    public String past() {
+        sc.setListAllParams(listOfParams);
+        return "summary";
     }
 }
