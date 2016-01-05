@@ -40,4 +40,9 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
         System.out.println("Wielkość transactionList po konwersji: " + transactionsList.size());
         return dtoList;
     }
+
+    @Override
+    public void saveTransaction(List<List<String>> listAllParams) {
+        transactionsFacade.saveTransaction(listAllParams);
+    }
 }

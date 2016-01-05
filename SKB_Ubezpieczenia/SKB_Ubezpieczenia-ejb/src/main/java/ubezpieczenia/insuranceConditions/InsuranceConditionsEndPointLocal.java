@@ -17,6 +17,8 @@ import ubezpieczenia.dto.InsuranceConditionsDTO;
 public interface InsuranceConditionsEndPointLocal {
 
     public List<InsuranceConditionsDTO> getConditionsList(Integer param);
+    
+    public List<InsuranceConditionsDTO> getConditionsList(List<Integer> params);
 
     public List<InsuranceConditionsDTO> getPreparedConditionsList();
 

@@ -53,6 +53,16 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
         }
         return listT;
     }
+
+    public void saveTransaction(List<List<String>> listAllParams) {
+        for(List lista: listAllParams){
+            Query q = getEntityManager().createNativeQuery("INSERT INTO transaction (customer_id, insurance_id, condition_id) VALUES (?,?,?)");
+            q.setParameter(1, Integer.parseInt(lista.get(0).toString()));
+            q.setParameter(2, Integer.parseInt(lista.get(1).toString()));
+            q.setParameter(3, Integer.parseInt(lista.get(2).toString()));
+            q.executeUpdate();
+        }
+    }
     
 
 }

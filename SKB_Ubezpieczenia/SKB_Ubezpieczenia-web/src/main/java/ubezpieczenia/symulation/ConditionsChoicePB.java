@@ -115,23 +115,48 @@ public class ConditionsChoicePB implements Serializable {
         sc.getInsurancePreparedConditionsList();
         return "conditions";
     }
+// nie uzywana metoda 
+//    public List<List<String>> prepareParams() {
+//        listOfParams = new ArrayList<>();
+//        List<String> rows = new ArrayList<>();
+//
+//        for (InsuranceConditionsDTO row : selectedConditionsListDTO) {
+//            rows.add(getIdCustomerParam());
+//            rows.add(getIdInsuranceParam());
+//            rows.add(Integer.toString(row.getId_conditions()));
+//        }
+//
+//        listOfParams.add(rows);
+//
+//        return listOfParams;
+//    }
 
-    public List<List<String>> prepareParams() {
+    public String past() {
+        //Przygotowanie Listy id Warunków
+        List<Integer> idConditions = new ArrayList<>();
+        for (InsuranceConditionsDTO row : selectedConditionsListDTO) {
+            idConditions.add(row.getId_conditions());
+        }
+
+        //Przygotowanie Listy wszystkich parametrów potrzebnych do zapytania INSERT
         listOfParams = new ArrayList<>();
-        List<String> rows = new ArrayList<>();
 
         for (InsuranceConditionsDTO row : selectedConditionsListDTO) {
+            List<String> rows = new ArrayList<>();
             rows.add(getIdCustomerParam());
             rows.add(getIdInsuranceParam());
             rows.add(Integer.toString(row.getId_conditions()));
+            listOfParams.add(rows);
         }
 
-        listOfParams.add(rows);
+        System.out.println("listOfParams SIZE() :" + listOfParams.size());
+        for (List l : listOfParams) {
+            System.out.println("TEST l: " + l.toString());
+        }
 
-        return listOfParams;
-    }
-
-    public String past() {
+        sc.getCustomer(Integer.parseInt(idCustomerParam));
+        sc.getInsurance(Integer.parseInt(idInsuranceParam));
+        sc.getConditions(idConditions);
         sc.setListAllParams(listOfParams);
         return "summary";
     }

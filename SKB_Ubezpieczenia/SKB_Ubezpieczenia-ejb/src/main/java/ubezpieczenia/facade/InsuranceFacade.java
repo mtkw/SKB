@@ -28,7 +28,6 @@ public class InsuranceFacade extends AbstractFacade<Insurance>{
     @PersistenceContext(unitName = "SKB_Ubezpieczenia")
     private EntityManager em;
     
-    
     public InsuranceFacade(){
         super(Insurance.class);
     }
@@ -54,6 +53,12 @@ public class InsuranceFacade extends AbstractFacade<Insurance>{
             dtos.add(dto);
         }
         return dtos;
+    }
+    
+    public Insurance findByInsuranceID(Integer idInsurance){
+        TypedQuery tq = getEntityManager().createNamedQuery("Insurance.findByIdInsurance", Insurance.class);
+        tq.setParameter("idInsurance", idInsurance);
+        return (Insurance) tq.getSingleResult();
     }
     
 }

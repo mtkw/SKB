@@ -20,4 +20,6 @@ public interface CustomerEndPointLocal {
 
     public CustomerDTO getCustomerToShowDetail(Integer id);
     
+    public CustomerDTO getCustomer(Integer idCustomer);
+    
 }

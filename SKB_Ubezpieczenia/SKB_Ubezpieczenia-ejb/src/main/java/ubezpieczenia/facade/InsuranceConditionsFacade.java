@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import ubezpieczenia.dto.InsuranceConditionsDTO;
 import ubezpieczenia.entity.InsuranceConditions;
 
@@ -71,6 +72,28 @@ public class InsuranceConditionsFacade extends AbstractFacade<InsuranceCondition
         }
         System.out.println("ConditionsFacade lista waruknów jako encje: " + entity.size());
         System.out.println("ConditionsFacade lista waruknów jako dto: " + dtos.size());
+        return dtos;
+    }
+
+    public List<InsuranceConditionsDTO> findByIdSelectedList(List<Integer> listId) {
+        List<InsuranceConditions> entities = new ArrayList<>();
+        for (Integer id : listId) {
+            TypedQuery tq = getEntityManager().createNamedQuery("InsuranceConditions.findByIdCondition", InsuranceConditions.class);
+            tq.setParameter("idCondition", id);
+            entities.add((InsuranceConditions)tq.getSingleResult());
+        }
+        
+        List<InsuranceConditionsDTO> dtos = new ArrayList<>();
+
+        for (InsuranceConditions row : entities) {
+            InsuranceConditionsDTO dto = new InsuranceConditionsDTO();
+            dto.setInsurance_id(row.getInsurance().getIdInsurance());
+            dto.setId_conditions(row.getIdCondition());
+            dto.setQuestion(row.getQuestion());
+            dto.setDescriptions(row.getConditionDescription());
+            dto.setValue(row.getValue());
+            dtos.add(dto);
+        }
         return dtos;
     }
 

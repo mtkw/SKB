@@ -5,6 +5,7 @@
  */
 package ubezpieczenia.insuranceConditions;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -30,6 +31,12 @@ public class InsuranceConditionsEndPoint implements InsuranceConditionsEndPointL
     @Override
     public List<InsuranceConditionsDTO> getPreparedConditionsList() {
         List<InsuranceConditionsDTO> dtos = conditionsFacade.findAllDTO();
+        return dtos;
+    }
+
+    @Override
+    public List<InsuranceConditionsDTO> getConditionsList(List<Integer> params) {
+        List<InsuranceConditionsDTO> dtos = conditionsFacade.findByIdSelectedList(params);
         return dtos;
     }
 }

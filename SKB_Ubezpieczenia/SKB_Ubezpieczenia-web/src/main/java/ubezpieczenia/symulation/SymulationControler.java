@@ -15,6 +15,7 @@ import ubezpieczenia.dto.InsuranceConditionsDTO;
 import ubezpieczenia.dto.InsuranceDTO;
 import ubezpieczenia.insurance.InsuranceEndPointLocal;
 import ubezpieczenia.insuranceConditions.InsuranceConditionsEndPointLocal;
+import ubezpieczenia.transactions.TransactionsEndPointLocal;
 
 /**
  *
@@ -34,8 +35,30 @@ public class SymulationControler implements Serializable {
 
     @EJB
     private InsuranceConditionsEndPointLocal conditionsListEndPoint;
+    
+    @EJB
+    private TransactionsEndPointLocal transactionsEndPoint;
 
     private List<List<String>> listAllParams;
+    private CustomerDTO customer;
+    private InsuranceDTO insurance;
+    private List<InsuranceConditionsDTO> conditions;
+
+    public List<InsuranceConditionsDTO> getConditions() {
+        return conditions;
+    }
+
+    public void getConditions(List<Integer> idConditions) {
+        conditions = conditionsEndPoint.getConditionsList(idConditions);
+    }
+
+    public InsuranceDTO getInsurance() {
+        return insurance;
+    }
+
+    public CustomerDTO getCustomer() {
+        return customer;
+    }
 
     public List<CustomerDTO> getCustomerList() {
         if (customerEndPoint != null) {
@@ -72,6 +95,17 @@ public class SymulationControler implements Serializable {
             throw new NullPointerException("InsuranceEndPoitn not initialized");
         }
     }
+    public void saveTransaction(List<List<String>> listAllParams){
+        transactionsEndPoint.saveTransaction(listAllParams);
+    }
+
+    public void getCustomer(Integer idCustomer) {
+        customer = customerEndPoint.getCustomer(idCustomer);
+    }
+
+    public void getInsurance(Integer idInsurance) {
+        insurance = insuranceEndPoint.getInsurance(idInsurance);
+    }
 
     public List<List<String>> getListAllParams() {
         return listAllParams;
@@ -80,5 +114,4 @@ public class SymulationControler implements Serializable {
     public void setListAllParams(List<List<String>> listAllParams) {
         this.listAllParams = listAllParams;
     }
-
 }

@@ -24,6 +24,8 @@ public class CustomerEndPoint implements CustomerEndPointLocal {
     private CustomerFacade customerFacade;
     
     private Customer showDetailCustomer = new Customer();
+    
+    private Customer showCustomer = new Customer();
 
     @Override
     public List<CustomerDTO> getCustomerList() {
@@ -36,6 +38,14 @@ public class CustomerEndPoint implements CustomerEndPointLocal {
         showDetailCustomer = customerFacade.findByID(id);
         CustomerDTO dto = new CustomerDTO();
         CustomerConverter.convertEntityToDTO(showDetailCustomer, dto);
+        return dto;
+    }
+
+    @Override
+    public CustomerDTO getCustomer(Integer idCustomer) {
+        showCustomer = customerFacade.findByID(idCustomer);
+        CustomerDTO dto = new CustomerDTO();
+        CustomerConverter.convertEntityToDTO(showCustomer, dto);
         return dto;
     }
 }

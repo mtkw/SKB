@@ -18,4 +18,6 @@ public interface InsuranceEndPointLocal {
 
     public List<InsuranceDTO> getInsuranceList();
     
+    public InsuranceDTO getInsurance(Integer idInsurance);
+    
 }
