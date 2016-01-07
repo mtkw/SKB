@@ -51,8 +51,12 @@ public class PaymentMethodPB implements Serializable {
             String paymentMethodDES = row.getDescription();
 
             DefaultMenuItem item = new DefaultMenuItem(paymentMethodDES);
-            item.setOutcome("/wybórUbezpieczenia.xhtml");
             item.setParam("id_paymentMethodDes", row.getIdPaymentMethodDES());
+            if (row.getIdPaymentMethodDES() == 1) {
+                item.setOutcome("/gotowka.xhtml");
+            }else if(row.getIdPaymentMethodDES() == 2){
+                item.setOutcome("/raty.xhtml");
+            }
             item.setIcon("ui-icon-star");
             firstSubmenu.addElement(item);
         }
