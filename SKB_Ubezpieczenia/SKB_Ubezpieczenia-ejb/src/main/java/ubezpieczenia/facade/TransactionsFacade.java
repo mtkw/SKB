@@ -49,7 +49,7 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
         System.out.println("WIelkość Listy po zapytaniu w Transaction FACADE: " + listT.size());
         for(TransactionPosition row: listT){
             System.out.println("Test Wartości : " + row.getValue());
-            System.out.println("Test Warunku : " + row.getConditionId());
+//            System.out.println("Test Warunku : " + row.getConditionId());
         }
         return listT;
     }

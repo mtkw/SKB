@@ -24,39 +24,28 @@ import javax.validation.constraints.Size;
 @Table(name = "transaction_position")
 @NamedQueries({
     @NamedQuery(name = "TransactionPosition.findAll", query = "SELECT t FROM TransactionPosition t"),
-    @NamedQuery(name = "TransactionPosition.findByIdTransaction", query = "SELECT t FROM TransactionPosition t WHERE t.idTransaction = :idTransaction"),
     @NamedQuery(name = "TransactionPosition.findByNameInsurance", query = "SELECT t FROM TransactionPosition t WHERE t.nameInsurance = :nameInsurance"),
-    @NamedQuery(name = "TransactionPosition.findByValue", query = "SELECT t FROM TransactionPosition t WHERE t.value = :value")})
+    @NamedQuery(name = "TransactionPosition.findByValue", query = "SELECT t FROM TransactionPosition t WHERE t.value = :value"),
+    @NamedQuery(name = "TransactionPosition.findByBasicRate", query = "SELECT t FROM TransactionPosition t WHERE t.basicRate = :basicRate")})
 public class TransactionPosition implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_transaction", nullable = false)
-    private Integer idTransaction;
-    @Size(max = 1024)
-    @Column(name = "name_insurance", length = 1024)
+    @Size(min = 1, max = 1024)
+    @Column(name = "name_insurance")
     private String nameInsurance;
-    @Column(name = "condition_id", nullable = false)
-    private int conditionId;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "value", precision = 17, scale = 17)
+    @Column(name = "value")
     private Double value;
+    @Column(name = "basic_rate")
+    private Double basicRate;
 
     public TransactionPosition() {
     }
 
-    public TransactionPosition(Integer idTransaction) {
-        this.idTransaction = idTransaction;
-    }
-
-    public Integer getIdTransaction() {
-        return idTransaction;
-    }
-
-    public void setIdTransaction(Integer idTransaction) {
-        this.idTransaction = idTransaction;
+    public TransactionPosition(String nameInsurance) {
+        this.nameInsurance = nameInsurance;
     }
 
     public String getNameInsurance() {
@@ -67,14 +56,6 @@ public class TransactionPosition implements Serializable {
         this.nameInsurance = nameInsurance;
     }
 
-    public int getConditionId() {
-        return conditionId;
-    }
-
-    public void setConditionId(int conditionId) {
-        this.conditionId = conditionId;
-    }
-
     public Double getValue() {
         return value;
     }
@@ -83,10 +64,18 @@ public class TransactionPosition implements Serializable {
         this.value = value;
     }
 
+    public Double getBasicRate() {
+        return basicRate;
+    }
+
+    public void setBasicRate(Double basicRate) {
+        this.basicRate = basicRate;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idTransaction != null ? idTransaction.hashCode() : 0);
+        hash += (nameInsurance != null ? nameInsurance.hashCode() : 0);
         return hash;
     }
 
@@ -97,7 +86,7 @@ public class TransactionPosition implements Serializable {
             return false;
         }
         TransactionPosition other = (TransactionPosition) object;
-        if ((this.idTransaction == null && other.idTransaction != null) || (this.idTransaction != null && !this.idTransaction.equals(other.idTransaction))) {
+        if ((this.nameInsurance == null && other.nameInsurance != null) || (this.nameInsurance != null && !this.nameInsurance.equals(other.nameInsurance))) {
             return false;
         }
         return true;
@@ -105,7 +94,7 @@ public class TransactionPosition implements Serializable {
 
     @Override
     public String toString() {
-        return "ubezpieczenia.account.TransactionPosition[ idTransaction=" + idTransaction + " ]";
+        return "ubezpieczenia.entity.TransactionPosition[ nameInsurance=" + nameInsurance + " ]";
     }
-
+    
 }

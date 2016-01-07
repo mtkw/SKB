@@ -10,8 +10,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import ubezpieczenia.dto.TransactionDTO2;
-import ubezpieczenia.dto.TransactionsDTO;
-import ubezpieczenia.entity.Transaction;
 import ubezpieczenia.entity.TransactionPosition;
 import ubezpieczenia.facade.TransactionsFacade;
 import ubezpieczenia.util.TransactionsConverter;

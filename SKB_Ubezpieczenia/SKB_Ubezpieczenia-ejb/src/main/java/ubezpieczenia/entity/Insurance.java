@@ -33,6 +33,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Insurance.findByNameInsurance", query = "SELECT i FROM Insurance i WHERE i.nameInsurance = :nameInsurance"),
     @NamedQuery(name = "Insurance.findByDescription", query = "SELECT i FROM Insurance i WHERE i.description = :description")})
 public class Insurance implements Serializable {
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "basic_rate")
+    private Double basicRate;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -120,6 +123,14 @@ public class Insurance implements Serializable {
     @Override
     public String toString() {
         return "ubezpieczenia.entity.Insurance[ idInsurance=" + idInsurance + " ]";
+    }
+
+    public Double getBasicRate() {
+        return basicRate;
+    }
+
+    public void setBasicRate(Double basicRate) {
+        this.basicRate = basicRate;
     }
     
 }

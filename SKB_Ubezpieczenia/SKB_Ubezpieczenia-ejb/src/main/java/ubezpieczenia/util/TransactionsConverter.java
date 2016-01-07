@@ -22,9 +22,10 @@ public class TransactionsConverter {
         System.out.println("Lista Transakcji dostarczona do konwertera:" + entityList.size());
         for(TransactionPosition row: entityList){
             TransactionDTO2 dto = new TransactionDTO2();
-            dto.setId_transaction(row.getIdTransaction());
+//            dto.setId_transaction(row.getIdTransaction());
             dto.setName_insurance(row.getNameInsurance());
             dto.setValue(row.getValue());
+            dto.setBasic_rate(row.getBasicRate());
 //            dto.setValue(row.g);
             dtoList.add(dto);
             //System.out.println("Test Konwerter --> Lista Transakcji(Encja): " + row.getTransactionPK().getCustomerId() + " --> Lista DTO :" + dto.getCustomer_id());

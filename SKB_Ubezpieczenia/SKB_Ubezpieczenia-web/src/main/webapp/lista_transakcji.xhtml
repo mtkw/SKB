@@ -8,14 +8,14 @@
     <ui:define name="content">
         <h:form>
             <p:dataTable var="transaction" value="#{transactionsPB.transactions}">
-                <p:column headerText="ID">
-                    <h:outputText value="#{transaction.id_transaction}"/>
-                </p:column>
                 <p:column headerText="Ubezpieczenie">
                     <h:outputText value="#{transaction.name_insurance}"/>
                 </p:column>
-                <p:column headerText="Wartość">
+                <p:column headerText="Opcje Dodatkowe">
                     <h:outputText value="#{transaction.value}"/>
+                </p:column>
+                <p:column headerText="Stawka Podstawowa">
+                    <h:outputText value="#{transaction.basic_rate}"/>
                 </p:column>
             </p:dataTable>
         </h:form>

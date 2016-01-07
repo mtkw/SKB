@@ -12,17 +12,17 @@ import java.util.Objects;
  * @author Mateusz
  */
 public class TransactionDTO2 {
-    
-    private Integer id_transaction;
+
     private String name_insurance;
     private Double value;
+    private Double basic_rate;
 
-    public Integer getId_transaction() {
-        return id_transaction;
+    public Double getBasic_rate() {
+        return basic_rate;
     }
 
-    public void setId_transaction(Integer id_transaction) {
-        this.id_transaction = id_transaction;
+    public void setBasic_rate(Double basic_rate) {
+        this.basic_rate = basic_rate;
     }
 
     public String getName_insurance() {
@@ -43,8 +43,8 @@ public class TransactionDTO2 {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.id_transaction);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.name_insurance);
         return hash;
     }
 
@@ -57,12 +57,10 @@ public class TransactionDTO2 {
             return false;
         }
         final TransactionDTO2 other = (TransactionDTO2) obj;
-        if (!Objects.equals(this.id_transaction, other.id_transaction)) {
+        if (!Objects.equals(this.name_insurance, other.name_insurance)) {
             return false;
         }
         return true;
     }
-    
-    
-    
+
 }
