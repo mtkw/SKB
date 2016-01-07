@@ -20,6 +20,7 @@ public class InsuranceConverter {
             dto.setId(entity.getIdInsurance());
             dto.setName(entity.getNameInsurance());
             dto.setDescription(entity.getDescription());
+            dto.setBasic_rate(entity.getBasicRate());
         }
     }
     

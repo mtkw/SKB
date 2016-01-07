@@ -10,15 +10,17 @@
         <h:form>
             <h1>Podsumowanie</h1>
             <p:separator/>
-            <h:outputText value="#{summaryPB.customer.name}"/>
+            <h2>Imie i Nazwisko Klienta: </h2><h:outputText value="#{summaryPB.customer.name}"/>
             <f:verbatim>&nbsp;</f:verbatim>
             <h:outputText value="#{summaryPB.customer.surname}"/><br/>
-            <h:outputText value="#{summaryPB.insurance.name}"/><br/>
-            <h:outputText value="#{summaryPB.insurance.description}"/><br/>
+            <h2>Rodzaj Ubezpieczenia: </h2><h:outputText value="#{summaryPB.insurance.name}"/><br/>
+            <h2>Opis Ubezpieczenia: </h2><h:outputText value="#{summaryPB.insurance.description}"/><br/>
+            <h2>Lista Wybranych Opcji dodatkowych: </h2><br/>
             <p:dataList value="#{summaryPB.conditions}" var="conditions">
                 #{conditions.value}
             </p:dataList>
             <br />
+            <h1>Łączna Kwota Ubezpieczenia: #{summaryPB.sum}</h1>
             <p:separator/>
             <p:commandButton value="Wykup Ubezpieczenie" action="#{summaryPB.saveTransaction}"/>
             <p:commandButton value="Anukuj" action="#{summaryPB.backToStart}"/>

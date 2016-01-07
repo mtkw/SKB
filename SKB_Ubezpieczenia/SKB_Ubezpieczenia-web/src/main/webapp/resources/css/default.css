@@ -9,11 +9,22 @@ body {
 h1 {
     font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     border-bottom: 1px solid #AFAFAF; 
-    font-size:  12px;
+    font-size:  14px;
     font-weight: bold;
+    font-style: italic;
     margin: 0px;
     padding: 0px;
-    color: #0f0f0f;
+    color: #D20005;
+}
+
+h2 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    font-size:  12px;
+    font-weight: bold;
+    font-style: italic;
+    margin: 0px;
+    padding: 0px;
+    color: #045491;
 }
 
 a:link, a:visited {

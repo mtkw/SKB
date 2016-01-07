@@ -8,8 +8,6 @@ package ubezpieczenia.symulation;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import ubezpieczenia.dto.CustomerDTO;
@@ -31,6 +29,11 @@ public class SummaryPB implements Serializable {
     private InsuranceDTO insurance;
     private List<InsuranceConditionsDTO> conditions;
     private List<List<String>> listAllParams;
+    private Double sum;
+
+    public Double getSum() {
+        return sum;
+    }
 
     public List<List<String>> getListAllParams() {
         return listAllParams;
@@ -53,9 +56,14 @@ public class SummaryPB implements Serializable {
     }
 
     public String prepareDate() {
+        double temp = 0.0;
         customer = sc.getCustomer();
         insurance = sc.getInsurance();
         conditions = sc.getConditions();
+        for(InsuranceConditionsDTO condition: conditions){
+            temp += condition.getValue();
+        }
+        sum = insurance.getBasic_rate() + temp;
         return "summary";
     }
 

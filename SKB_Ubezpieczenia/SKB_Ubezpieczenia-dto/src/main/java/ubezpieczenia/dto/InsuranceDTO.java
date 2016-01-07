@@ -16,6 +16,15 @@ public class InsuranceDTO {
     Integer id;
     String name;
     String description;
+    Double basic_rate;
+
+    public Double getBasic_rate() {
+        return basic_rate;
+    }
+
+    public void setBasic_rate(Double basic_rate) {
+        this.basic_rate = basic_rate;
+    }
 
     public Integer getId() {
         return id;
@@ -43,7 +52,7 @@ public class InsuranceDTO {
 
     @Override
     public String toString() {
-        return "InsuranceDTO{" + "id=" + id + ", name=" + name + ", description=" + description + '}';
+        return "InsuranceDTO{" + "id=" + id + ", name=" + name + ", description=" + description + ", basic_rate=" + basic_rate + '}';
     }
 
     @Override
@@ -67,7 +76,5 @@ public class InsuranceDTO {
         }
         return true;
     }
-
-
 
 }

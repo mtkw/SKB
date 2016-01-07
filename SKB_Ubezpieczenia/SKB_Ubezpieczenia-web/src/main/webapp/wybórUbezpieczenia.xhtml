@@ -28,6 +28,10 @@
                         <p:column headerText="Opis">
                             <h:outputText value="#{insurance.description}" />
                         </p:column>
+                        
+                        <p:column headerText="Stawka Podstawowa">
+                            <h:outputText value="#{insurance.basic_rate}" />
+                        </p:column>
 
                         <p:column headerText="Wybór">
                             <h:commandButton value="Wybieram" actionListener="#{conditionsChoicePB.showConditions}" action="#{conditionsChoicePB.prepareConditionsactionListener}">
