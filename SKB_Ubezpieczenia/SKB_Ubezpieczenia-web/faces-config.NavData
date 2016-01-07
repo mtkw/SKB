@@ -5,12 +5,13 @@
         <Node id="index.xhtml" x="436" y="90" zoom="true"/>
         <Node id="symulacja.xhtml" x="150" y="450" zoom="true"/>
         <Node id="newTemplate.xhtml" x="151" y="300" zoom="true"/>
-        <Node id="podsumowanieSymulacji.xhtml" x="573" y="23" zoom="true"/>
+        <Node id="podsumowanieSymulacji.xhtml" x="570" y="14" zoom="true"/>
+        <Node id="rodzajPlatnosci.xhtml" x="312" y="232" zoom="true"/>
         <Node id="lista_klientów.xhtml" x="668" y="254" zoom="true"/>
         <Node id="wybórWarunków.xhtml" x="900" y="150" zoom="true"/>
         <Node id="podsumowanie.xhtml" x="650" y="300" zoom="true"/>
-        <Node id="wybórUbezpieczenia.xhtml" x="884" y="331" zoom="true"/>
         <Node id="lista_transakcji.xhtml" x="918" y="47" zoom="true"/>
+        <Node id="wybórUbezpieczenia.xhtml" x="884" y="331" zoom="true"/>
         <Node id="płatności.xhtml" x="400" y="300" zoom="true"/>
         <Node id="moje_ubezpieczenia.xhtml" x="150" y="150" zoom="true"/>
         <Node id="klient_szczegóły.xhtml" x="676" y="80" zoom="true"/>

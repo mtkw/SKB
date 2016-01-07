@@ -71,10 +71,11 @@ public class SummaryPB implements Serializable {
         return "main";
     }
 
-    public void saveTransaction() {
+    public String saveTransaction() {
         //Pobranie Listy Parametrów 
         listAllParams = sc.getListAllParams();
         //Wywołanie metody Controlera
         sc.saveTransaction(listAllParams);
+        return "payement";
     }
 }
