@@ -6,10 +6,14 @@
 package ubezpieczenia.insurance;
 
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import ubezpieczenia.customer.CustomerControler;
+import ubezpieczenia.dto.InsuranceDTO;
 
 /**
  *
@@ -17,12 +21,19 @@ import ubezpieczenia.customer.CustomerControler;
  */
 @SessionScoped
 @Named
-public class InsuranceCustomerPB implements Serializable{
-    
+public class InsurancePB implements Serializable {
+
     @Inject
     InsuranceControler ic;
-    
-    @Inject
-    CustomerControler cc;
-    
+
+    private DataModel<InsuranceDTO> insurance;
+
+    public DataModel<InsuranceDTO> getInsurance() {
+        return insurance;
+    }
+
+    @PostConstruct
+    private void init() {
+        insurance = new ListDataModel<>(ic.getInsuranceList());
+    }
 }

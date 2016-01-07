@@ -6,8 +6,10 @@
 package ubezpieczenia.insurance;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import ubezpieczenia.dto.InsuranceDTO;
 import ubezpieczenia.transactions.TransactionsEndPointLocal;
 
 /**
@@ -20,6 +22,7 @@ public class InsuranceControler implements Serializable{
     @EJB
     private InsuranceEndPointLocal insuranceEndPoint;
     
-    @EJB
-    private TransactionsEndPointLocal transactionsEdnPoint;
+    public List<InsuranceDTO> getInsuranceList(){
+        return insuranceEndPoint.getInsuranceList();
+    }
 }
