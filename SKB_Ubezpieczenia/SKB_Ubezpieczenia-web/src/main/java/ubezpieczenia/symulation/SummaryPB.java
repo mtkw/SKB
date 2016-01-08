@@ -74,8 +74,9 @@ public class SummaryPB implements Serializable {
     public String saveTransaction() {
         //Pobranie Listy Parametrów 
         listAllParams = sc.getListAllParams();
-        //Wywołanie metody Controlera
-        sc.saveTransaction(listAllParams);
+        //Wywołanie metody 
+        Double valueOfInsurance = getSum();
+        sc.saveTransaction(listAllParams, valueOfInsurance);
         return "payement";
     }
 }

@@ -19,7 +19,7 @@ public interface TransactionsEndPointLocal {
 
     public List<TransactionDTO2> getTransactionsDetail(Integer id_account);    
 
-    public void saveTransaction(List<List<String>> listAllParams);
+    public void saveTransaction(List<List<String>> listAllParams, Double value);
 
 }
 

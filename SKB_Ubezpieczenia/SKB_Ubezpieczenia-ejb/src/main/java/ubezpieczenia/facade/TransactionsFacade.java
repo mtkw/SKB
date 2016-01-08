@@ -54,7 +54,7 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
         return listT;
     }
 
-    public void saveTransaction(List<List<String>> listAllParams) {
+    public void saveTransaction(List<List<String>> listAllParams, Double value) {
         List<Integer> lastID = new ArrayList<>();
         Query qq = getEntityManager().createNativeQuery("SELECT id_transaction from transaction where customer_id = ?");
         qq.setParameter(1, Integer.parseInt(listAllParams.get(0).get(0)));
@@ -79,6 +79,11 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
                 q.executeUpdate();
             }
         }
+        Query q2 = getEntityManager().createNativeQuery("INSERT INTO customer_transactions (customer_id, insurance_id, value) values (?,?,?)");
+        q2.setParameter(1, Integer.parseInt(listAllParams.get(0).get(0)));
+        q2.setParameter(2, Integer.parseInt(listAllParams.get(0).get(1)));
+        q2.setParameter(3, value);
+        q2.executeUpdate();
     }
 
 }

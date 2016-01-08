@@ -40,7 +40,7 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
     }
 
     @Override
-    public void saveTransaction(List<List<String>> listAllParams) {
-        transactionsFacade.saveTransaction(listAllParams);
+    public void saveTransaction(List<List<String>> listAllParams, Double value) {
+        transactionsFacade.saveTransaction(listAllParams, value);
     }
 }

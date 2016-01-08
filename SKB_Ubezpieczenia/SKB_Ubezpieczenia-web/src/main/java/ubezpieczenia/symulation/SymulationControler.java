@@ -40,9 +40,14 @@ public class SymulationControler implements Serializable {
     private TransactionsEndPointLocal transactionsEndPoint;
 
     private List<List<String>> listAllParams;
+    private Double valueOfInsurance;
     private CustomerDTO customer;
     private InsuranceDTO insurance;
     private List<InsuranceConditionsDTO> conditions;
+
+    public Double getValueOfInsurance() {
+        return valueOfInsurance;
+    }
 
     public List<InsuranceConditionsDTO> getConditions() {
         return conditions;
@@ -95,8 +100,8 @@ public class SymulationControler implements Serializable {
             throw new NullPointerException("InsuranceEndPoitn not initialized");
         }
     }
-    public void saveTransaction(List<List<String>> listAllParams){
-        transactionsEndPoint.saveTransaction(listAllParams);
+    public void saveTransaction(List<List<String>> listAllParams, Double value){
+        transactionsEndPoint.saveTransaction(listAllParams, value);
     }
 
     public void getCustomer(Integer idCustomer) {
