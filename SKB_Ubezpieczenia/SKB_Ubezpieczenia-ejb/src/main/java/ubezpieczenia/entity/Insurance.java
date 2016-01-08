@@ -31,11 +31,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Insurance.findAll", query = "SELECT i FROM Insurance i"),
     @NamedQuery(name = "Insurance.findByIdInsurance", query = "SELECT i FROM Insurance i WHERE i.idInsurance = :idInsurance"),
     @NamedQuery(name = "Insurance.findByNameInsurance", query = "SELECT i FROM Insurance i WHERE i.nameInsurance = :nameInsurance"),
-    @NamedQuery(name = "Insurance.findByDescription", query = "SELECT i FROM Insurance i WHERE i.description = :description")})
+    @NamedQuery(name = "Insurance.findByDescription", query = "SELECT i FROM Insurance i WHERE i.description = :description"),
+    @NamedQuery(name = "Insurance.findByBasicRate", query = "SELECT i FROM Insurance i WHERE i.basicRate = :basicRate")})
 public class Insurance implements Serializable {
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "basic_rate")
-    private Double basicRate;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +46,9 @@ public class Insurance implements Serializable {
     @Size(max = 1024)
     @Column(name = "description", length = 1024)
     private String description;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "basic_rate", precision = 17, scale = 17)
+    private Double basicRate;
     @OneToMany(mappedBy = "insurance", fetch = FetchType.EAGER)
     private Collection<InsuranceConditions> insuranceConditionsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "insurance", fetch = FetchType.EAGER)
@@ -82,6 +83,14 @@ public class Insurance implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Double getBasicRate() {
+        return basicRate;
+    }
+
+    public void setBasicRate(Double basicRate) {
+        this.basicRate = basicRate;
     }
 
     public Collection<InsuranceConditions> getInsuranceConditionsCollection() {
@@ -123,14 +132,6 @@ public class Insurance implements Serializable {
     @Override
     public String toString() {
         return "ubezpieczenia.entity.Insurance[ idInsurance=" + idInsurance + " ]";
-    }
-
-    public Double getBasicRate() {
-        return basicRate;
-    }
-
-    public void setBasicRate(Double basicRate) {
-        this.basicRate = basicRate;
     }
     
 }

@@ -31,17 +31,17 @@ public class TransactionPK implements Serializable {
     private int insuranceId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "condition_id", nullable = false)
-    private int conditionId;
+    @Column(name = "conditions_id", nullable = false)
+    private int conditionsId;
 
     public TransactionPK() {
     }
 
-    public TransactionPK(int idTransaction, int customerId, int insuranceId, int conditionId) {
+    public TransactionPK(int idTransaction, int customerId, int insuranceId, int conditionsId) {
         this.idTransaction = idTransaction;
         this.customerId = customerId;
         this.insuranceId = insuranceId;
-        this.conditionId = conditionId;
+        this.conditionsId = conditionsId;
     }
 
     public int getIdTransaction() {
@@ -68,12 +68,12 @@ public class TransactionPK implements Serializable {
         this.insuranceId = insuranceId;
     }
 
-    public int getConditionId() {
-        return conditionId;
+    public int getConditionsId() {
+        return conditionsId;
     }
 
-    public void setConditionId(int conditionId) {
-        this.conditionId = conditionId;
+    public void setConditionsId(int conditionsId) {
+        this.conditionsId = conditionsId;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class TransactionPK implements Serializable {
         hash += (int) idTransaction;
         hash += (int) customerId;
         hash += (int) insuranceId;
-        hash += (int) conditionId;
+        hash += (int) conditionsId;
         return hash;
     }
 
@@ -102,7 +102,7 @@ public class TransactionPK implements Serializable {
         if (this.insuranceId != other.insuranceId) {
             return false;
         }
-        if (this.conditionId != other.conditionId) {
+        if (this.conditionsId != other.conditionsId) {
             return false;
         }
         return true;
@@ -110,7 +110,7 @@ public class TransactionPK implements Serializable {
 
     @Override
     public String toString() {
-        return "ubezpieczenia.entity.TransactionPK[ idTransaction=" + idTransaction + ", customerId=" + customerId + ", insuranceId=" + insuranceId + ", conditionId=" + conditionId + " ]";
+        return "ubezpieczenia.entity.TransactionPK[ idTransaction=" + idTransaction + ", customerId=" + customerId + ", insuranceId=" + insuranceId + ", conditionsId=" + conditionsId + " ]";
     }
     
 }

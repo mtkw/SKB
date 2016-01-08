@@ -33,16 +33,16 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "InsuranceConditions.findAll", query = "SELECT i FROM InsuranceConditions i"),
     @NamedQuery(name = "InsuranceConditions.findByIdCondition", query = "SELECT i FROM InsuranceConditions i WHERE i.idCondition = :idCondition"),
-      @NamedQuery(name = "InsuranceConditions.findByConditionDescription", query = "SELECT i FROM InsuranceConditions i WHERE i.conditionDescription = :conditionDescription"),
+    @NamedQuery(name = "InsuranceConditions.findByConditionDescription", query = "SELECT i FROM InsuranceConditions i WHERE i.conditionDescription = :conditionDescription"),
     @NamedQuery(name = "InsuranceConditions.findByQuestion", query = "SELECT i FROM InsuranceConditions i WHERE i.question = :question"),
     @NamedQuery(name = "InsuranceConditions.findByValue", query = "SELECT i FROM InsuranceConditions i WHERE i.value = :value")})
+
 @NamedNativeQueries({
     @NamedNativeQuery(name = "FindConditions", query = "SELECT * from insurance_conditions "
             + "WHERE id_insurance = ?1", resultClass = InsuranceConditions.class)
 })
 
 public class InsuranceConditions implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -143,5 +143,5 @@ public class InsuranceConditions implements Serializable {
     public String toString() {
         return "ubezpieczenia.entity.InsuranceConditions[ idCondition=" + idCondition + " ]";
     }
-
+    
 }
