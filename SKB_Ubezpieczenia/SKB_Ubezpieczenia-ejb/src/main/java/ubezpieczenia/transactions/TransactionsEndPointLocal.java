@@ -21,5 +21,7 @@ public interface TransactionsEndPointLocal {
     public List<CustomerTransactionDTO> getTransactionsDetail(Integer id_account);    
 
     public void saveTransaction(List<List<String>> listAllParams, Double value);
+    
+    public void disableTransaction(int id_transaction);
 
 }

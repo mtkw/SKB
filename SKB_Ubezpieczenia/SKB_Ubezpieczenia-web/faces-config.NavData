@@ -7,7 +7,9 @@
         <Node id="newTemplate.xhtml" x="151" y="300" zoom="true"/>
         <Node id="podsumowanieSymulacji.xhtml" x="570" y="14" zoom="true"/>
         <Node id="rodzajPlatnosci.xhtml" x="312" y="232" zoom="true"/>
+        <Node id="raty.xhtml" x="400" y="450" zoom="true"/>
         <Node id="lista_klientów.xhtml" x="668" y="254" zoom="true"/>
+        <Node id="gotowka.xhtml" x="150" y="600" zoom="true"/>
         <Node id="wybórWarunków.xhtml" x="900" y="150" zoom="true"/>
         <Node id="podsumowanie.xhtml" x="650" y="300" zoom="true"/>
         <Node id="lista_transakcji.xhtml" x="918" y="47" zoom="true"/>

@@ -26,6 +26,9 @@
                 <p:column headerText="Data Wygaśnięcia Ubezpieczenia">
                     <h:outputText value="#{transaction.end_date}"/>
                 </p:column>
+                <p:column headerText="Rezygnacja z Ubezepieczenia">
+                    <p:commandButton value="Rezygnuj" action="#{transactionsPB.disableTransaction}"/>
+                </p:column>
             </p:dataTable>
         </h:form>
     </ui:define>

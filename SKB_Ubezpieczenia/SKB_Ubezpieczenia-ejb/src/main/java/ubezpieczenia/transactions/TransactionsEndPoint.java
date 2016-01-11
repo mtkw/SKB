@@ -27,7 +27,7 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
 
     @EJB(beanName = "CustomerTransactionFacade")
     private CustomerTransactionFacade customerTransactionFacade;
-    
+
     private List<TransactionPosition> transactionsList;
 
 //    @Override
@@ -45,6 +45,11 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
     @Override
     public void saveTransaction(List<List<String>> listAllParams, Double value) {
         transactionsFacade.saveTransaction(listAllParams, value);
+    }
+
+    @Override
+    public void disableTransaction(int id_transaction) {
+        transactionsFacade.disableTransaction(id_transaction);
     }
 
     @Override

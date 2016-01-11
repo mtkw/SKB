@@ -19,6 +19,7 @@ public class TransactionsConverter {
         System.out.println("Lista Transakcji dostarczona do konwertera:" + entityList.size());
         for(TransactionPosition row: entityList){
             CustomerTransactionDTO dto = new CustomerTransactionDTO();
+            dto.setId_transaction(row.getIdTransaction());
             dto.setName_insurance(row.getNameInsurance());
             dto.setBasic_rate(row.getBasicRate());
             dto.setConditions_value(row.getOptional());

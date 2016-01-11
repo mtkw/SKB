@@ -99,5 +99,11 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
         q2.setParameter(6, true);
         q2.executeUpdate();
     }
+    
+    public void disableTransaction(int id_transaction){
+        Query q = getEntityManager().createNativeQuery("UPDATE customer_transactions set insurance_status = false where id_transaction = ?");
+        q.setParameter(1, id_transaction);
+        q.executeUpdate();
+    }
 
 }

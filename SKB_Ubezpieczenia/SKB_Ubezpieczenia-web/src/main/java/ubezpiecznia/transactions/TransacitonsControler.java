@@ -34,4 +34,9 @@ public class TransacitonsControler implements Serializable {
         transactionsDetails = transactionsEndPoint.getTransactionsDetail(rowData.getId_account());
         System.out.println("Wielkość Listy TransactionsDetails w TransactionsControler Po wywołaniu metody getTransactionsDetail() :" + transactionsDetails.size());
     }
+    
+    public void disableTransaction(CustomerTransactionDTO transaction){
+        System.out.println("Przekazane ID klienta do wyłaczenia: " + transaction.getId_transaction());
+        transactionsEndPoint.disableTransaction(transaction.getId_transaction());
+    }
 }

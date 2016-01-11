@@ -33,12 +33,13 @@ import javax.persistence.Table;
     @NamedQuery(name = "CustomerTransactions.findByValue", query = "SELECT c FROM CustomerTransactions c WHERE c.value = :value")})
 
 @NamedNativeQueries({
-    @NamedNativeQuery(name = "CustomerTransactions.NativefindByCustomerId", query = "SELECT t.id_transaction, i.name_insurance, i.basic_rate, COALESCE(SUM(ic.value),0) as optional, ct.value, ct.start_date, ct.end_date, ct.insurance_status"
+    @NamedNativeQuery(name = "CustomerTransactions.NativefindByCustomerId", query = "SELECT ct.id_transaction, i.name_insurance, i.basic_rate, COALESCE(SUM(ic.value),0) as optional, ct.value, ct.start_date, ct.end_date, ct.insurance_status"
             + " from Transaction t join Insurance i on t.insurance_id = i.id_insurance"
             + " join insurance_conditions ic on t.conditions_id = ic.id_condition"
             + " join Customer_Transactions ct on t.customer_id = ct.customer_id"
             + " where t.customer_id = ?1"
-            + " group by t.id_transaction, i.name_insurance, i.basic_rate, ct.value, ct.start_date, ct.end_date, ct.insurance_status", resultClass = TransactionPosition.class),
+            + " and ct.insurance_status = true"
+            + " group by ct.id_transaction, i.name_insurance, i.basic_rate, ct.value, ct.start_date, ct.end_date, ct.insurance_status", resultClass = TransactionPosition.class),
 })
 public class CustomerTransactions implements Serializable {
     private static final long serialVersionUID = 1L;

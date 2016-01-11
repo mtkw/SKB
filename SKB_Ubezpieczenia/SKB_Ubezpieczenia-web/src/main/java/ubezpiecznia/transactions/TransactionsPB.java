@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import ubezpieczenia.dto.CustomerTransactionDTO;
 
-
 /**
  *
  * @author Mateusz
@@ -34,7 +33,11 @@ public class TransactionsPB implements Serializable {
     public String prepareTransactionListactionListener() {
         System.out.println("ActionListener TESTER!!!");
         transactions = new ListDataModel<>(tc.getTransactionsDetails());
-        return "transactiomsDetails";
+        return "transactionsDetails";
     }
 
+    public void disableTransaction() {
+        tc.disableTransaction(transactions.getRowData());
+//        return "transactionsDetails";
+    }
 }
