@@ -24,4 +24,6 @@ public interface TransactionsEndPointLocal {
     
     public void disableTransaction(int id_transaction);
 
+    public void extensionTransaction(int id_transaction);
+
 }

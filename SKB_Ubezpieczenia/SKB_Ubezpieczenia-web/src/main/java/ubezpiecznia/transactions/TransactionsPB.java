@@ -38,6 +38,9 @@ public class TransactionsPB implements Serializable {
 
     public void disableTransaction() {
         tc.disableTransaction(transactions.getRowData());
-//        return "transactionsDetails";
+    }
+    
+    public void extensionTransaction(){
+        tc.extensionTransaction(transactions.getRowData());
     }
 }

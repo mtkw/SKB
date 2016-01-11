@@ -30,18 +30,6 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
 
     private List<TransactionPosition> transactionsList;
 
-//    @Override
-//    public List<CustomerTransactionDTO> getTransactionsDetail(Integer id_account) {
-//        System.out.println("PrzesyĹ‚any Parametr: " + id_account);
-//        transactionsList = transactionsFacade.findByCustomerID(id_account);
-//        System.out.println("WielkoĹ›Ä‡ Listy po zapytaniu: " + transactionsList.size());
-//        List<TransactionDTO2> dtoList = new ArrayList<>();
-//        System.out.println("WielkoĹ›Ä‡ dtoList po inicjalizacji: " + dtoList.size());
-//        TransactionsConverter.convertEntityToDTOList(transactionsList, dtoList);
-//        System.out.println("WielkoĹ›Ä‡ dtoList po konwersji: " + dtoList.size());
-//        System.out.println("WielkoĹ›Ä‡ transactionList po konwersji: " + transactionsList.size());
-//        return dtoList;
-//    }
     @Override
     public void saveTransaction(List<List<String>> listAllParams, Double value) {
         transactionsFacade.saveTransaction(listAllParams, value);
@@ -49,7 +37,7 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
 
     @Override
     public void disableTransaction(int id_transaction) {
-        transactionsFacade.disableTransaction(id_transaction);
+         customerTransactionFacade.disableTransaction(id_transaction);
     }
 
     @Override
@@ -63,5 +51,10 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
         System.out.println("WielkoĹ›Ä‡ dtoList po konwersji: " + dtoList.size());
         System.out.println("WielkoĹ›Ä‡ transactionList po konwersji: " + transactionsList.size());
         return dtoList;
+    }
+
+    @Override
+    public void extensionTransaction(int id_transaction) {
+        customerTransactionFacade.extension(id_transaction);
     }
 }

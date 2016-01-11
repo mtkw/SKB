@@ -39,4 +39,8 @@ public class TransacitonsControler implements Serializable {
         System.out.println("Przekazane ID klienta do wyłaczenia: " + transaction.getId_transaction());
         transactionsEndPoint.disableTransaction(transaction.getId_transaction());
     }
+
+    void extensionTransaction(CustomerTransactionDTO rowData) {
+            transactionsEndPoint.extensionTransaction(rowData.getId_transaction());
+    }
 }

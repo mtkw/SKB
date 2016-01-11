@@ -29,6 +29,9 @@
                 <p:column headerText="Rezygnacja z Ubezepieczenia">
                     <p:commandButton value="Rezygnuj" action="#{transactionsPB.disableTransaction}"/>
                 </p:column>
+                <p:column headerText="Przedłużenie Ubezpieczenia">
+                    <p:commandButton value="Przedłuż" action="#{transactionsPB.extensionTransaction}"/>
+                </p:column>
             </p:dataTable>
         </h:form>
     </ui:define>

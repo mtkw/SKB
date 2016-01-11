@@ -26,19 +26,19 @@ import ubezpieczenia.entity.TransactionPosition;
 @LocalBean
 @Stateless
 public class TransactionsFacade extends AbstractFacade<Transaction> {
-
+    
     @PersistenceContext(unitName = "SKB_Ubezpieczenia")
     private EntityManager em;
-
+    
     public TransactionsFacade() {
         super(Transaction.class);
     }
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     public List<TransactionPosition> findByCustomerID(Integer id_account) {
 //        Query q = getEntityManager().createNamedQuery("Transaction.findByCustomerId", Transaction.class);
         Query q = getEntityManager().createNamedQuery("Transaction.NativfindByCustomerAndGroupBy", Transaction.class);
@@ -48,7 +48,7 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
 //        List<Transaction> listT = new ArrayList();
 //        System.out.println("CZY COŚ SIE ZROBIŁO?? : " + listO.size());
         List<TransactionPosition> listT = q.getResultList();
-
+        
         System.out.println("WIelkość Listy po zapytaniu w Transaction FACADE: " + listT.size());
         for (TransactionPosition row : listT) {
             System.out.println("Test Wartości : " + row.getValue());
@@ -56,13 +56,13 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
         }
         return listT;
     }
-
+    
     public void saveTransaction(List<List<String>> listAllParams, Double value) {
         List<Integer> lastID = new ArrayList<>();
         Query qq = getEntityManager().createNativeQuery("SELECT id_transaction from transaction where customer_id = ?");
         qq.setParameter(1, Integer.parseInt(listAllParams.get(0).get(0)));
         lastID = qq.getResultList();
-
+        
         if (lastID.isEmpty()) {
             for (List lista : listAllParams) {
                 Query q = getEntityManager().createNativeQuery("INSERT INTO transaction (id_transaction, customer_id, insurance_id, conditions_id) VALUES (?,?,?,?)");
@@ -86,10 +86,10 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date()); //Dzisiejsza Data
-        String start_date = ""+dateFormat.format(c.getTime());
+        String start_date = "" + dateFormat.format(c.getTime());
         c.add(Calendar.MONTH, 12);
-        String end_date = ""+dateFormat.format(c.getTime());
-
+        String end_date = "" + dateFormat.format(c.getTime());
+        
         Query q2 = getEntityManager().createNativeQuery("INSERT INTO customer_transactions (customer_id, insurance_id, value, start_date, end_date, insurance_status) values (?,?,?,?,?,?)");
         q2.setParameter(1, Integer.parseInt(listAllParams.get(0).get(0)));
         q2.setParameter(2, Integer.parseInt(listAllParams.get(0).get(1)));
@@ -98,12 +98,5 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
         q2.setParameter(5, end_date);
         q2.setParameter(6, true);
         q2.executeUpdate();
-    }
-    
-    public void disableTransaction(int id_transaction){
-        Query q = getEntityManager().createNativeQuery("UPDATE customer_transactions set insurance_status = false where id_transaction = ?");
-        q.setParameter(1, id_transaction);
-        q.executeUpdate();
-    }
-
+    }    
 }
