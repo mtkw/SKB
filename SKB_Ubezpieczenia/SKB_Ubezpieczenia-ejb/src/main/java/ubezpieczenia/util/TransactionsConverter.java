@@ -5,11 +5,8 @@
  */
 package ubezpieczenia.util;
 
-import java.util.ArrayList;
 import java.util.List;
-import ubezpieczenia.dto.TransactionDTO2;
-import ubezpieczenia.dto.TransactionsDTO;
-import ubezpieczenia.entity.Transaction;
+import ubezpieczenia.dto.CustomerTransactionDTO;
 import ubezpieczenia.entity.TransactionPosition;
 
 /**
@@ -18,17 +15,19 @@ import ubezpieczenia.entity.TransactionPosition;
  */
 public class TransactionsConverter {
     
-    public static void convertEntityToDTOList(List<TransactionPosition> entityList, List<TransactionDTO2> dtoList){
+    public static void convertEntityToDTOList(List<TransactionPosition> entityList, List<CustomerTransactionDTO> dtoList){
         System.out.println("Lista Transakcji dostarczona do konwertera:" + entityList.size());
         for(TransactionPosition row: entityList){
-            TransactionDTO2 dto = new TransactionDTO2();
-//            dto.setId_transaction(row.getIdTransaction());
+            CustomerTransactionDTO dto = new CustomerTransactionDTO();
             dto.setName_insurance(row.getNameInsurance());
-            dto.setValue(row.getValue());
             dto.setBasic_rate(row.getBasicRate());
-//            dto.setValue(row.g);
+            dto.setConditions_value(row.getOptional());
+            dto.setValue(row.getValue());
+            dto.setStart_date(row.getStartDate());
+            dto.setEnd_date(row.getEndDate());
+            //dto.setStatus(row.getStatus());
+            
             dtoList.add(dto);
-            //System.out.println("Test Konwerter --> Lista Transakcji(Encja): " + row.getTransactionPK().getCustomerId() + " --> Lista DTO :" + dto.getCustomer_id());
         }
         System.out.println("Wielkość listy DTO po konwersji w konwerterze: " + dtoList);
     }

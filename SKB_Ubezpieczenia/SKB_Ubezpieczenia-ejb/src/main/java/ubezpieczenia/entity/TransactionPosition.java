@@ -24,27 +24,39 @@ import javax.validation.constraints.Size;
 @Table(name = "transaction_position")
 @NamedQueries({
     @NamedQuery(name = "TransactionPosition.findAll", query = "SELECT t FROM TransactionPosition t"),
+    @NamedQuery(name = "TransactionPosition.findByIdTransaction", query = "SELECT t FROM TransactionPosition t WHERE t.idTransaction = :idTransaction"),
     @NamedQuery(name = "TransactionPosition.findByNameInsurance", query = "SELECT t FROM TransactionPosition t WHERE t.nameInsurance = :nameInsurance"),
-    @NamedQuery(name = "TransactionPosition.findByValue", query = "SELECT t FROM TransactionPosition t WHERE t.value = :value"),
     @NamedQuery(name = "TransactionPosition.findByBasicRate", query = "SELECT t FROM TransactionPosition t WHERE t.basicRate = :basicRate"),
-    @NamedQuery(name = "TransactionPosition.findByIdTransaction", query = "SELECT t FROM TransactionPosition t WHERE t.idTransaction = :idTransaction")})
+    @NamedQuery(name = "TransactionPosition.findByOptional", query = "SELECT t FROM TransactionPosition t WHERE t.optional = :optional"),
+    @NamedQuery(name = "TransactionPosition.findByValue", query = "SELECT t FROM TransactionPosition t WHERE t.value = :value"),
+    @NamedQuery(name = "TransactionPosition.findByStartDate", query = "SELECT t FROM TransactionPosition t WHERE t.startDate = :startDate"),
+    @NamedQuery(name = "TransactionPosition.findByEndDate", query = "SELECT t FROM TransactionPosition t WHERE t.endDate = :endDate"),
+    @NamedQuery(name = "TransactionPosition.findByStatus", query = "SELECT t FROM TransactionPosition t WHERE t.status = :status")})
 public class TransactionPosition implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1024)
-    @Column(name = "name_insurance", nullable = false, length = 1024)
-    private String nameInsurance;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "value", precision = 17, scale = 17)
-    private Double value;
-    @Column(name = "basic_rate", precision = 17, scale = 17)
-    private Double basicRate;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_transaction", nullable = false)
     private Integer idTransaction;
+    @Size(max = 255)
+    @Column(name = "name_insurance", length = 255)
+    private String nameInsurance;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "basic_rate", precision = 17, scale = 17)
+    private Double basicRate;
+    @Column(name = "optional", precision = 17, scale = 17)
+    private Double optional;
+    @Column(name = "value", precision = 17, scale = 17)
+    private Double value;
+    @Size(max = 255)
+    @Column(name = "start_date", length = 255)
+    private String startDate;
+    @Size(max = 255)
+    @Column(name = "end_date", length = 255)
+    private String endDate;
+    @Column(name = "status")
+    private Boolean status;
 
     public TransactionPosition() {
     }
@@ -53,9 +65,12 @@ public class TransactionPosition implements Serializable {
         this.idTransaction = idTransaction;
     }
 
-    public TransactionPosition(Integer idTransaction, String nameInsurance) {
+    public Integer getIdTransaction() {
+        return idTransaction;
+    }
+
+    public void setIdTransaction(Integer idTransaction) {
         this.idTransaction = idTransaction;
-        this.nameInsurance = nameInsurance;
     }
 
     public String getNameInsurance() {
@@ -66,14 +81,6 @@ public class TransactionPosition implements Serializable {
         this.nameInsurance = nameInsurance;
     }
 
-    public Double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
     public Double getBasicRate() {
         return basicRate;
     }
@@ -82,12 +89,44 @@ public class TransactionPosition implements Serializable {
         this.basicRate = basicRate;
     }
 
-    public Integer getIdTransaction() {
-        return idTransaction;
+    public Double getOptional() {
+        return optional;
     }
 
-    public void setIdTransaction(Integer idTransaction) {
-        this.idTransaction = idTransaction;
+    public void setOptional(Double optional) {
+        this.optional = optional;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     @Override

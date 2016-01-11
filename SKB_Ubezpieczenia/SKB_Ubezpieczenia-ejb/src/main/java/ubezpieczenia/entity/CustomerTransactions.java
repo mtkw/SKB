@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,6 +31,15 @@ import javax.persistence.Table;
     @NamedQuery(name = "CustomerTransactions.findAll", query = "SELECT c FROM CustomerTransactions c"),
     @NamedQuery(name = "CustomerTransactions.findByIdTransaction", query = "SELECT c FROM CustomerTransactions c WHERE c.idTransaction = :idTransaction"),
     @NamedQuery(name = "CustomerTransactions.findByValue", query = "SELECT c FROM CustomerTransactions c WHERE c.value = :value")})
+
+@NamedNativeQueries({
+    @NamedNativeQuery(name = "CustomerTransactions.NativefindByCustomerId", query = "SELECT t.id_transaction, i.name_insurance, i.basic_rate, COALESCE(SUM(ic.value),0) as optional, ct.value, ct.start_date, ct.end_date, ct.insurance_status"
+            + " from Transaction t join Insurance i on t.insurance_id = i.id_insurance"
+            + " join insurance_conditions ic on t.conditions_id = ic.id_condition"
+            + " join Customer_Transactions ct on t.customer_id = ct.customer_id"
+            + " where t.customer_id = ?1"
+            + " group by t.id_transaction, i.name_insurance, i.basic_rate, ct.value, ct.start_date, ct.end_date, ct.insurance_status", resultClass = TransactionPosition.class),
+})
 public class CustomerTransactions implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

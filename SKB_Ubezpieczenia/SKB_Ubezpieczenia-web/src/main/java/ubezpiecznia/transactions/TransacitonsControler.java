@@ -10,8 +10,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import ubezpieczenia.dto.CustomerDTO;
-import ubezpieczenia.dto.TransactionDTO2;
-import ubezpieczenia.dto.TransactionsDTO;
+import ubezpieczenia.dto.CustomerTransactionDTO;
 import ubezpieczenia.transactions.TransactionsEndPointLocal;
 
 /**
@@ -24,9 +23,9 @@ public class TransacitonsControler implements Serializable {
     @EJB
     private TransactionsEndPointLocal transactionsEndPoint;
 
-    private List<TransactionDTO2> transactionsDetails;
+    private List<CustomerTransactionDTO> transactionsDetails;
 
-    public List<TransactionDTO2> getTransactionsDetails() {
+    public List<CustomerTransactionDTO> getTransactionsDetails() {
         return transactionsDetails;
     }
 

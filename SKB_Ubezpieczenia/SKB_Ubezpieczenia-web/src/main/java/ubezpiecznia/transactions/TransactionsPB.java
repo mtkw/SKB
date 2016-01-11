@@ -11,7 +11,8 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
-import ubezpieczenia.dto.TransactionDTO2;
+import ubezpieczenia.dto.CustomerTransactionDTO;
+
 
 /**
  *
@@ -24,9 +25,9 @@ public class TransactionsPB implements Serializable {
     @Inject
     private TransacitonsControler tc;
 
-    private DataModel<TransactionDTO2> transactions;
+    private DataModel<CustomerTransactionDTO> transactions;
 
-    public DataModel<TransactionDTO2> getTransactions() {
+    public DataModel<CustomerTransactionDTO> getTransactions() {
         return transactions;
     }
 

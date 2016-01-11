@@ -5,8 +5,11 @@
  */
 package ubezpieczenia.facade;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -79,10 +82,21 @@ public class TransactionsFacade extends AbstractFacade<Transaction> {
                 q.executeUpdate();
             }
         }
-        Query q2 = getEntityManager().createNativeQuery("INSERT INTO customer_transactions (customer_id, insurance_id, value) values (?,?,?)");
+        //Wyznaczenie Daty końca i początku ubezpieczenia
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date()); //Dzisiejsza Data
+        String start_date = ""+dateFormat.format(c.getTime());
+        c.add(Calendar.MONTH, 12);
+        String end_date = ""+dateFormat.format(c.getTime());
+
+        Query q2 = getEntityManager().createNativeQuery("INSERT INTO customer_transactions (customer_id, insurance_id, value, start_date, end_date, insurance_status) values (?,?,?,?,?,?)");
         q2.setParameter(1, Integer.parseInt(listAllParams.get(0).get(0)));
         q2.setParameter(2, Integer.parseInt(listAllParams.get(0).get(1)));
         q2.setParameter(3, value);
+        q2.setParameter(4, start_date);
+        q2.setParameter(5, end_date);
+        q2.setParameter(6, true);
         q2.executeUpdate();
     }
 

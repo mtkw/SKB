@@ -8,14 +8,23 @@
     <ui:define name="content">
         <h:form>
             <p:dataTable var="transaction" value="#{transactionsPB.transactions}">
-                <p:column headerText="Ubezpieczenie">
+                <p:column headerText="Nazwa Ubezpieczenia">
                     <h:outputText value="#{transaction.name_insurance}"/>
-                </p:column>
-                <p:column headerText="Opcje Dodatkowe">
-                    <h:outputText value="#{transaction.value}"/>
                 </p:column>
                 <p:column headerText="Stawka Podstawowa">
                     <h:outputText value="#{transaction.basic_rate}"/>
+                </p:column>
+                <p:column headerText="Wykupione Opcje">
+                    <h:outputText value="#{transaction.conditions_value}"/>
+                </p:column>
+                <p:column headerText="Wartość Całkowita">
+                    <h:outputText value="#{transaction.value}"/>
+                </p:column>
+                <p:column headerText="Data Rozpoczęcia Okresu Ubezpieczeniowego">
+                    <h:outputText value="#{transaction.start_date}"/>
+                </p:column>
+                <p:column headerText="Data Wygaśnięcia Ubezpieczenia">
+                    <h:outputText value="#{transaction.end_date}"/>
                 </p:column>
             </p:dataTable>
         </h:form>
