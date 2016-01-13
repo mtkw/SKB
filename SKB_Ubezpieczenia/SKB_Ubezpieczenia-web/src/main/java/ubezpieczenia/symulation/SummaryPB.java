@@ -13,6 +13,7 @@ import javax.inject.Named;
 import ubezpieczenia.dto.CustomerDTO;
 import ubezpieczenia.dto.InsuranceConditionsDTO;
 import ubezpieczenia.dto.InsuranceDTO;
+import ubezpieczenia.payment.PaymentControler;
 
 /**
  *
@@ -24,6 +25,9 @@ public class SummaryPB implements Serializable {
 
     @Inject
     SymulationControler sc;
+    
+    @Inject
+    PaymentControler pc;
 
     private CustomerDTO customer;
     private InsuranceDTO insurance;
@@ -77,6 +81,7 @@ public class SummaryPB implements Serializable {
         //Wywołanie metody 
         Double valueOfInsurance = getSum();
         sc.saveTransaction(listAllParams, valueOfInsurance);
+        pc.setAllParams(listAllParams.get(0), valueOfInsurance);
         return "payement";
     }
 }

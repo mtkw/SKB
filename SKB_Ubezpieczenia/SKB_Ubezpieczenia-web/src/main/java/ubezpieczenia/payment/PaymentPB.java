@@ -30,11 +30,10 @@ public class PaymentPB implements Serializable{
         return param;
     }
     
-    
-    
     @PostConstruct
     public void init() {
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         param = (String) requestMap.get("id_paymentMethodDes");
+        pc.setIdPaymentMethod(param);
     }
 }

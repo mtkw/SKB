@@ -132,5 +132,7 @@ public class CustomerDTO implements Serializable {
     public String toString() {
         return "CustomerDTO{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", birthday=" + birthday + ", pesel=" + pesel + ", city=" + city + ", streat=" + streat + ", number=" + number + ", postcode=" + postcode + ", id_account=" + id_account + '}';
     }
+    
+    
 
 }
