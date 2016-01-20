@@ -18,7 +18,9 @@ import ubezpieczenia.entity.TransactionPosition;
 @Local
 public interface TransactionsEndPointLocal {
 
-    public List<CustomerTransactionDTO> getTransactionsDetail(Integer id_account);    
+    public List<CustomerTransactionDTO> getTransactionsDetail(Integer id_account);
+    
+    public CustomerTransactionDTO getLastTransaction(Integer id_customer);
 
     public void saveTransaction(List<List<String>> listAllParams, Double value);
     

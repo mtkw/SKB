@@ -10,6 +10,7 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import ubezpieczenia.dto.CustomerDTO;
 import ubezpieczenia.dto.InsuranceConditionsDTO;
 import ubezpieczenia.dto.InsuranceDTO;
@@ -25,7 +26,7 @@ public class SummaryPB implements Serializable {
 
     @Inject
     SymulationControler sc;
-    
+
     @Inject
     PaymentControler pc;
 
@@ -64,7 +65,7 @@ public class SummaryPB implements Serializable {
         customer = sc.getCustomer();
         insurance = sc.getInsurance();
         conditions = sc.getConditions();
-        for(InsuranceConditionsDTO condition: conditions){
+        for (InsuranceConditionsDTO condition : conditions) {
             temp += condition.getValue();
         }
         sum = insurance.getBasic_rate() + temp;

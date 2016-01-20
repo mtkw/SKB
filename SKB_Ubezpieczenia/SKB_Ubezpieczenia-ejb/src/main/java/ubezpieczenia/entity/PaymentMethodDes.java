@@ -40,7 +40,7 @@ public class PaymentMethodDes implements Serializable {
     @Size(max = 20)
     @Column(name = "description", length = 20)
     private String description;
-    @OneToMany(mappedBy = "paymentMethodDes", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "paymentMethodId", fetch = FetchType.EAGER)
     private Collection<PaymentMethod> paymentMethodCollection;
 
     public PaymentMethodDes() {

@@ -39,6 +39,14 @@ public class CustomerTransactionFacade extends AbstractFacade<CustomerTransactio
         return em;
     }
 
+    public TransactionPosition findLastTransactionByCustomerID(Integer id_customer) {
+        Query q = getEntityManager().createNamedQuery("CustomerTransactions.NativefindByCustomerId", CustomerTransactions.class);
+        q.setParameter(1, id_customer);
+        List<TransactionPosition> listT = q.getResultList();
+        TransactionPosition lastTransaction = listT.get(listT.size() - 1);
+        return lastTransaction;
+    }
+
     public List<TransactionPosition> findByCustomerID(Integer id_account) {
         Query q = getEntityManager().createNamedQuery("CustomerTransactions.NativefindByCustomerId", CustomerTransactions.class);
         q.setParameter(1, id_account);
@@ -48,7 +56,7 @@ public class CustomerTransactionFacade extends AbstractFacade<CustomerTransactio
         for (TransactionPosition row : listT) {
             System.out.println("Test Wartości : " + row.getValue());
             System.out.println("Test Wartości : " + row.getBasicRate());
-            System.out.println("Test Wartości Warunków!!!!! : " + row.getOptional());
+            System.out.println("Test Wartości Warunków!!!!! : " + (row.getValue() - row.getBasicRate()));
         }
         return listT;
     }
@@ -60,9 +68,9 @@ public class CustomerTransactionFacade extends AbstractFacade<CustomerTransactio
     }
 
     public void extension(int id_transaction) {
-        
+
         System.out.println("ID TRANSACTION W FASADZIE PRZESŁANE DO PRZEDŁUŻENIA UBEZPIECZENIA " + id_transaction);
-        
+
         //Wyznaczenie Daty końca i początku ubezpieczenia
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar c = Calendar.getInstance();
@@ -70,13 +78,13 @@ public class CustomerTransactionFacade extends AbstractFacade<CustomerTransactio
         String start_date = "" + dateFormat.format(c.getTime());
         c.add(Calendar.MONTH, 12);
         String end_date = "" + dateFormat.format(c.getTime());
-        
+
         Query q1 = getEntityManager().createNativeQuery("UPDATE customer_transactions set start_date = ?, end_date = ? where id_transaction = ?");
         q1.setParameter(1, start_date);
         q1.setParameter(2, end_date);
         q1.setParameter(3, id_transaction);
         q1.executeUpdate();
-        
+
     }
 
 }

@@ -8,10 +8,15 @@
     <ui:define name="content">
         <h1>Płatność Jednorazowa</h1>
         <p:separator/>
-        <h2>Klient: </h2> <h:outputText value="#{paymentCashPB.customer.name} &nbsp; #{paymentCashPB.customer.surname}" />
-        <h2>Ubezpieczenie: </h2> <h:outputText value="#{paymentCashPB.insurance.name}" />
-        <h2>Termin Płatności:</h2> <h:outputText value="Data" />
-        <h2>Do Zapłaty:</h2> <h:outputText value="#{paymentCashPB.valueOfInsurance}" />
+        <h:form>
+            <h2>Klient: </h2> <h:outputText value="#{paymentCashPB.customer.name}&nbsp;#{paymentCashPB.customer.surname}" />
+            <h2>Ubezpieczenie: </h2> <h:outputText value="#{paymentCashPB.insurance.name}" />
+            <h2>Termin Płatności Do:</h2> <h:outputText value="#{paymentCashPB.date}" />
+            <h2>Do Zapłaty:</h2> <h:outputText value="#{paymentCashPB.valueOfInsurance}" />
+            <br />
+            <p:commandButton value="Zatwierdź" action="#{paymentCashPB.accept}" actionListener="#{paymentSummary.prepareData}"/>
+            <p:commandButton value="Anuluj" action="#{paymentCashPB.cancel}"/>
+        </h:form>
     </ui:define>
 
 </ui:composition>

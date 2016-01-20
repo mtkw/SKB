@@ -5,7 +5,10 @@
  */
 package ubezpieczenia.facade;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -42,6 +45,20 @@ public class PaymentMethodFacade extends AbstractFacade<PaymentMethodDes> {
         List<PaymentMethodDesDTO> dto = new ArrayList<>();
         PaymentMethodDESConverter.convertEntityToDTO(entity, dto);
         return dto;
+    }
+    
+    public void savePayment(List<String> params) throws ParseException{
+        Integer numberOfInstalment = 1;
+        Query q = getEntityManager().createNativeQuery("Insert into payment_method (transaction_id, "
+                + "payment_method_id, payment_dedline, "
+                + "number_of_instalment, single_instalment) "
+                + "VALUES (?,?,?,?,?)");
+        q.setParameter(1, Integer.parseInt(params.get(0)));
+        q.setParameter(2, Integer.parseInt(params.get(1)));
+        q.setParameter(3, params.get(2));
+        q.setParameter(4, (Integer)numberOfInstalment);
+        q.setParameter(5, Double.parseDouble(params.get(3)));
+        q.executeUpdate();
     }
 
 }

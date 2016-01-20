@@ -6,6 +6,7 @@
 package ubezpieczenia.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,9 @@ import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -33,15 +36,30 @@ import javax.persistence.Table;
     @NamedQuery(name = "CustomerTransactions.findByValue", query = "SELECT c FROM CustomerTransactions c WHERE c.value = :value")})
 
 @NamedNativeQueries({
-    @NamedNativeQuery(name = "CustomerTransactions.NativefindByCustomerId", query = "SELECT ct.id_transaction, i.name_insurance, i.basic_rate, COALESCE(SUM(ic.value),0) as optional, ct.value, ct.start_date, ct.end_date, ct.insurance_status"
-            + " from Transaction t join Insurance i on t.insurance_id = i.id_insurance"
-            + " join insurance_conditions ic on t.conditions_id = ic.id_condition"
-            + " join Customer_Transactions ct on t.customer_id = ct.customer_id"
-            + " where t.customer_id = ?1"
-            + " and ct.insurance_status = true"
-            + " group by ct.id_transaction, i.name_insurance, i.basic_rate, ct.value, ct.start_date, ct.end_date, ct.insurance_status", resultClass = TransactionPosition.class),
+//    @NamedNativeQuery(name = "CustomerTransactions.NativefindByCustomerId", query = "SELECT ct.id_transaction, i.name_insurance, i.basic_rate, COALESCE(SUM(ic.value),0) as optional, ct.value, ct.start_date, ct.end_date, ct.insurance_status"
+//            + " from Transaction t join Insurance i on t.insurance_id = i.id_insurance"
+//            + " join insurance_conditions ic on t.conditions_id = ic.id_condition"
+//            + " join Customer_Transactions ct on t.customer_id = ct.customer_id"
+//            + " where t.customer_id = ?1"
+//            + " and ct.insurance_status = true"
+//            + " group by ct.id_transaction, i.name_insurance, i.basic_rate, ct.value, ct.start_date, ct.end_date, ct.insurance_status", resultClass = TransactionPosition.class),
+    @NamedNativeQuery(name = "CustomerTransactions.NativefindByCustomerId", query ="select ct.id_transaction, ct.customer_id, i.name_insurance, "
+            + "i.basic_rate, ct.value, ct.start_date, ct.end_date, ct.insurance_status "
+            + "from customer_transactions ct join insurance as i on ct.insurance_id = i.id_insurance "
+            + "where ct.customer_id = ?1 "
+            + "and ct.insurance_status = true", resultClass = TransactionPosition.class),
 })
 public class CustomerTransactions implements Serializable {
+    @Size(max = 255)
+    @Column(name = "start_date", length = 255)
+    private String startDate;
+    @Size(max = 255)
+    @Column(name = "end_date", length = 255)
+    private String endDate;
+    @Column(name = "insurance_status")
+    private Boolean insuranceStatus;
+    @OneToMany(mappedBy = "transactionId", fetch = FetchType.EAGER)
+    private Collection<PaymentMethod> paymentMethodCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -120,6 +138,38 @@ public class CustomerTransactions implements Serializable {
     @Override
     public String toString() {
         return "ubezpieczenia.entity.CustomerTransactions[ idTransaction=" + idTransaction + " ]";
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public Boolean getInsuranceStatus() {
+        return insuranceStatus;
+    }
+
+    public void setInsuranceStatus(Boolean insuranceStatus) {
+        this.insuranceStatus = insuranceStatus;
+    }
+
+    public Collection<PaymentMethod> getPaymentMethodCollection() {
+        return paymentMethodCollection;
+    }
+
+    public void setPaymentMethodCollection(Collection<PaymentMethod> paymentMethodCollection) {
+        this.paymentMethodCollection = paymentMethodCollection;
     }
     
 }

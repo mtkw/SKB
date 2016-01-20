@@ -6,7 +6,6 @@
 package ubezpieczenia.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -31,7 +29,6 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "PaymentMethod.findAll", query = "SELECT p FROM PaymentMethod p"),
     @NamedQuery(name = "PaymentMethod.findByIdPaymentMethod", query = "SELECT p FROM PaymentMethod p WHERE p.idPaymentMethod = :idPaymentMethod"),
-    @NamedQuery(name = "PaymentMethod.findByTransactionId", query = "SELECT p FROM PaymentMethod p WHERE p.transactionId = :transactionId"),
     @NamedQuery(name = "PaymentMethod.findByPaymentDedline", query = "SELECT p FROM PaymentMethod p WHERE p.paymentDedline = :paymentDedline"),
     @NamedQuery(name = "PaymentMethod.findByNumberOfInstalment", query = "SELECT p FROM PaymentMethod p WHERE p.numberOfInstalment = :numberOfInstalment"),
     @NamedQuery(name = "PaymentMethod.findBySingleInstalment", query = "SELECT p FROM PaymentMethod p WHERE p.singleInstalment = :singleInstalment")})
@@ -42,19 +39,20 @@ public class PaymentMethod implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_payment_method", nullable = false)
     private Integer idPaymentMethod;
-    @Column(name = "transaction_id")
-    private Integer transactionId;
-    @Column(name = "payment_dedline")
-    @Temporal(TemporalType.DATE)
-    private Date paymentDedline;
+    @Size(max = 50)
+    @Column(name = "payment_dedline", length = 50)
+    private String paymentDedline;
     @Column(name = "number_of_instalment")
     private Integer numberOfInstalment;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "single_instalment", precision = 17, scale = 17)
     private Double singleInstalment;
+    @JoinColumn(name = "transaction_id", referencedColumnName = "id_transaction")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private CustomerTransactions transactionId;
     @JoinColumn(name = "payment_method_id", referencedColumnName = "id_payment_method_des")
     @ManyToOne(fetch = FetchType.EAGER)
-    private PaymentMethodDes paymentMethodDes;
+    private PaymentMethodDes paymentMethodId;
 
     public PaymentMethod() {
     }
@@ -71,19 +69,11 @@ public class PaymentMethod implements Serializable {
         this.idPaymentMethod = idPaymentMethod;
     }
 
-    public Integer getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(Integer transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public Date getPaymentDedline() {
+    public String getPaymentDedline() {
         return paymentDedline;
     }
 
-    public void setPaymentDedline(Date paymentDedline) {
+    public void setPaymentDedline(String paymentDedline) {
         this.paymentDedline = paymentDedline;
     }
 
@@ -103,12 +93,20 @@ public class PaymentMethod implements Serializable {
         this.singleInstalment = singleInstalment;
     }
 
-    public PaymentMethodDes getPaymentMethodDes() {
-        return paymentMethodDes;
+    public CustomerTransactions getTransactionId() {
+        return transactionId;
     }
 
-    public void setPaymentMethodDes(PaymentMethodDes paymentMethodDes) {
-        this.paymentMethodDes = paymentMethodDes;
+    public void setTransactionId(CustomerTransactions transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public PaymentMethodDes getPaymentMethodId() {
+        return paymentMethodId;
+    }
+
+    public void setPaymentMethodId(PaymentMethodDes paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
     }
 
     @Override

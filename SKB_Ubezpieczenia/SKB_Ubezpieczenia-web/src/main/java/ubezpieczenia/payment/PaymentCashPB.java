@@ -6,7 +6,12 @@
 package ubezpieczenia.payment;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -14,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import ubezpieczenia.dto.CustomerDTO;
+import ubezpieczenia.dto.CustomerTransactionDTO;
 import ubezpieczenia.dto.InsuranceDTO;
 
 /**
@@ -30,21 +36,88 @@ public class PaymentCashPB implements Serializable {
     private CustomerDTO customer;
     private InsuranceDTO insurance;
     private Double valueOfInsurance;
-    private Date date;
+    private String date;
+    private List<String> params;
+    private String idTransaction;
+    private String id_paymentMethodDes;
 
     @PostConstruct
     public void init() {
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String idPaymentMethod = (String) requestMap.get("id_paymentMethodDes");
-        
+        setId_paymentMethodDes((String) requestMap.get("id_paymentMethodDes"));
+
         pc.getCustomerDetails(Integer.parseInt(pc.getParams().get(0)));
         pc.getInsurnaceDetails(Integer.parseInt(pc.getParams().get(1)));
-        
+
         setValueOfInsurance(pc.getValue());
         setCustomer(pc.getCustomer());
         setInsurance(pc.getInsurance());
-        
+
+        //Wyznaczenie Daty końca i początku ubezpieczenia
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date()); //Dzisiejsza Data
+        c.add(Calendar.MONTH, 1);
+        String deadline = "" + dateFormat.format(c.getTime());
+
+        setDate(deadline);
+
+        pc.setAllParams(customer.getId().toString(), insurance.getId().toString(), valueOfInsurance.toString(), id_paymentMethodDes, deadline);
+
         System.out.println("TEST PAYMENTMETHODCASHPB: " + pc.getValue() + " lista " + pc.getParams().size());
+    }
+
+    public String cancel() {
+        return "płatności";
+    }
+
+    public String accept() {
+        //pobranie idTransaction danego klienta;
+        pc.getLastCustomerTransaction(customer.getId());
+        CustomerTransactionDTO lastTransaction = pc.getLastTransaction();
+
+        Integer lastIdTransaction = lastTransaction.getId_transaction();
+        setIdTransaction(Integer.toString(lastIdTransaction));
+
+        System.out.println("Ostatnie ID TRANASACTION: " + lastTransaction.getId_transaction());
+        System.out.println("LastIDTransaction: " + lastIdTransaction);
+        System.out.println("IDTransaction STRING: " + idTransaction);
+        System.out.println("TEST POBRANIA ID TRANSACTION W PAYMENT CASH PB: ");
+        System.out.println("ID CUSTOMER: " + customer.getId());
+//        System.out.println("ID Transaction: " + id_transaction);
+        System.out.println("KONIEC TESTU");
+
+        params = new ArrayList<>();
+
+//        setIdTransaction(Integer.toString(id_transaction));
+        params.add(idTransaction);
+        params.add(id_paymentMethodDes);
+        params.add(date);
+        params.add(valueOfInsurance.toString());
+//        
+        System.out.println("id_transaction: " + idTransaction);
+        System.out.println("id_paymentMethodDes: " + id_paymentMethodDes);
+        System.out.println("Data: " + date);
+        System.out.println("Wartość: " + valueOfInsurance);
+       // pc.setAllParams(customer.getId().toString(), insurance.getId().toString(), valueOfInsurance.toString(), id_paymentMethodDes, date);
+        pc.savePayment(params);
+        return "podsumowanieCałości";
+    }
+
+    public List<String> getParams() {
+        return params;
+    }
+
+    public void setParams(List<String> params) {
+        this.params = params;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public CustomerDTO getCustomer() {
@@ -69,6 +142,22 @@ public class PaymentCashPB implements Serializable {
 
     public void setValueOfInsurance(Double valueOfInsurance) {
         this.valueOfInsurance = valueOfInsurance;
+    }
+
+    public String getIdTransaction() {
+        return idTransaction;
+    }
+
+    public void setIdTransaction(String idTransaction) {
+        this.idTransaction = idTransaction;
+    }
+
+    public String getId_paymentMethodDes() {
+        return id_paymentMethodDes;
+    }
+
+    public void setId_paymentMethodDes(String id_paymentMethodDes) {
+        this.id_paymentMethodDes = id_paymentMethodDes;
     }
 
 }

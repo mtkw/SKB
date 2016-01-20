@@ -5,7 +5,10 @@
  */
 package ubezpieczenia.payment;
 
+import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -27,5 +30,14 @@ public class PaymentEndPoint implements PaymentEndPointLocal {
     public List<PaymentMethodDesDTO> getPayMentMethodDesList() {
         List<PaymentMethodDesDTO> dto =  paymentMethodFacade.findALLDTO();
         return dto;
+    }
+
+    @Override
+    public void savePayment(List<String> params) {
+         try {
+             paymentMethodFacade.savePayment(params);
+         } catch (ParseException ex) {
+             Logger.getLogger(PaymentEndPoint.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }
 }

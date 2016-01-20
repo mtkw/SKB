@@ -17,5 +17,7 @@ import ubezpieczenia.dto.PaymentMethodDesDTO;
 public interface PaymentEndPointLocal {
 
     public List<PaymentMethodDesDTO> getPayMentMethodDesList();
+
+    public void savePayment(List<String> params);
     
 }

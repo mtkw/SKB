@@ -29,6 +29,7 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
     private CustomerTransactionFacade customerTransactionFacade;
 
     private List<TransactionPosition> transactionsList;
+    private TransactionPosition lastTransaction;
 
     @Override
     public void saveTransaction(List<List<String>> listAllParams, Double value) {
@@ -37,7 +38,15 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
 
     @Override
     public void disableTransaction(int id_transaction) {
-         customerTransactionFacade.disableTransaction(id_transaction);
+        customerTransactionFacade.disableTransaction(id_transaction);
+    }
+
+    @Override
+    public CustomerTransactionDTO getLastTransaction(Integer id_customer) {
+        lastTransaction = customerTransactionFacade.findLastTransactionByCustomerID(id_customer);
+        CustomerTransactionDTO dto = new CustomerTransactionDTO();
+        TransactionsConverter.convertEntityToDTO(lastTransaction, dto);
+        return dto;
     }
 
     @Override
@@ -57,4 +66,5 @@ public class TransactionsEndPoint implements TransactionsEndPointLocal {
     public void extensionTransaction(int id_transaction) {
         customerTransactionFacade.extension(id_transaction);
     }
+
 }
