@@ -28,7 +28,7 @@ import ubezpieczenia.dto.InsuranceDTO;
  */
 @SessionScoped
 @Named
-public class PaymentCashPB implements Serializable {
+public class PaymentInstalmentPB implements Serializable {
 
     @Inject
     PaymentControler pc;
@@ -36,6 +36,7 @@ public class PaymentCashPB implements Serializable {
     private CustomerDTO customer;
     private InsuranceDTO insurance;
     private Double valueOfInsurance;
+    private Double instalment;
     private String date;
     private List<String> params;
     private String idTransaction;
@@ -52,23 +53,20 @@ public class PaymentCashPB implements Serializable {
         setValueOfInsurance(pc.getValue());
         setCustomer(pc.getCustomer());
         setInsurance(pc.getInsurance());
+        setInstalment(valueOfInsurance / 12);
 
-        //Wyznaczenie Daty końca i początku ubezpieczenia
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date()); //Dzisiejsza Data
-        c.add(Calendar.MONTH, 1);
-        String deadline = "" + dateFormat.format(c.getTime());
+//        //Wyznaczenie Daty końca i początku ubezpieczenia
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+//        Calendar c = Calendar.getInstance();
+//        c.setTime(new Date()); //Dzisiejsza Data
+//        c.add(Calendar.MONTH, 1);
+//        String deadline = "" + dateFormat.format(c.getTime());
+//
+//        setDate(deadline);
 
-        setDate(deadline);
-
-        pc.setAllParams(customer.getId().toString(), insurance.getId().toString(), valueOfInsurance.toString(), id_paymentMethodDes, deadline);
+        pc.setAllParams(customer.getId().toString(), insurance.getId().toString(), valueOfInsurance.toString(), id_paymentMethodDes, date);
 
         System.out.println("TEST PAYMENTMETHODCASHPB: " + pc.getValue() + " lista " + pc.getParams().size());
-    }
-
-    public String cancel() {
-        return "płatności";
     }
 
     public String accept() {
@@ -88,21 +86,43 @@ public class PaymentCashPB implements Serializable {
         System.out.println("KONIEC TESTU");
 
         params = new ArrayList<>();
+        
+        
 
 //        setIdTransaction(Integer.toString(id_transaction));
         params.add(idTransaction);
         params.add(id_paymentMethodDes);
-        params.add("1");
+        params.add("12");
         params.add(date);
-        params.add(valueOfInsurance.toString());
+        params.add(instalment.toString());
 //        
         System.out.println("id_transaction: " + idTransaction);
         System.out.println("id_paymentMethodDes: " + id_paymentMethodDes);
         System.out.println("Data: " + date);
         System.out.println("Wartość: " + valueOfInsurance);
-       // pc.setAllParams(customer.getId().toString(), insurance.getId().toString(), valueOfInsurance.toString(), id_paymentMethodDes, date);
+        // pc.setAllParams(customer.getId().toString(), insurance.getId().toString(), valueOfInsurance.toString(), id_paymentMethodDes, date);
         pc.savePayment(params);
         return "podsumowanieCałości";
+    }
+
+    public String cancel() {
+        return "płatności";
+    }
+
+    public Double getValueOfInsurance() {
+        return valueOfInsurance;
+    }
+
+    public void setValueOfInsurance(Double valueOfInsurance) {
+        this.valueOfInsurance = valueOfInsurance;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public List<String> getParams() {
@@ -113,12 +133,20 @@ public class PaymentCashPB implements Serializable {
         this.params = params;
     }
 
-    public String getDate() {
-        return date;
+    public String getIdTransaction() {
+        return idTransaction;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setIdTransaction(String idTransaction) {
+        this.idTransaction = idTransaction;
+    }
+
+    public String getId_paymentMethodDes() {
+        return id_paymentMethodDes;
+    }
+
+    public void setId_paymentMethodDes(String id_paymentMethodDes) {
+        this.id_paymentMethodDes = id_paymentMethodDes;
     }
 
     public CustomerDTO getCustomer() {
@@ -137,28 +165,12 @@ public class PaymentCashPB implements Serializable {
         this.insurance = insurance;
     }
 
-    public Double getValueOfInsurance() {
-        return valueOfInsurance;
+    public Double getInstalment() {
+        return instalment;
     }
 
-    public void setValueOfInsurance(Double valueOfInsurance) {
-        this.valueOfInsurance = valueOfInsurance;
-    }
-
-    public String getIdTransaction() {
-        return idTransaction;
-    }
-
-    public void setIdTransaction(String idTransaction) {
-        this.idTransaction = idTransaction;
-    }
-
-    public String getId_paymentMethodDes() {
-        return id_paymentMethodDes;
-    }
-
-    public void setId_paymentMethodDes(String id_paymentMethodDes) {
-        this.id_paymentMethodDes = id_paymentMethodDes;
+    public void setInstalment(Double instalment) {
+        this.instalment = instalment;
     }
 
 }

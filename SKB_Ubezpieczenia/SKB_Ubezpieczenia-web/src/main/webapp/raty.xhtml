@@ -2,11 +2,28 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./newTemplate.xhtml"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
         <h1>Płatność Ratalna</h1>
         <p:separator/>
+        <h:form>
+            <h2>Klient: </h2> <h:outputText value="#{paymentInstalmentPB.customer.name}&nbsp;#{paymentInstalmentPB.customer.surname}" />
+            <h2>Ubezpieczenie: </h2> <h:outputText value="#{paymentInstalmentPB.insurance.name}" />
+            <h2>Termin Płatności Do:</h2> 
+            <p:selectOneMenu id="dzien_platnosci" value="#{paymentInstalmentPB.date}" style="width:125px">
+                <f:selectItem itemLabel="15 dzień każdego miesiąca" itemValue="15" />
+                <f:selectItem itemLabel="25 dzień każdego miesiąca" itemValue="25" />
+            </p:selectOneMenu>
+            <h2>Do Zapłaty:</h2> <h:outputText value="#{paymentInstalmentPB.valueOfInsurance}" />
+            <br />
+            <h2>Miesięczna Rata: </h2> <h:outputText value="#{paymentInstalmentPB.instalment}" />
+            <br />
+            <p:commandButton value="Zatwierdź" action="#{paymentInstalmentPB.accept}" actionListener="#{paymentSummary.prepareData}"/>
+            <p:commandButton value="Anuluj" action="#{paymentCashPB.cancel}"/>
+        </h:form>
     </ui:define>
 
 </ui:composition>
