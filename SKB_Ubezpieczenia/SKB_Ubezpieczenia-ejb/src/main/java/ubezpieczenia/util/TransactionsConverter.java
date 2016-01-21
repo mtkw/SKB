@@ -20,6 +20,8 @@ public class TransactionsConverter {
         for (TransactionPosition row : entityList) {
             CustomerTransactionDTO dto = new CustomerTransactionDTO();
             dto.setId_transaction(row.getIdTransaction());
+            dto.setCustomer_id(row.getCustomerId());
+            dto.setCustomer_transaction_id(row.getCustomerTransactionId());
             dto.setName_insurance(row.getNameInsurance());
             dto.setBasic_rate(row.getBasicRate());
             dto.setConditions_value(row.getValue() - row.getBasicRate());

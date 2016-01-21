@@ -43,13 +43,17 @@ import javax.validation.constraints.Size;
 //            + " where t.customer_id = ?1"
 //            + " and ct.insurance_status = true"
 //            + " group by ct.id_transaction, i.name_insurance, i.basic_rate, ct.value, ct.start_date, ct.end_date, ct.insurance_status", resultClass = TransactionPosition.class),
-    @NamedNativeQuery(name = "CustomerTransactions.NativefindByCustomerId", query ="select ct.id_transaction, ct.customer_id, i.name_insurance, "
+    @NamedNativeQuery(name = "CustomerTransactions.NativefindByCustomerId", query ="select ct.id_transaction, ct.customer_id, ct.customer_transaction_id, i.name_insurance, "
             + "i.basic_rate, ct.value, ct.start_date, ct.end_date, ct.insurance_status "
             + "from customer_transactions ct join insurance as i on ct.insurance_id = i.id_insurance "
             + "where ct.customer_id = ?1 "
             + "and ct.insurance_status = true", resultClass = TransactionPosition.class),
 })
 public class CustomerTransactions implements Serializable {
+    @Column(name = "customer_transaction_id")
+    private Integer customerTransactionId;
+    @OneToMany(mappedBy = "transactionId", fetch = FetchType.EAGER)
+    private Collection<Payment> paymentCollection;
     @Size(max = 255)
     @Column(name = "start_date", length = 255)
     private String startDate;
@@ -170,6 +174,22 @@ public class CustomerTransactions implements Serializable {
 
     public void setPaymentMethodCollection(Collection<PaymentMethod> paymentMethodCollection) {
         this.paymentMethodCollection = paymentMethodCollection;
+    }
+
+    public Integer getCustomerTransactionId() {
+        return customerTransactionId;
+    }
+
+    public void setCustomerTransactionId(Integer customerTransactionId) {
+        this.customerTransactionId = customerTransactionId;
+    }
+
+    public Collection<Payment> getPaymentCollection() {
+        return paymentCollection;
+    }
+
+    public void setPaymentCollection(Collection<Payment> paymentCollection) {
+        this.paymentCollection = paymentCollection;
     }
     
 }

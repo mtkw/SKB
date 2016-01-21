@@ -14,6 +14,8 @@ import java.io.Serializable;
 public class CustomerTransactionDTO implements Serializable {
 
     private int id_transaction;
+    private int customer_id;
+    private int customer_transaction_id;
     private String name_insurance;
     private double basic_rate;
     private double conditions_value;
@@ -28,6 +30,22 @@ public class CustomerTransactionDTO implements Serializable {
 
     public void setId_transaction(int id_transaction) {
         this.id_transaction = id_transaction;
+    }
+
+    public int getCustomer_transaction_id() {
+        return customer_transaction_id;
+    }
+
+    public int getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
+    }
+
+    public void setCustomer_transaction_id(int customer_transaction_id) {
+        this.customer_transaction_id = customer_transaction_id;
     }
 
     public String getName_insurance() {

@@ -16,7 +16,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import ubezpieczenia.entity.CustomerTransactions;
-import ubezpieczenia.entity.Transaction;
 import ubezpieczenia.entity.TransactionPosition;
 
 /**
@@ -79,10 +78,9 @@ public class CustomerTransactionFacade extends AbstractFacade<CustomerTransactio
         c.add(Calendar.MONTH, 12);
         String end_date = "" + dateFormat.format(c.getTime());
 
-        Query q1 = getEntityManager().createNativeQuery("UPDATE customer_transactions set start_date = ?, end_date = ? where id_transaction = ?");
-        q1.setParameter(1, start_date);
-        q1.setParameter(2, end_date);
-        q1.setParameter(3, id_transaction);
+        Query q1 = getEntityManager().createNativeQuery("UPDATE customer_transactions end_date = ? where id_transaction = ?");
+        q1.setParameter(1, end_date);
+        q1.setParameter(2, id_transaction);
         q1.executeUpdate();
 
     }

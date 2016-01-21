@@ -11,6 +11,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
+import ubezpieczenia.clientPayment.ClientPaymentControler;
 import ubezpieczenia.dto.CustomerTransactionDTO;
 
 /**
@@ -23,6 +24,9 @@ public class TransactionsPB implements Serializable {
 
     @Inject
     private TransacitonsControler tc;
+    
+    @Inject
+    private ClientPaymentControler cp;
 
     private DataModel<CustomerTransactionDTO> transactions;
 
@@ -42,5 +46,11 @@ public class TransactionsPB implements Serializable {
     
     public void extensionTransaction(){
         tc.extensionTransaction(transactions.getRowData());
+    }
+    
+    public String showPayment(){
+        cp.getPayment(transactions.getRowData().getId_transaction());
+        System.out.println("PRZSŁANY PARAMETR DO SHOWPAYMENT: " + transactions.getRowData().getId_transaction());
+        return "klient_płatności";
     }
 }

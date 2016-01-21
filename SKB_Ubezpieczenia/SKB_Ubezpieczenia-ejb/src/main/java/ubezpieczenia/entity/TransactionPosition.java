@@ -25,6 +25,8 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "TransactionPosition.findAll", query = "SELECT t FROM TransactionPosition t"),
     @NamedQuery(name = "TransactionPosition.findByIdTransaction", query = "SELECT t FROM TransactionPosition t WHERE t.idTransaction = :idTransaction"),
+    @NamedQuery(name = "TransactionPosition.findByCustomerId", query = "SELECT t FROM TransactionPosition t WHERE t.customerId = :customerId"),
+    @NamedQuery(name = "TransactionPosition.findByCustomerTransactionId", query = "SELECT t FROM TransactionPosition t WHERE t.customerTransactionId = :customerTransactionId"),
     @NamedQuery(name = "TransactionPosition.findByNameInsurance", query = "SELECT t FROM TransactionPosition t WHERE t.nameInsurance = :nameInsurance"),
     @NamedQuery(name = "TransactionPosition.findByBasicRate", query = "SELECT t FROM TransactionPosition t WHERE t.basicRate = :basicRate"),
     @NamedQuery(name = "TransactionPosition.findByOptional", query = "SELECT t FROM TransactionPosition t WHERE t.optional = :optional"),
@@ -39,6 +41,10 @@ public class TransactionPosition implements Serializable {
     @NotNull
     @Column(name = "id_transaction", nullable = false)
     private Integer idTransaction;
+    @Column(name = "customer_id")
+    private Integer customerId;
+    @Column(name = "customer_transaction_id")
+    private Integer customerTransactionId;
     @Size(max = 255)
     @Column(name = "name_insurance", length = 255)
     private String nameInsurance;
@@ -71,6 +77,22 @@ public class TransactionPosition implements Serializable {
 
     public void setIdTransaction(Integer idTransaction) {
         this.idTransaction = idTransaction;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    public Integer getCustomerTransactionId() {
+        return customerTransactionId;
+    }
+
+    public void setCustomerTransactionId(Integer customerTransactionId) {
+        this.customerTransactionId = customerTransactionId;
     }
 
     public String getNameInsurance() {

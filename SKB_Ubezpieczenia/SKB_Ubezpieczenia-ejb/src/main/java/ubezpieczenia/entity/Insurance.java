@@ -35,6 +35,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Insurance.findByBasicRate", query = "SELECT i FROM Insurance i WHERE i.basicRate = :basicRate")})
 public class Insurance implements Serializable {
     @OneToMany(mappedBy = "insuranceId", fetch = FetchType.EAGER)
+    private Collection<Claims> claimsCollection;
+    @OneToMany(mappedBy = "insuranceId", fetch = FetchType.EAGER)
     private Collection<CustomerTransactions> customerTransactionsCollection;
     private static final long serialVersionUID = 1L;
     @Id
@@ -142,6 +144,14 @@ public class Insurance implements Serializable {
 
     public void setCustomerTransactionsCollection(Collection<CustomerTransactions> customerTransactionsCollection) {
         this.customerTransactionsCollection = customerTransactionsCollection;
+    }
+
+    public Collection<Claims> getClaimsCollection() {
+        return claimsCollection;
+    }
+
+    public void setClaimsCollection(Collection<Claims> claimsCollection) {
+        this.claimsCollection = claimsCollection;
     }
     
 }

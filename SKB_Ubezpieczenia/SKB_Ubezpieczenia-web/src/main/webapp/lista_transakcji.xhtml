@@ -32,6 +32,9 @@
                 <p:column headerText="Przedłużenie Ubezpieczenia">
                     <p:commandButton value="Przedłuż" action="#{transactionsPB.extensionTransaction}"/>
                 </p:column>
+                <p:column headerText="Płatność">
+                    <p:commandButton value="Płatności" actionListener="#{transactionsPB.showPayment}" action="#{clientPaymentPB.prepareDate}"/>
+                </p:column>
             </p:dataTable>
         </h:form>
     </ui:define>
