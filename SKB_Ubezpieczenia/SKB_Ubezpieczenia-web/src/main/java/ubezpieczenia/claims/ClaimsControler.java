@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import ubezpieczenia.customer.CustomerEndPointLocal;
+import ubezpieczenia.dto.ClaimsDTO;
 import ubezpieczenia.dto.CustomerDTO;
 import ubezpieczenia.dto.InsuranceDTO;
 import ubezpieczenia.insurance.InsuranceEndPointLocal;
@@ -26,6 +27,13 @@ public class ClaimsControler implements Serializable {
     
     @EJB
     private InsuranceEndPointLocal insuranceEndPoint;
+    
+    @EJB
+    private ClaimsEndPointLocal claimsEndPoint;
+    
+    public List<ClaimsDTO> getClaims(){
+        return claimsEndPoint.getAllClaims();
+    }
 
     public List<CustomerDTO> getCustomerList() {
         if (customerEndPoint != null) {
@@ -43,6 +51,10 @@ public class ClaimsControler implements Serializable {
             System.out.println("insuranceEndPoint = null");
             throw new NullPointerException("insuranceEndPoint not initialized");
         }
+    }
+
+    void saveClaim(int selectedIDCustomer, int selectedIDInsurance, String textArea) {
+        claimsEndPoint.saveClaim(selectedIDCustomer, selectedIDInsurance, textArea);
     }
 
 }

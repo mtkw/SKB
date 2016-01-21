@@ -14,23 +14,25 @@
                 <h:form>
 
                     <h2>Wybór Klienta:</h2>
-                    <p:selectOneMenu id="klient" value="#{claimsPB.customer}" style="width:125px">
-                        <f:selectItems value="#{claimsPB.customersOneMenu}"/>
+                    <p:selectOneMenu id="klient" value="#{claimsPB.selectedIDCustomer}" style="width:125px" converter="conditionsConverter">
+                        <f:selectItems value="#{claimsPB.customersOneMenu}" var="customer" itemValue="#{customer.id}" itemLabel="#{customer.name} #{customer.surname}">
+                        </f:selectItems>
                     </p:selectOneMenu>
                     <br />
 
                     <h2>Wybór Ubezpieczenia Którego Dotyczy Zgłaszane Roszczenie: </h2>
-                    <p:selectOneMenu id="dzien_platnosci" value="#{claimsPB.insurance}" style="width:125px">
-                        <f:selectItems value="#{claimsPB.insuranceOneMenu}"/>
+                    <p:selectOneMenu id="dzien_platnosci" value="#{claimsPB.selectedIDInsurance}" style="width:125px" converter="conditionsConverter">
+                        <f:selectItems value="#{claimsPB.insuranceOneMenu}" var="insurance" itemValue="#{insurance.id}" itemLabel="#{insurance.name}">
+                        </f:selectItems>
                     </p:selectOneMenu>
                     <br /> 
                     
                     <h2>Opis Zaistniałej Sytuacji: </h2>
-                    <p:inputTextarea rows="10" cols="30" counter="display" maxlength="1024" counterTemplate="{0} characters remaining." autoResize="false" />
+                    <p:inputTextarea rows="10" cols="30" counter="display" maxlength="1024" counterTemplate="{0} characters remaining." autoResize="false" value="#{claimsPB.textArea}"/>
                     <h:outputText id="display" />
                     <br />
                     <p:separator/>
-                    <h:commandButton value="Prześlij Zgłoszenie Szkody"/>
+                    <h:commandButton value="Prześlij Zgłoszenie Szkody" action="#{claimsPB.saveClaim}"/>
                 </h:form>
             </ui:define>
 

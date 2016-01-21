@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,7 +32,13 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Claims.findAll", query = "SELECT c FROM Claims c"),
     @NamedQuery(name = "Claims.findById", query = "SELECT c FROM Claims c WHERE c.id = :id"),
     @NamedQuery(name = "Claims.findByDescription", query = "SELECT c FROM Claims c WHERE c.description = :description")})
+@NamedNativeQueries({
+    @NamedNativeQuery(name = "ClaimsFindByCustomerAndInsurance", query = "select cl.id, cl.customer_id, c.name as customer_name, c.surname as customer_surname, cl.insurance_id, i.name_insurance as insurance_name, cl.description from claims cl "
+            + "join customer c on cl.customer_id = c.id_customer "
+            + " join insurance i on cl.insurance_id = i.id_insurance ", resultClass = ClaimsPosition.class)
+})
 public class Claims implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -110,5 +118,5 @@ public class Claims implements Serializable {
     public String toString() {
         return "ubezpieczenia.entity.Claims[ id=" + id + " ]";
     }
-    
+
 }

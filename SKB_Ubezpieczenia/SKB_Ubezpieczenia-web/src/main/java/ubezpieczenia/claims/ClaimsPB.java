@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import ubezpieczenia.dto.CustomerDTO;
@@ -28,25 +27,29 @@ public class ClaimsPB implements Serializable {
     private ClaimsControler cc;
 
     private List<CustomerDTO> customer;
-    private List<SelectItem> customersOneMenu;
+    private List<CustomerDTO> customersOneMenu;
+    private int selectedIDCustomer;
 
     private List<InsuranceDTO> insurance;
-    private List<SelectItem> insuranceOneMenu;
+    private List<InsuranceDTO> insuranceOneMenu;
+    private int selectedIDInsurance;
+    
+    private String textArea;
 
     @PostConstruct
     public void init() {
-        customersOneMenu = new ArrayList<SelectItem>();
+        customersOneMenu = new ArrayList<CustomerDTO>();
         customer = cc.getCustomerList();
 
-        insuranceOneMenu = new ArrayList<SelectItem>();
+        insuranceOneMenu = new ArrayList<InsuranceDTO>();
         insurance = cc.getInsuranceList();
 
         for (CustomerDTO row : customer) {
-            customersOneMenu.add(new SelectItem(row.getName() + " " + row.getSurname()));
+            customersOneMenu.add(row);
         }
 
         for (InsuranceDTO row : insurance) {
-            insuranceOneMenu.add(new SelectItem(row.getName()));
+            insuranceOneMenu.add(row);
         }
     }
 
@@ -58,11 +61,11 @@ public class ClaimsPB implements Serializable {
         this.customer = customer;
     }
 
-    public List<SelectItem> getCustomersOneMenu() {
+    public List<CustomerDTO> getCustomersOneMenu() {
         return customersOneMenu;
     }
 
-    public void setCustomersOneMenu(List<SelectItem> customersOneMenu) {
+    public void setCustomersOneMenu(List<CustomerDTO> customersOneMenu) {
         this.customersOneMenu = customersOneMenu;
     }
 
@@ -74,12 +77,44 @@ public class ClaimsPB implements Serializable {
         this.insurance = insurance;
     }
 
-    public List<SelectItem> getInsuranceOneMenu() {
+    public List<InsuranceDTO> getInsuranceOneMenu() {
         return insuranceOneMenu;
     }
 
-    public void setInsuranceOneMenu(List<SelectItem> insuranceOneMenu) {
+    public void setInsuranceOneMenu(List<InsuranceDTO> insuranceOneMenu) {
         this.insuranceOneMenu = insuranceOneMenu;
+    }
+
+    public int getSelectedIDCustomer() {
+        return selectedIDCustomer;
+    }
+
+    public void setSelectedIDCustomer(int selectedIDCustomer) {
+        this.selectedIDCustomer = selectedIDCustomer;
+    }
+
+    public int getSelectedIDInsurance() {
+        return selectedIDInsurance;
+    }
+
+    public void setSelectedIDInsurance(int selectedIDInsurance) {
+        this.selectedIDInsurance = selectedIDInsurance;
+    }
+
+    public String getTextArea() {
+        return textArea;
+    }
+
+    public void setTextArea(String textArea) {
+        this.textArea = textArea;
+    }
+    
+    public void saveClaim(){
+        System.out.println("WYBRANY KLIENT: " + selectedIDCustomer);
+        System.out.println("WYBRANE UBEZPIECZENIE: " + selectedIDInsurance);
+        System.out.println("WPISANE ZNAKI W TEXAREA: " + textArea);
+        
+        cc.saveClaim(selectedIDCustomer, selectedIDInsurance, textArea);
     }
 
 }
