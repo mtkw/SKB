@@ -7,6 +7,7 @@ package ubezpieczenia.payment;
 
 import java.util.List;
 import javax.ejb.Local;
+import ubezpieczenia.dto.PaymentMethodDTO;
 import ubezpieczenia.dto.PaymentMethodDesDTO;
 
 /**
@@ -19,5 +20,7 @@ public interface PaymentEndPointLocal {
     public List<PaymentMethodDesDTO> getPayMentMethodDesList();
 
     public void savePayment(List<String> params);
+
+    public PaymentMethodDTO getCurrenPayment(int tranasaction_id);
     
 }

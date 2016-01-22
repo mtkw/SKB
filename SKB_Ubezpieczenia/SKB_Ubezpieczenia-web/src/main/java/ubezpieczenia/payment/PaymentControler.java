@@ -14,6 +14,7 @@ import ubezpieczenia.customer.CustomerEndPointLocal;
 import ubezpieczenia.dto.CustomerDTO;
 import ubezpieczenia.dto.CustomerTransactionDTO;
 import ubezpieczenia.dto.InsuranceDTO;
+import ubezpieczenia.dto.PaymentMethodDTO;
 import ubezpieczenia.dto.PaymentMethodDesDTO;
 import ubezpieczenia.insurance.InsuranceEndPointLocal;
 import ubezpieczenia.transactions.TransactionsEndPointLocal;
@@ -47,6 +48,15 @@ public class PaymentControler implements Serializable {
 
     private CustomerDTO customer;
     private InsuranceDTO insurance;
+    private PaymentMethodDTO payment;
+
+    public PaymentMethodDTO getPayment() {
+        return payment;
+    }
+    
+    public PaymentMethodDTO getCurrentPayment(int tranasaction_id){
+        return payment = paymentMethodDesEndPoint.getCurrenPayment(tranasaction_id);
+    }
 
     public List<String> setAllParams(String id_customer, String id_insurance, String value, String id_method, String date) {
         allParams.add(id_customer);

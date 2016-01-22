@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import ubezpieczenia.dto.PaymentMethodDesDTO;
+import ubezpieczenia.entity.PaymentMethod;
 import ubezpieczenia.entity.PaymentMethodDes;
 import ubezpieczenia.util.PaymentMethodDESConverter;
 
@@ -37,6 +38,12 @@ public class PaymentMethodFacade extends AbstractFacade<PaymentMethodDes> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    public PaymentMethod getCurrentPaymentMethod(int payment_id){
+        Query q = getEntityManager().createNativeQuery("SELECT * FROM payment_method WHERE transaction_id = ?", PaymentMethod.class);
+        q.setParameter(1, payment_id);
+        return (PaymentMethod) q.getSingleResult();
     }
     
     public List<PaymentMethodDesDTO> findALLDTO(){

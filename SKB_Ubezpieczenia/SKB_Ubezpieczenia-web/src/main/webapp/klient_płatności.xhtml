@@ -9,9 +9,47 @@
         <h:form>
             <p:dataTable var="payment" value="#{clientPaymentPB.clientPayment}">
                 <p:column headerText="Wpłata nr 1:">
-                    <h:outputText value="#{payment}"
+                    <h:outputText value="#{payment.installment_1}"/>
+                </p:column>
+                <p:column headerText="Wpłata nr 2:">
+                    <h:outputText value="#{payment.installment_2}"/>
+                </p:column>
+                <p:column headerText="Wpłata nr 3:">
+                    <h:outputText value="#{payment.installment_3}"/>
+                </p:column>
+                <p:column headerText="Wpłata nr 4:">
+                    <h:outputText value="#{payment.installment_4}"/>
+                </p:column>
+                <p:column headerText="Wpłata nr 5:">
+                    <h:outputText value="#{payment.installment_5}"/>
+                </p:column>
+                <p:column headerText="Wpłata nr 6:">
+                    <h:outputText value="#{payment.installment_6}"/>
+                </p:column>
+                <p:column headerText="Wpłata nr 7:">
+                    <h:outputText value="#{payment.installment_7}"/>
+                </p:column>                
+                <p:column headerText="Wpłata nr 8:">
+                    <h:outputText value="#{payment.installment_8}"/>
+                </p:column>
+                <p:column headerText="Wpłata nr 9:">
+                    <h:outputText value="#{payment.installment_9}"/>
+                </p:column>
+                <p:column headerText="Wpłata nr 10:">
+                    <h:outputText value="#{payment.installment_10}"/>
+                </p:column>
+                <p:column headerText="Wpłata nr 11:">
+                    <h:outputText value="#{payment.installment_11}"/>
+                </p:column>
+                <p:column headerText="Wpłata nr 12:">
+                    <h:outputText value="#{payment.installment_12}"/>
                 </p:column>
             </p:dataTable>
+            <p:separator/>
+            <h2> Do zapłaty pozostało: <h:outputText value="#{clientPaymentPB.toPay}" /></h2>
+            <h2> Liczba rat do spłaty: <h:outputText value="#{clientPaymentPB.count_instalment}" /></h2>
+            <p:separator/>
+            <h:commandButton value="Dokonaj Wpłaty"/>
         </h:form>
 
 

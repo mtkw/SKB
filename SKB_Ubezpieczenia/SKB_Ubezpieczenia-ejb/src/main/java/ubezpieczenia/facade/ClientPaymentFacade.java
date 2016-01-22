@@ -9,6 +9,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import ubezpieczenia.entity.Payment;
 
@@ -33,11 +34,8 @@ public class ClientPaymentFacade extends AbstractFacade<Payment> {
     }
     
     public Payment findCurrentPayment(int id_payment){
-        System.out.println("FACADA PARAMETR " + id_payment);
-        TypedQuery tq = getEntityManager().createNamedQuery("Payment.findByIdPayment", Payment.class);
-        tq.setParameter("idPayment", id_payment);
-        Payment payment = (Payment) tq.getSingleResult();
-        System.out.println("Payment W FASADZIE: "  + payment);
-        return payment;
+        Query q = getEntityManager().createNativeQuery("SELECT * FROM payment where transaction_id = ?", Payment.class);
+        q.setParameter(1, id_payment);
+        return (Payment) q.getSingleResult();
     }
 }

@@ -12,8 +12,11 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import ubezpieczenia.dto.PaymentMethodDTO;
 import ubezpieczenia.dto.PaymentMethodDesDTO;
+import ubezpieczenia.entity.PaymentMethod;
 import ubezpieczenia.facade.PaymentMethodFacade;
+import ubezpieczenia.util.PaymentMethodConverter;
 
 /**
  *
@@ -25,6 +28,8 @@ public class PaymentEndPoint implements PaymentEndPointLocal {
 
      @EJB(beanName = "PaymentMethodFacade")
     private PaymentMethodFacade paymentMethodFacade;
+     
+     private PaymentMethod currentPaymentMethod = new PaymentMethod();
     
     @Override
     public List<PaymentMethodDesDTO> getPayMentMethodDesList() {
@@ -39,5 +44,13 @@ public class PaymentEndPoint implements PaymentEndPointLocal {
          } catch (ParseException ex) {
              Logger.getLogger(PaymentEndPoint.class.getName()).log(Level.SEVERE, null, ex);
          }
+    }
+
+    @Override
+    public PaymentMethodDTO getCurrenPayment(int tranasaction_id) {
+        currentPaymentMethod = paymentMethodFacade.getCurrentPaymentMethod(tranasaction_id);
+        PaymentMethodDTO dto = new PaymentMethodDTO();
+        PaymentMethodConverter.convertEntityToDTO(currentPaymentMethod, dto);
+        return dto;
     }
 }

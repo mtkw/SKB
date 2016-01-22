@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import ubezpieczenia.clientPayment.ClientPaymentControler;
 import ubezpieczenia.dto.CustomerTransactionDTO;
+import ubezpieczenia.payment.PaymentControler;
 
 /**
  *
@@ -27,6 +28,9 @@ public class TransactionsPB implements Serializable {
     
     @Inject
     private ClientPaymentControler cp;
+    
+    @Inject
+    private PaymentControler pc;
 
     private DataModel<CustomerTransactionDTO> transactions;
 
@@ -50,6 +54,8 @@ public class TransactionsPB implements Serializable {
     
     public String showPayment(){
         cp.getPayment(transactions.getRowData().getId_transaction());
+        cp.setValueOfInstalment(transactions.getRowData().getValue());
+        pc.getCurrentPayment(transactions.getRowData().getId_transaction());
         System.out.println("PRZSŁANY PARAMETR DO SHOWPAYMENT: " + transactions.getRowData().getId_transaction());
         return "klient_płatności";
     }

@@ -22,11 +22,22 @@ public class ClientPaymentControler implements Serializable {
 
     private ClientPaymentDTO clientPayment;
 
+    private Double valueOfInstalment = 0.0;
+
+    public Double getValueOfInstalment() {
+        return valueOfInstalment;
+    }
+
+    public void setValueOfInstalment(Double valueOfInstalment) {
+        this.valueOfInstalment = valueOfInstalment;
+    }
+
     public ClientPaymentDTO getClientPayment() {
         return clientPayment;
     }
 
     public void getPayment(int customer_transaction_id) {
         clientPayment = clientPaymentEndPoint.getCurrentPayment(customer_transaction_id);
+        System.out.println("ClientPayment w Kontrolerze " + clientPayment);
     }
 }

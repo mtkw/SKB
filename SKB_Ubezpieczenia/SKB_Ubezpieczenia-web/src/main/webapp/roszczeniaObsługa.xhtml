@@ -21,6 +21,18 @@
                         <p:column headerText="Opis Szkody">
                             <h:outputText value="#{claim.description}"/>
                         </p:column>
+                        <p:column headerText="Historia Klienta">
+                            <h:commandButton value="Sprawdź"/>
+                        </p:column>
+                        <p:column headerText="Szczegóły Ubezpieczenia">
+                            <h:commandButton value="Sprawdź"/>
+                        </p:column>
+                        <p:column headerText="Akceptuj">
+                            <h:commandButton value="Apkceptuj Roszczenie"/>
+                        </p:column>
+                        <p:column headerText="Odrzuć Roszczenie">
+                            <h:commandButton value="Odrzuć"/>
+                        </p:column>
                     </p:dataTable>
                 </h:form>
             </ui:define>
