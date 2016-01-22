@@ -53,4 +53,9 @@ public class PaymentEndPoint implements PaymentEndPointLocal {
         PaymentMethodConverter.convertEntityToDTO(currentPaymentMethod, dto);
         return dto;
     }
+
+    @Override
+    public void pay(int id_payment, double single_instalment,int count) {
+        paymentMethodFacade.pay(id_payment,single_instalment,count);
+    }
 }

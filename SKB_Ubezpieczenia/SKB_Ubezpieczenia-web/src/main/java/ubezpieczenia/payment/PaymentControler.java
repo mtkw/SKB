@@ -151,4 +151,9 @@ public class PaymentControler implements Serializable {
     void savePayment(List<String> params) {
         paymentMethodDesEndPoint.savePayment(params);
     }
+
+
+    public void pay(int id_payment, double single_instalment, int count) {
+        paymentMethodDesEndPoint.pay(id_payment, single_instalment, count);
+    }
 }

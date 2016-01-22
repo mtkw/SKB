@@ -65,10 +65,19 @@ public class ClientPaymentPB implements Serializable {
         if(paymentMethod.getPayment_method_id() == 1){
             count_instalment = 1;
         }
-        else{
-            count_instalment = 12;
+        if(paymentMethod.getPayment_method_id() == 2){
+            count_instalment = (int) (toPay / paymentMethod.getSingle_instalment());
+        }
+        if(toPay == 0) {
+            count_instalment = 0;
         }
 
+        return "klient_płatności";
+    }
+    
+    public String pay(){
+            pc.pay(clientPayment.getTransaction_id(),paymentMethod.getSingle_instalment(), count_instalment);
+            System.out.println("Przesłane Parametry do dokonania wpłaty: " + clientPayment.getTransaction_id() + " " + paymentMethod.getSingle_instalment() + " " + count_instalment);
         return "klient_płatności";
     }
 

@@ -49,7 +49,7 @@
             <h2> Do zapłaty pozostało: <h:outputText value="#{clientPaymentPB.toPay}" /></h2>
             <h2> Liczba rat do spłaty: <h:outputText value="#{clientPaymentPB.count_instalment}" /></h2>
             <p:separator/>
-            <h:commandButton value="Dokonaj Wpłaty"/>
+            <h:commandButton value="Dokonaj Wpłaty" action="#{clientPaymentPB.pay}"/>
         </h:form>
 
 

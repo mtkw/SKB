@@ -22,5 +22,7 @@ public interface PaymentEndPointLocal {
     public void savePayment(List<String> params);
 
     public PaymentMethodDTO getCurrenPayment(int tranasaction_id);
+
+    public void pay(int id_payment, double single_instalment, int count);
     
 }
