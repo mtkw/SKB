@@ -69,78 +69,86 @@ public class PaymentMethodFacade extends AbstractFacade<PaymentMethodDes> {
     }
 
     public void pay(int id_payment, double single_instalment, int count) {
-        if (count == 1) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_12 = ? where transaction_id = ?");
+        
+        int installment_number = 13 - count;
+        String query = "UPDATE payment SET installment_" + installment_number + " = ? where transaction_id = ?";
+            Query q = getEntityManager().createNativeQuery(query);
             q.setParameter(1, single_instalment);
             q.setParameter(2, id_payment);
             q.executeUpdate();
-        }
-        if (count == 2) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_11 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
-        if (count == 3) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_10 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
-        if (count == 4) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_9 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
-        if (count == 5) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_8 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
-        if (count == 6) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_7 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
-        if (count == 7) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_6 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
-        if (count == 8) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_5 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
-        if (count == 9) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_4 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
-        if (count == 10) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_3 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
-        if (count == 11) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_2 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
-        if (count == 12) {
-            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_1 = ? where transaction_id = ?");
-            q.setParameter(1, single_instalment);
-            q.setParameter(2, id_payment);
-            q.executeUpdate();
-        }
+            
+//        if (count == 1) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_12 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 2) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_11 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 3) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_10 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 4) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_9 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 5) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_8 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 6) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_7 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 7) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_6 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 8) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_5 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 9) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_4 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 10) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_3 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 11) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_2 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
+//        if (count == 12) {
+//            Query q = getEntityManager().createNativeQuery("UPDATE payment SET installment_1 = ? where transaction_id = ?");
+//            q.setParameter(1, single_instalment);
+//            q.setParameter(2, id_payment);
+//            q.executeUpdate();
+//        }
     }
 
 }
